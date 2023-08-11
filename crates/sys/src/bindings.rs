@@ -110,7 +110,7 @@ impl<T> ::core::fmt::Debug for __IncompleteArrayField<T> {
         fmt.write_str("__IncompleteArrayField")
     }
 }
-pub const API_VERSION: u32 = 2162688;
+pub const API_VERSION: u32 = 2228227;
 pub type wint_t = core::ffi::c_int;
 pub type _off_t = core::ffi::c_long;
 pub type _fpos_t = core::ffi::c_long;
@@ -2008,6 +2008,20 @@ extern "C" {
 extern "C" {
     #[doc = "Get log level\n\nReturns:\n\n* The furi log level.\n\n"]
     pub fn furi_log_get_level() -> FuriLogLevel;
+}
+extern "C" {
+    #[doc = "Log level to string\n\nReturns:\n\n* The string\n\n# Arguments\n\n* `level` - [Direction: In] The level\n\n"]
+    pub fn furi_log_level_to_string(
+        level: FuriLogLevel,
+        str_: *mut *const core::ffi::c_char,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Log level from string\n\nReturns:\n\n* True if success, False otherwise\n\n# Arguments\n\n* `str` - [Direction: In] The string\n* `level` - The level\n\n"]
+    pub fn furi_log_level_from_string(
+        str_: *const core::ffi::c_char,
+        level: *mut FuriLogLevel,
+    ) -> bool;
 }
 extern "C" {
     #[doc = "Get free heap size\n\nReturns:\n\n* free heap size in bytes\n\n"]
@@ -4764,6 +4778,6749 @@ extern "C" {
 extern "C" {
     pub fn furi_run();
 }
+#[doc = "Cortex timer provides high precision low level expiring timer\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FuriHalCortexTimer {
+    pub start: u32,
+    pub value: u32,
+}
+#[test]
+fn bindgen_test_layout_FuriHalCortexTimer() {
+    const UNINIT: ::core::mem::MaybeUninit<FuriHalCortexTimer> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FuriHalCortexTimer>(),
+        8usize,
+        concat!("Size of: ", stringify!(FuriHalCortexTimer))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FuriHalCortexTimer>(),
+        4usize,
+        concat!("Alignment of ", stringify!(FuriHalCortexTimer))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).start) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalCortexTimer),
+            "::",
+            stringify!(start)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).value) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalCortexTimer),
+            "::",
+            stringify!(value)
+        )
+    );
+}
+extern "C" {
+    #[doc = "Microseconds delay\n\n# Arguments\n\n* `microseconds` - [Direction: In] The microseconds to wait\n\n"]
+    pub fn furi_hal_cortex_delay_us(microseconds: u32);
+}
+extern "C" {
+    #[doc = "Get instructions per microsecond count\n\nReturns:\n\n* instructions per microsecond count\n\n"]
+    pub fn furi_hal_cortex_instructions_per_microsecond() -> u32;
+}
+extern "C" {
+    #[doc = "Get Timer\n\nReturns:\n\n* The FuriHalCortexTimer\n\n# Arguments\n\n* `timeout_us` - [Direction: In] The expire timeout in us\n\n"]
+    pub fn furi_hal_cortex_timer_get(timeout_us: u32) -> FuriHalCortexTimer;
+}
+extern "C" {
+    #[doc = "Check if timer expired\n\nReturns:\n\n* true if expired\n\n# Arguments\n\n* `cortex_timer` - [Direction: In] The FuriHalCortexTimer\n\n"]
+    pub fn furi_hal_cortex_timer_is_expired(cortex_timer: FuriHalCortexTimer) -> bool;
+}
+extern "C" {
+    #[doc = "Wait for timer expire\n\n# Arguments\n\n* `cortex_timer` - [Direction: In] The FuriHalCortexTimer\n\n"]
+    pub fn furi_hal_cortex_timer_wait(cortex_timer: FuriHalCortexTimer);
+}
+pub const FuriHalCortexComp_FuriHalCortexComp0: FuriHalCortexComp = 0;
+pub const FuriHalCortexComp_FuriHalCortexComp1: FuriHalCortexComp = 1;
+pub const FuriHalCortexComp_FuriHalCortexComp2: FuriHalCortexComp = 2;
+pub const FuriHalCortexComp_FuriHalCortexComp3: FuriHalCortexComp = 3;
+pub type FuriHalCortexComp = core::ffi::c_uchar;
+pub const FuriHalCortexCompSize_FuriHalCortexCompSizeWord: FuriHalCortexCompSize = 2;
+pub const FuriHalCortexCompSize_FuriHalCortexCompSizeHalfWord: FuriHalCortexCompSize = 1;
+pub const FuriHalCortexCompSize_FuriHalCortexCompSizeByte: FuriHalCortexCompSize = 0;
+pub type FuriHalCortexCompSize = core::ffi::c_uchar;
+pub const FuriHalCortexCompFunction_FuriHalCortexCompFunctionPC: FuriHalCortexCompFunction = 4;
+pub const FuriHalCortexCompFunction_FuriHalCortexCompFunctionRead: FuriHalCortexCompFunction = 5;
+pub const FuriHalCortexCompFunction_FuriHalCortexCompFunctionWrite: FuriHalCortexCompFunction = 6;
+pub const FuriHalCortexCompFunction_FuriHalCortexCompFunctionReadWrite: FuriHalCortexCompFunction =
+    6;
+pub type FuriHalCortexCompFunction = core::ffi::c_uchar;
+extern "C" {
+    #[doc = "Enable DWT comparator\nAllows to programmatically set instruction/data breakpoints.\nMore details on how it works can be found in armv7m official documentation: <https://developer.arm.com/documentation/ddi0403/d/Debug-Architecture/ARMv7-M-Debug/The-Data-Watchpoint-and-Trace-unit/The-DWT-comparators> <https://developer.arm.com/documentation/ddi0403/d/Debug-Architecture/ARMv7-M-Debug/The-Data-Watchpoint-and-Trace-unit/Comparator-Function-registers--DWT-FUNCTIONn>\n\n# Arguments\n\n* `comp` - [Direction: In] The Comparator\n* `function` - [Direction: In] The Comparator Function to use\n* `value` - [Direction: In] The value\n* `mask` - [Direction: In] The mask\n* `size` - [Direction: In] The size\n\n"]
+    pub fn furi_hal_cortex_comp_enable(
+        comp: FuriHalCortexComp,
+        function: FuriHalCortexCompFunction,
+        value: u32,
+        mask: u32,
+        size: FuriHalCortexCompSize,
+    );
+}
+extern "C" {
+    #[doc = "Reset DWT comparator\n\n# Arguments\n\n* `comp` - [Direction: In] The Comparator\n\n"]
+    pub fn furi_hal_cortex_comp_reset(comp: FuriHalCortexComp);
+}
+extern "C" {
+    pub fn LL_RCC_GetUSARTClockFreq(USARTxSource: u32) -> u32;
+}
+extern "C" {
+    pub fn LL_RCC_GetLPUARTClockFreq(LPUARTxSource: u32) -> u32;
+}
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoLse: FuriHalClockMcoSourceId = 0;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoSysclk: FuriHalClockMcoSourceId = 1;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi100k: FuriHalClockMcoSourceId = 2;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi200k: FuriHalClockMcoSourceId = 3;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi400k: FuriHalClockMcoSourceId = 4;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi800k: FuriHalClockMcoSourceId = 5;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi1m: FuriHalClockMcoSourceId = 6;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi2m: FuriHalClockMcoSourceId = 7;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi4m: FuriHalClockMcoSourceId = 8;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi8m: FuriHalClockMcoSourceId = 9;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi16m: FuriHalClockMcoSourceId = 10;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi24m: FuriHalClockMcoSourceId = 11;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi32m: FuriHalClockMcoSourceId = 12;
+pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi48m: FuriHalClockMcoSourceId = 13;
+pub type FuriHalClockMcoSourceId = core::ffi::c_uchar;
+pub const FuriHalClockMcoDivisorId_FuriHalClockMcoDiv1: FuriHalClockMcoDivisorId = 0;
+pub const FuriHalClockMcoDivisorId_FuriHalClockMcoDiv2: FuriHalClockMcoDivisorId = 268435456;
+pub const FuriHalClockMcoDivisorId_FuriHalClockMcoDiv4: FuriHalClockMcoDivisorId = 536870912;
+pub const FuriHalClockMcoDivisorId_FuriHalClockMcoDiv8: FuriHalClockMcoDivisorId = 805306368;
+pub const FuriHalClockMcoDivisorId_FuriHalClockMcoDiv16: FuriHalClockMcoDivisorId = 1073741824;
+pub type FuriHalClockMcoDivisorId = core::ffi::c_uint;
+extern "C" {
+    #[doc = "Enable clock output on MCO pin\n\n# Arguments\n\n* `source` - MCO clock source\n* `div` - MCO clock division\n\n"]
+    pub fn furi_hal_clock_mco_enable(
+        source: FuriHalClockMcoSourceId,
+        div: FuriHalClockMcoDivisorId,
+    );
+}
+extern "C" {
+    #[doc = "Disable clock output on MCO pin\n\n"]
+    pub fn furi_hal_clock_mco_disable();
+}
+pub const FuriHalBus_FuriHalBusAHB1_GRP1: FuriHalBus = 0;
+pub const FuriHalBus_FuriHalBusDMA1: FuriHalBus = 1;
+pub const FuriHalBus_FuriHalBusDMA2: FuriHalBus = 2;
+pub const FuriHalBus_FuriHalBusDMAMUX1: FuriHalBus = 3;
+pub const FuriHalBus_FuriHalBusCRC: FuriHalBus = 4;
+pub const FuriHalBus_FuriHalBusTSC: FuriHalBus = 5;
+pub const FuriHalBus_FuriHalBusAHB2_GRP1: FuriHalBus = 6;
+pub const FuriHalBus_FuriHalBusGPIOA: FuriHalBus = 7;
+pub const FuriHalBus_FuriHalBusGPIOB: FuriHalBus = 8;
+pub const FuriHalBus_FuriHalBusGPIOC: FuriHalBus = 9;
+pub const FuriHalBus_FuriHalBusGPIOD: FuriHalBus = 10;
+pub const FuriHalBus_FuriHalBusGPIOE: FuriHalBus = 11;
+pub const FuriHalBus_FuriHalBusGPIOH: FuriHalBus = 12;
+pub const FuriHalBus_FuriHalBusADC: FuriHalBus = 13;
+pub const FuriHalBus_FuriHalBusAES1: FuriHalBus = 14;
+pub const FuriHalBus_FuriHalBusAHB3_GRP1: FuriHalBus = 15;
+pub const FuriHalBus_FuriHalBusQUADSPI: FuriHalBus = 16;
+pub const FuriHalBus_FuriHalBusPKA: FuriHalBus = 17;
+pub const FuriHalBus_FuriHalBusAES2: FuriHalBus = 18;
+pub const FuriHalBus_FuriHalBusRNG: FuriHalBus = 19;
+pub const FuriHalBus_FuriHalBusHSEM: FuriHalBus = 20;
+pub const FuriHalBus_FuriHalBusIPCC: FuriHalBus = 21;
+pub const FuriHalBus_FuriHalBusFLASH: FuriHalBus = 22;
+pub const FuriHalBus_FuriHalBusAPB1_GRP1: FuriHalBus = 23;
+pub const FuriHalBus_FuriHalBusTIM2: FuriHalBus = 24;
+pub const FuriHalBus_FuriHalBusLCD: FuriHalBus = 25;
+pub const FuriHalBus_FuriHalBusSPI2: FuriHalBus = 26;
+pub const FuriHalBus_FuriHalBusI2C1: FuriHalBus = 27;
+pub const FuriHalBus_FuriHalBusI2C3: FuriHalBus = 28;
+pub const FuriHalBus_FuriHalBusCRS: FuriHalBus = 29;
+pub const FuriHalBus_FuriHalBusUSB: FuriHalBus = 30;
+pub const FuriHalBus_FuriHalBusLPTIM1: FuriHalBus = 31;
+pub const FuriHalBus_FuriHalBusAPB1_GRP2: FuriHalBus = 32;
+pub const FuriHalBus_FuriHalBusLPUART1: FuriHalBus = 33;
+pub const FuriHalBus_FuriHalBusLPTIM2: FuriHalBus = 34;
+pub const FuriHalBus_FuriHalBusAPB2_GRP1: FuriHalBus = 35;
+pub const FuriHalBus_FuriHalBusTIM1: FuriHalBus = 36;
+pub const FuriHalBus_FuriHalBusSPI1: FuriHalBus = 37;
+pub const FuriHalBus_FuriHalBusUSART1: FuriHalBus = 38;
+pub const FuriHalBus_FuriHalBusTIM16: FuriHalBus = 39;
+pub const FuriHalBus_FuriHalBusTIM17: FuriHalBus = 40;
+pub const FuriHalBus_FuriHalBusSAI1: FuriHalBus = 41;
+pub const FuriHalBus_FuriHalBusAPB3_GRP1: FuriHalBus = 42;
+pub const FuriHalBus_FuriHalBusRF: FuriHalBus = 43;
+pub const FuriHalBus_FuriHalBusMAX: FuriHalBus = 44;
+pub type FuriHalBus = core::ffi::c_uchar;
+extern "C" {
+    #[doc = "Early initialization\n\n"]
+    pub fn furi_hal_bus_init_early();
+}
+extern "C" {
+    #[doc = "Early de-initialization\n\n"]
+    pub fn furi_hal_bus_deinit_early();
+}
+extern "C" {
+    #[doc = "Enable a peripheral by turning the clocking on and deasserting the reset.\n\n**Warning!**\n\n* Peripheral must be in disabled state in order to be enabled.\n\n# Arguments\n\n* `[in]` - bus Peripheral to be enabled.\n\n"]
+    pub fn furi_hal_bus_enable(bus: FuriHalBus);
+}
+extern "C" {
+    #[doc = "Reset a peripheral by sequentially asserting and deasserting the reset.\n\n**Warning!**\n\n* Peripheral must be in enabled state in order to be reset.\n\n# Arguments\n\n* `[in]` - bus Peripheral to be reset.\n\n"]
+    pub fn furi_hal_bus_reset(bus: FuriHalBus);
+}
+extern "C" {
+    #[doc = "Disable a peripheral by turning the clocking off and asserting the reset.\n\n**Warning!**\n\n* Peripheral must be in enabled state in order to be disabled.\n\n# Arguments\n\n* `[in]` - bus Peripheral to be disabled.\n\n"]
+    pub fn furi_hal_bus_disable(bus: FuriHalBus);
+}
+extern "C" {
+    #[doc = "Check if peripheral is enabled\n\n**Warning!**\n\n* FuriHalBusAPB3_GRP1 is a special group of shared peripherals, for core1 its clock is always on and the only status we can report is peripheral reset status. Check code and Reference Manual for details.\n\nReturns:\n\n* true if enabled or always enabled, false otherwise\n\n# Arguments\n\n* `bus` - [Direction: In] The peripheral to check\n\n"]
+    pub fn furi_hal_bus_is_enabled(bus: FuriHalBus) -> bool;
+}
+#[doc = "Master key\n\n"]
+pub const FuriHalCryptoKeyType_FuriHalCryptoKeyTypeMaster: FuriHalCryptoKeyType = 0;
+#[doc = "Simple enencrypted key\n\n"]
+pub const FuriHalCryptoKeyType_FuriHalCryptoKeyTypeSimple: FuriHalCryptoKeyType = 1;
+#[doc = "Encrypted with Master key\n\n"]
+pub const FuriHalCryptoKeyType_FuriHalCryptoKeyTypeEncrypted: FuriHalCryptoKeyType = 2;
+#[doc = "FuriHalCryptoKey Type\n\n"]
+pub type FuriHalCryptoKeyType = core::ffi::c_uchar;
+pub const FuriHalCryptoKeySize_FuriHalCryptoKeySize128: FuriHalCryptoKeySize = 0;
+pub const FuriHalCryptoKeySize_FuriHalCryptoKeySize256: FuriHalCryptoKeySize = 1;
+#[doc = "FuriHalCryptoKey Size in bits\n\n"]
+pub type FuriHalCryptoKeySize = core::ffi::c_uchar;
+#[doc = "FuriHalCryptoKey\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FuriHalCryptoKey {
+    pub type_: FuriHalCryptoKeyType,
+    pub size: FuriHalCryptoKeySize,
+    pub data: *mut u8,
+}
+#[test]
+fn bindgen_test_layout_FuriHalCryptoKey() {
+    const UNINIT: ::core::mem::MaybeUninit<FuriHalCryptoKey> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FuriHalCryptoKey>(),
+        8usize,
+        concat!("Size of: ", stringify!(FuriHalCryptoKey))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FuriHalCryptoKey>(),
+        4usize,
+        concat!("Alignment of ", stringify!(FuriHalCryptoKey))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalCryptoKey),
+            "::",
+            stringify!(type_)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
+        1usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalCryptoKey),
+            "::",
+            stringify!(size)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalCryptoKey),
+            "::",
+            stringify!(data)
+        )
+    );
+}
+extern "C" {
+    pub fn furi_hal_crypto_verify_enclave(keys_nb: *mut u8, valid_keys_nb: *mut u8) -> bool;
+}
+extern "C" {
+    pub fn furi_hal_crypto_verify_key(key_slot: u8) -> bool;
+}
+extern "C" {
+    #[doc = "Store key in crypto storage\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `key` - FuriHalCryptoKey to store. Only Master, Simple or Encrypted\n* `slot` - pinter to int where store slot number will be saved\n\n"]
+    pub fn furi_hal_crypto_store_add_key(key: *mut FuriHalCryptoKey, slot: *mut u8) -> bool;
+}
+extern "C" {
+    #[doc = "Init AES engine and load key from crypto store\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `slot` - store slot number\n* `iv` - [Direction: In] pointer to 16 bytes Initialization Vector data\n\n"]
+    pub fn furi_hal_crypto_store_load_key(slot: u8, iv: *const u8) -> bool;
+}
+extern "C" {
+    #[doc = "Unload key engine and deinit AES engine\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `slot` - store slot number\n\n"]
+    pub fn furi_hal_crypto_store_unload_key(slot: u8) -> bool;
+}
+extern "C" {
+    #[doc = "Encrypt data\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `input` - pointer to input data\n* `output` - pointer to output data\n* `size` - input/output buffer size in bytes\n\n"]
+    pub fn furi_hal_crypto_encrypt(input: *const u8, output: *mut u8, size: usize) -> bool;
+}
+extern "C" {
+    #[doc = "Decrypt data\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `input` - pointer to input data\n* `output` - pointer to output data\n* `size` - input/output buffer size in bytes\n\n"]
+    pub fn furi_hal_crypto_decrypt(input: *const u8, output: *mut u8, size: usize) -> bool;
+}
+pub type FuriHalConsoleTxCallback = ::core::option::Option<
+    unsafe extern "C" fn(buffer: *const u8, size: usize, context: *mut core::ffi::c_void),
+>;
+extern "C" {
+    pub fn furi_hal_console_init();
+}
+extern "C" {
+    pub fn furi_hal_console_enable();
+}
+extern "C" {
+    pub fn furi_hal_console_disable();
+}
+extern "C" {
+    pub fn furi_hal_console_set_tx_callback(
+        callback: FuriHalConsoleTxCallback,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    pub fn furi_hal_console_tx(buffer: *const u8, buffer_size: usize);
+}
+extern "C" {
+    pub fn furi_hal_console_tx_with_new_line(buffer: *const u8, buffer_size: usize);
+}
+extern "C" {
+    #[doc = "Printf-like plain uart interface\n\n**Warning!**\n\n* Will not work in ISR context\n\n# Arguments\n\n* `format` - \n* `...` - \n\n"]
+    pub fn furi_hal_console_printf(format: *const core::ffi::c_char, ...);
+}
+extern "C" {
+    pub fn furi_hal_console_puts(data: *const core::ffi::c_char);
+}
+extern "C" {
+    #[doc = "Enable MCU debug\n\n"]
+    pub fn furi_hal_debug_enable();
+}
+extern "C" {
+    #[doc = "Disable MCU debug\n\n"]
+    pub fn furi_hal_debug_disable();
+}
+extern "C" {
+    #[doc = "Check if GDB debug session is active\n\n"]
+    pub fn furi_hal_debug_is_gdb_session_active() -> bool;
+}
+extern "C" {
+    #[doc = "Early initialization\n\n"]
+    pub fn furi_hal_dma_init_early();
+}
+extern "C" {
+    #[doc = "Early de-initialization\n\n"]
+    pub fn furi_hal_dma_deinit_early();
+}
+extern "C" {
+    pub fn furi_hal_os_tick();
+}
+#[doc = "SPI Init structures definition\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct LL_SPI_InitTypeDef {
+    #[doc = "Specifies the SPI unidirectional or bidirectional data mode.\nThis parameter can be a value of  [`SPI_LL_EC_TRANSFER_MODE`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetTransferDirection()`]\n\n"]
+    pub TransferDirection: u32,
+    #[doc = "Specifies the SPI mode (Master/Slave).\nThis parameter can be a value of  [`SPI_LL_EC_MODE`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetMode()`]\n\n"]
+    pub Mode: u32,
+    #[doc = "Specifies the SPI data width.\nThis parameter can be a value of  [`SPI_LL_EC_DATAWIDTH`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetDataWidth()`]\n\n"]
+    pub DataWidth: u32,
+    #[doc = "Specifies the serial clock steady state.\nThis parameter can be a value of  [`SPI_LL_EC_POLARITY`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetClockPolarity()`]\n\n"]
+    pub ClockPolarity: u32,
+    #[doc = "Specifies the clock active edge for the bit capture.\nThis parameter can be a value of  [`SPI_LL_EC_PHASE`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetClockPhase()`]\n\n"]
+    pub ClockPhase: u32,
+    #[doc = "Specifies whether the NSS signal is managed by hardware (NSS pin) or by software using the SSI bit.\nThis parameter can be a value of  [`SPI_LL_EC_NSS_MODE`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetNSSMode()`]\n\n"]
+    pub NSS: u32,
+    #[doc = "Specifies the BaudRate prescaler value which will be used to configure the transmit and receive SCK clock.\nThis parameter can be a value of  [`SPI_LL_EC_BAUDRATEPRESCALER`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetBaudRatePrescaler()`]\n\n# Notes\n\n* The communication clock is derived from the master clock. The slave clock does not need to be set.\n\n"]
+    pub BaudRate: u32,
+    #[doc = "Specifies whether data transfers start from MSB or LSB bit.\nThis parameter can be a value of  [`SPI_LL_EC_BIT_ORDER`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetTransferBitOrder()`]\n\n"]
+    pub BitOrder: u32,
+    #[doc = "Specifies if the CRC calculation is enabled or not.\nThis parameter can be a value of  [`SPI_LL_EC_CRC_CALCULATION`]\nThis feature can be modified afterwards using unitary functions  [`LL_SPI_EnableCRC()`] and  [`LL_SPI_DisableCRC()`]\n\n"]
+    pub CRCCalculation: u32,
+    #[doc = "Specifies the polynomial used for the CRC calculation.\nThis parameter must be a number between Min_Data = 0x00 and Max_Data = 0xFFFF.\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetCRCPolynomial()`]\n\n"]
+    pub CRCPoly: u32,
+}
+#[test]
+fn bindgen_test_layout_LL_SPI_InitTypeDef() {
+    const UNINIT: ::core::mem::MaybeUninit<LL_SPI_InitTypeDef> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<LL_SPI_InitTypeDef>(),
+        40usize,
+        concat!("Size of: ", stringify!(LL_SPI_InitTypeDef))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<LL_SPI_InitTypeDef>(),
+        4usize,
+        concat!("Alignment of ", stringify!(LL_SPI_InitTypeDef))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).TransferDirection) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_SPI_InitTypeDef),
+            "::",
+            stringify!(TransferDirection)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).Mode) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_SPI_InitTypeDef),
+            "::",
+            stringify!(Mode)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).DataWidth) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_SPI_InitTypeDef),
+            "::",
+            stringify!(DataWidth)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).ClockPolarity) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_SPI_InitTypeDef),
+            "::",
+            stringify!(ClockPolarity)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).ClockPhase) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_SPI_InitTypeDef),
+            "::",
+            stringify!(ClockPhase)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).NSS) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_SPI_InitTypeDef),
+            "::",
+            stringify!(NSS)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).BaudRate) as usize - ptr as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_SPI_InitTypeDef),
+            "::",
+            stringify!(BaudRate)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).BitOrder) as usize - ptr as usize },
+        28usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_SPI_InitTypeDef),
+            "::",
+            stringify!(BitOrder)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).CRCCalculation) as usize - ptr as usize },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_SPI_InitTypeDef),
+            "::",
+            stringify!(CRCCalculation)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).CRCPoly) as usize - ptr as usize },
+        36usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_SPI_InitTypeDef),
+            "::",
+            stringify!(CRCPoly)
+        )
+    );
+}
+extern "C" {
+    pub fn LL_SPI_Init(
+        SPIx: *mut SPI_TypeDef,
+        SPI_InitStruct: *mut LL_SPI_InitTypeDef,
+    ) -> ErrorStatus;
+}
+#[doc = "Bus initialization event, called on system start\n\n"]
+pub const FuriHalSpiBusEvent_FuriHalSpiBusEventInit: FuriHalSpiBusEvent = 0;
+#[doc = "Bus deinitialization event, called on system stop\n\n"]
+pub const FuriHalSpiBusEvent_FuriHalSpiBusEventDeinit: FuriHalSpiBusEvent = 1;
+#[doc = "Bus lock event, called before activation\n\n"]
+pub const FuriHalSpiBusEvent_FuriHalSpiBusEventLock: FuriHalSpiBusEvent = 2;
+#[doc = "Bus unlock event, called after deactivation\n\n"]
+pub const FuriHalSpiBusEvent_FuriHalSpiBusEventUnlock: FuriHalSpiBusEvent = 3;
+#[doc = "Bus activation event, called before handle activation\n\n"]
+pub const FuriHalSpiBusEvent_FuriHalSpiBusEventActivate: FuriHalSpiBusEvent = 4;
+#[doc = "Bus deactivation event, called after handle deactivation\n\n"]
+pub const FuriHalSpiBusEvent_FuriHalSpiBusEventDeactivate: FuriHalSpiBusEvent = 5;
+#[doc = "FuriHal spi bus states\n\n"]
+pub type FuriHalSpiBusEvent = core::ffi::c_uchar;
+#[doc = "FuriHal spi bus event callback\n\n"]
+pub type FuriHalSpiBusEventCallback = ::core::option::Option<
+    unsafe extern "C" fn(bus: *mut FuriHalSpiBus, event: FuriHalSpiBusEvent),
+>;
+#[doc = "FuriHal spi bus\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FuriHalSpiBus {
+    pub spi: *mut SPI_TypeDef,
+    pub callback: FuriHalSpiBusEventCallback,
+    pub current_handle: *mut FuriHalSpiBusHandle,
+}
+#[test]
+fn bindgen_test_layout_FuriHalSpiBus() {
+    const UNINIT: ::core::mem::MaybeUninit<FuriHalSpiBus> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FuriHalSpiBus>(),
+        12usize,
+        concat!("Size of: ", stringify!(FuriHalSpiBus))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FuriHalSpiBus>(),
+        4usize,
+        concat!("Alignment of ", stringify!(FuriHalSpiBus))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).spi) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalSpiBus),
+            "::",
+            stringify!(spi)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).callback) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalSpiBus),
+            "::",
+            stringify!(callback)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).current_handle) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalSpiBus),
+            "::",
+            stringify!(current_handle)
+        )
+    );
+}
+#[doc = "Handle init, called on system start, initialize gpio for idle state\n\n"]
+pub const FuriHalSpiBusHandleEvent_FuriHalSpiBusHandleEventInit: FuriHalSpiBusHandleEvent = 0;
+#[doc = "Handle deinit, called on system stop, deinitialize gpio for default state\n\n"]
+pub const FuriHalSpiBusHandleEvent_FuriHalSpiBusHandleEventDeinit: FuriHalSpiBusHandleEvent = 1;
+#[doc = "Handle activate: connect gpio and apply bus config\n\n"]
+pub const FuriHalSpiBusHandleEvent_FuriHalSpiBusHandleEventActivate: FuriHalSpiBusHandleEvent = 2;
+#[doc = "Handle deactivate: disconnect gpio and reset bus config\n\n"]
+pub const FuriHalSpiBusHandleEvent_FuriHalSpiBusHandleEventDeactivate: FuriHalSpiBusHandleEvent = 3;
+#[doc = "FuriHal spi handle states\n\n"]
+pub type FuriHalSpiBusHandleEvent = core::ffi::c_uchar;
+#[doc = "FuriHal spi handle event callback\n\n"]
+pub type FuriHalSpiBusHandleEventCallback = ::core::option::Option<
+    unsafe extern "C" fn(handle: *mut FuriHalSpiBusHandle, event: FuriHalSpiBusHandleEvent),
+>;
+#[doc = "FuriHal spi handle\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FuriHalSpiBusHandle {
+    pub bus: *mut FuriHalSpiBus,
+    pub callback: FuriHalSpiBusHandleEventCallback,
+    pub miso: *const GpioPin,
+    pub mosi: *const GpioPin,
+    pub sck: *const GpioPin,
+    pub cs: *const GpioPin,
+}
+#[test]
+fn bindgen_test_layout_FuriHalSpiBusHandle() {
+    const UNINIT: ::core::mem::MaybeUninit<FuriHalSpiBusHandle> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FuriHalSpiBusHandle>(),
+        24usize,
+        concat!("Size of: ", stringify!(FuriHalSpiBusHandle))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FuriHalSpiBusHandle>(),
+        4usize,
+        concat!("Alignment of ", stringify!(FuriHalSpiBusHandle))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bus) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalSpiBusHandle),
+            "::",
+            stringify!(bus)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).callback) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalSpiBusHandle),
+            "::",
+            stringify!(callback)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).miso) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalSpiBusHandle),
+            "::",
+            stringify!(miso)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).mosi) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalSpiBusHandle),
+            "::",
+            stringify!(mosi)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).sck) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalSpiBusHandle),
+            "::",
+            stringify!(sck)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).cs) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalSpiBusHandle),
+            "::",
+            stringify!(cs)
+        )
+    );
+}
+extern "C" {
+    #[doc = "Init SD card detect\n\n"]
+    pub fn hal_sd_detect_init();
+}
+extern "C" {
+    #[doc = "Set SD card detect pin to low\n\n"]
+    pub fn hal_sd_detect_set_low();
+}
+extern "C" {
+    #[doc = "Get SD card status\n\nReturns:\n\n* true if SD card present, false if SD card not present\n\n"]
+    pub fn hal_sd_detect() -> bool;
+}
+extern "C" {
+    #[doc = "Pointer to currently used SPI Handle\n\n"]
+    pub static mut furi_hal_sd_spi_handle: *mut FuriHalSpiBusHandle;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct LL_I2C_InitTypeDef {
+    #[doc = "Specifies the peripheral mode.\nThis parameter can be a value of  [`I2C_LL_EC_PERIPHERAL_MODE`]\nThis feature can be modified afterwards using unitary function [`LL_I2C_SetMode()`]\n\n"]
+    pub PeripheralMode: u32,
+    #[doc = "Specifies the SDA setup, hold time and the SCL high, low period values.\nThis parameter must be set by referring to the STM32CubeMX Tool and\nthe helper macro  [`__LL_I2C_CONVERT_TIMINGS()`]\nThis feature can be modified afterwards using unitary function [`LL_I2C_SetTiming()`]\n\n"]
+    pub Timing: u32,
+    #[doc = "Enables or disables analog noise filter.\nThis parameter can be a value of  [`I2C_LL_EC_ANALOGFILTER_SELECTION`]\nThis feature can be modified afterwards using unitary functions [`LL_I2C_EnableAnalogFilter()`] or LL_I2C_DisableAnalogFilter().\n\n"]
+    pub AnalogFilter: u32,
+    #[doc = "Configures the digital noise filter.\nThis parameter can be a number between Min_Data = 0x00 and Max_Data = 0x0F.\nThis feature can be modified afterwards using unitary function [`LL_I2C_SetDigitalFilter()`]\n\n"]
+    pub DigitalFilter: u32,
+    #[doc = "Specifies the device own address 1.\nThis parameter must be a value between Min_Data = 0x00 and Max_Data = 0x3FF.\nThis feature can be modified afterwards using unitary function [`LL_I2C_SetOwnAddress1()`]\n\n"]
+    pub OwnAddress1: u32,
+    #[doc = "Specifies the ACKnowledge or Non ACKnowledge condition after the address receive\nmatch code or next received byte.\nThis parameter can be a value of  [`I2C_LL_EC_I2C_ACKNOWLEDGE`]\nThis feature can be modified afterwards using unitary function [`LL_I2C_AcknowledgeNextData()`]\n\n"]
+    pub TypeAcknowledge: u32,
+    #[doc = "Specifies the device own address 1 size (7-bit or 10-bit).\nThis parameter can be a value of  [`I2C_LL_EC_OWNADDRESS1`]\nThis feature can be modified afterwards using unitary function [`LL_I2C_SetOwnAddress1()`]\n\n"]
+    pub OwnAddrSize: u32,
+}
+#[test]
+fn bindgen_test_layout_LL_I2C_InitTypeDef() {
+    const UNINIT: ::core::mem::MaybeUninit<LL_I2C_InitTypeDef> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<LL_I2C_InitTypeDef>(),
+        28usize,
+        concat!("Size of: ", stringify!(LL_I2C_InitTypeDef))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<LL_I2C_InitTypeDef>(),
+        4usize,
+        concat!("Alignment of ", stringify!(LL_I2C_InitTypeDef))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).PeripheralMode) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_I2C_InitTypeDef),
+            "::",
+            stringify!(PeripheralMode)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).Timing) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_I2C_InitTypeDef),
+            "::",
+            stringify!(Timing)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).AnalogFilter) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_I2C_InitTypeDef),
+            "::",
+            stringify!(AnalogFilter)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).DigitalFilter) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_I2C_InitTypeDef),
+            "::",
+            stringify!(DigitalFilter)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).OwnAddress1) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_I2C_InitTypeDef),
+            "::",
+            stringify!(OwnAddress1)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).TypeAcknowledge) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_I2C_InitTypeDef),
+            "::",
+            stringify!(TypeAcknowledge)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).OwnAddrSize) as usize - ptr as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_I2C_InitTypeDef),
+            "::",
+            stringify!(OwnAddrSize)
+        )
+    );
+}
+extern "C" {
+    pub fn LL_I2C_Init(
+        I2Cx: *mut I2C_TypeDef,
+        I2C_InitStruct: *const LL_I2C_InitTypeDef,
+    ) -> ErrorStatus;
+}
+#[doc = "Bus initialization event, called on system start\n\n"]
+pub const FuriHalI2cBusEvent_FuriHalI2cBusEventInit: FuriHalI2cBusEvent = 0;
+#[doc = "Bus deinitialization event, called on system stop\n\n"]
+pub const FuriHalI2cBusEvent_FuriHalI2cBusEventDeinit: FuriHalI2cBusEvent = 1;
+#[doc = "Bus lock event, called before activation\n\n"]
+pub const FuriHalI2cBusEvent_FuriHalI2cBusEventLock: FuriHalI2cBusEvent = 2;
+#[doc = "Bus unlock event, called after deactivation\n\n"]
+pub const FuriHalI2cBusEvent_FuriHalI2cBusEventUnlock: FuriHalI2cBusEvent = 3;
+#[doc = "Bus activation event, called before handle activation\n\n"]
+pub const FuriHalI2cBusEvent_FuriHalI2cBusEventActivate: FuriHalI2cBusEvent = 4;
+#[doc = "Bus deactivation event, called after handle deactivation\n\n"]
+pub const FuriHalI2cBusEvent_FuriHalI2cBusEventDeactivate: FuriHalI2cBusEvent = 5;
+#[doc = "FuriHal i2c bus states\n\n"]
+pub type FuriHalI2cBusEvent = core::ffi::c_uchar;
+#[doc = "FuriHal i2c bus event callback\n\n"]
+pub type FuriHalI2cBusEventCallback = ::core::option::Option<
+    unsafe extern "C" fn(bus: *mut FuriHalI2cBus, event: FuriHalI2cBusEvent),
+>;
+#[doc = "FuriHal i2c bus\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FuriHalI2cBus {
+    pub i2c: *mut I2C_TypeDef,
+    pub current_handle: *mut FuriHalI2cBusHandle,
+    pub callback: FuriHalI2cBusEventCallback,
+}
+#[test]
+fn bindgen_test_layout_FuriHalI2cBus() {
+    const UNINIT: ::core::mem::MaybeUninit<FuriHalI2cBus> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FuriHalI2cBus>(),
+        12usize,
+        concat!("Size of: ", stringify!(FuriHalI2cBus))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FuriHalI2cBus>(),
+        4usize,
+        concat!("Alignment of ", stringify!(FuriHalI2cBus))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).i2c) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalI2cBus),
+            "::",
+            stringify!(i2c)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).current_handle) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalI2cBus),
+            "::",
+            stringify!(current_handle)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).callback) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalI2cBus),
+            "::",
+            stringify!(callback)
+        )
+    );
+}
+#[doc = "Handle activate: connect gpio and apply bus config\n\n"]
+pub const FuriHalI2cBusHandleEvent_FuriHalI2cBusHandleEventActivate: FuriHalI2cBusHandleEvent = 0;
+#[doc = "Handle deactivate: disconnect gpio and reset bus config\n\n"]
+pub const FuriHalI2cBusHandleEvent_FuriHalI2cBusHandleEventDeactivate: FuriHalI2cBusHandleEvent = 1;
+#[doc = "FuriHal i2c handle states\n\n"]
+pub type FuriHalI2cBusHandleEvent = core::ffi::c_uchar;
+#[doc = "FuriHal i2c handle event callback\n\n"]
+pub type FuriHalI2cBusHandleEventCallback = ::core::option::Option<
+    unsafe extern "C" fn(handle: *mut FuriHalI2cBusHandle, event: FuriHalI2cBusHandleEvent),
+>;
+#[doc = "FuriHal i2c handle\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FuriHalI2cBusHandle {
+    pub bus: *mut FuriHalI2cBus,
+    pub callback: FuriHalI2cBusHandleEventCallback,
+}
+#[test]
+fn bindgen_test_layout_FuriHalI2cBusHandle() {
+    const UNINIT: ::core::mem::MaybeUninit<FuriHalI2cBusHandle> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FuriHalI2cBusHandle>(),
+        8usize,
+        concat!("Size of: ", stringify!(FuriHalI2cBusHandle))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FuriHalI2cBusHandle>(),
+        4usize,
+        concat!("Alignment of ", stringify!(FuriHalI2cBusHandle))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bus) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalI2cBusHandle),
+            "::",
+            stringify!(bus)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).callback) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalI2cBusHandle),
+            "::",
+            stringify!(callback)
+        )
+    );
+}
+extern "C" {
+    #[doc = "Internal(power) i2c bus, I2C1, under reset when not used\n\n"]
+    pub static mut furi_hal_i2c_bus_power: FuriHalI2cBus;
+}
+extern "C" {
+    #[doc = "External i2c bus, I2C3, under reset when not used\n\n"]
+    pub static mut furi_hal_i2c_bus_external: FuriHalI2cBus;
+}
+extern "C" {
+    #[doc = "Handle for internal(power) i2c bus Bus: furi_hal_i2c_bus_external Pins: PA9(SCL) / PA10(SDA), float on release Params: 400khz\n\n"]
+    pub static mut furi_hal_i2c_handle_power: FuriHalI2cBusHandle;
+}
+extern "C" {
+    #[doc = "Handle for external i2c bus Bus: furi_hal_i2c_bus_external Pins: PC0(SCL) / PC1(SDA), float on release Params: 100khz\n\n"]
+    pub static mut furi_hal_i2c_handle_external: FuriHalI2cBusHandle;
+}
+extern "C" {
+    #[doc = "Acquire i2c bus handle\n\nReturns:\n\n* Instance of FuriHalI2cBus\n\n"]
+    pub fn furi_hal_i2c_acquire(handle: *mut FuriHalI2cBusHandle);
+}
+extern "C" {
+    #[doc = "Release i2c bus handle\n\n# Arguments\n\n* `bus` - instance of FuriHalI2cBus aquired in `furi_hal_i2c_acquire`\n\n"]
+    pub fn furi_hal_i2c_release(handle: *mut FuriHalI2cBusHandle);
+}
+extern "C" {
+    #[doc = "Perform I2C tx transfer\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `address` - I2C slave address\n* `data` - pointer to data buffer\n* `size` - size of data buffer\n* `timeout` - timeout in ticks\n\n"]
+    pub fn furi_hal_i2c_tx(
+        handle: *mut FuriHalI2cBusHandle,
+        address: u8,
+        data: *const u8,
+        size: u8,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Perform I2C rx transfer\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `address` - I2C slave address\n* `data` - pointer to data buffer\n* `size` - size of data buffer\n* `timeout` - timeout in ticks\n\n"]
+    pub fn furi_hal_i2c_rx(
+        handle: *mut FuriHalI2cBusHandle,
+        address: u8,
+        data: *mut u8,
+        size: u8,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Perform I2C tx and rx transfers\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `address` - I2C slave address\n* `tx_data` - pointer to tx data buffer\n* `tx_size` - size of tx data buffer\n* `rx_data` - pointer to rx data buffer\n* `rx_size` - size of rx data buffer\n* `timeout` - timeout in ticks\n\n"]
+    pub fn furi_hal_i2c_trx(
+        handle: *mut FuriHalI2cBusHandle,
+        address: u8,
+        tx_data: *const u8,
+        tx_size: u8,
+        rx_data: *mut u8,
+        rx_size: u8,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Check if I2C device presents on bus\n\nReturns:\n\n* true if device present and is ready, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `timeout` - timeout in ticks\n\n"]
+    pub fn furi_hal_i2c_is_device_ready(
+        handle: *mut FuriHalI2cBusHandle,
+        i2c_addr: u8,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Perform I2C device register read (8-bit)\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `reg_addr` - register address\n* `data` - pointer to register value\n* `timeout` - timeout in ticks\n\n"]
+    pub fn furi_hal_i2c_read_reg_8(
+        handle: *mut FuriHalI2cBusHandle,
+        i2c_addr: u8,
+        reg_addr: u8,
+        data: *mut u8,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Perform I2C device register read (16-bit)\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `reg_addr` - register address\n* `data` - pointer to register value\n* `timeout` - timeout in ticks\n\n"]
+    pub fn furi_hal_i2c_read_reg_16(
+        handle: *mut FuriHalI2cBusHandle,
+        i2c_addr: u8,
+        reg_addr: u8,
+        data: *mut u16,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Perform I2C device memory read\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `mem_addr` - memory start address\n* `data` - pointer to data buffer\n* `len` - size of data buffer\n* `timeout` - timeout in ticks\n\n"]
+    pub fn furi_hal_i2c_read_mem(
+        handle: *mut FuriHalI2cBusHandle,
+        i2c_addr: u8,
+        mem_addr: u8,
+        data: *mut u8,
+        len: u8,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Perform I2C device register write (8-bit)\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `reg_addr` - register address\n* `data` - register value\n* `timeout` - timeout in ticks\n\n"]
+    pub fn furi_hal_i2c_write_reg_8(
+        handle: *mut FuriHalI2cBusHandle,
+        i2c_addr: u8,
+        reg_addr: u8,
+        data: u8,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Perform I2C device register write (16-bit)\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `reg_addr` - register address\n* `data` - register value\n* `timeout` - timeout in ticks\n\n"]
+    pub fn furi_hal_i2c_write_reg_16(
+        handle: *mut FuriHalI2cBusHandle,
+        i2c_addr: u8,
+        reg_addr: u8,
+        data: u16,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Perform I2C device memory\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `mem_addr` - memory start address\n* `data` - pointer to data buffer\n* `len` - size of data buffer\n* `timeout` - timeout in ticks\n\n"]
+    pub fn furi_hal_i2c_write_mem(
+        handle: *mut FuriHalI2cBusHandle,
+        i2c_addr: u8,
+        mem_addr: u8,
+        data: *mut u8,
+        len: u8,
+        timeout: u32,
+    ) -> bool;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FuriHalRegionBand {
+    pub start: u32,
+    pub end: u32,
+    pub power_limit: i8,
+    pub duty_cycle: u8,
+}
+#[test]
+fn bindgen_test_layout_FuriHalRegionBand() {
+    const UNINIT: ::core::mem::MaybeUninit<FuriHalRegionBand> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FuriHalRegionBand>(),
+        12usize,
+        concat!("Size of: ", stringify!(FuriHalRegionBand))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FuriHalRegionBand>(),
+        4usize,
+        concat!("Alignment of ", stringify!(FuriHalRegionBand))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).start) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRegionBand),
+            "::",
+            stringify!(start)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).end) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRegionBand),
+            "::",
+            stringify!(end)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).power_limit) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRegionBand),
+            "::",
+            stringify!(power_limit)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).duty_cycle) as usize - ptr as usize },
+        9usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRegionBand),
+            "::",
+            stringify!(duty_cycle)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug)]
+pub struct FuriHalRegion {
+    pub country_code: [core::ffi::c_char; 4usize],
+    pub bands_count: u16,
+    pub bands: __IncompleteArrayField<FuriHalRegionBand>,
+}
+#[test]
+fn bindgen_test_layout_FuriHalRegion() {
+    const UNINIT: ::core::mem::MaybeUninit<FuriHalRegion> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FuriHalRegion>(),
+        8usize,
+        concat!("Size of: ", stringify!(FuriHalRegion))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FuriHalRegion>(),
+        4usize,
+        concat!("Alignment of ", stringify!(FuriHalRegion))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).country_code) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRegion),
+            "::",
+            stringify!(country_code)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bands_count) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRegion),
+            "::",
+            stringify!(bands_count)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bands) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRegion),
+            "::",
+            stringify!(bands)
+        )
+    );
+}
+extern "C" {
+    #[doc = "Get Region Data.\nRegion data may be allocated in Flash or in RAM. Keep in mind that we don't do memory management on our side.\n\nReturns:\n\n* pointer to FuriHalRegion instance (in RAM or Flash, check before freeing on region update)\n\n"]
+    pub fn furi_hal_region_get() -> *const FuriHalRegion;
+}
+extern "C" {
+    #[doc = "Set device region data\n\n# Arguments\n\n* `region` - pointer to the FuriHalRegion\n\n"]
+    pub fn furi_hal_region_set(region: *mut FuriHalRegion);
+}
+extern "C" {
+    #[doc = "Check if region data provisioned\n\nReturns:\n\n* true if provisioned, false otherwise\n\n"]
+    pub fn furi_hal_region_is_provisioned() -> bool;
+}
+extern "C" {
+    #[doc = "Get region name\n2 letter Region code according to iso 3166 standard There are 2 extra values that we use in special cases:\n* \"00\" - developer edition, unlocked\n* \"WW\" - world wide, region provisioned by default\n* \"--\" - no provisioned region\n\nReturns:\n\n* Pointer to string\n\n"]
+    pub fn furi_hal_region_get_name() -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Сheck if transmission is allowed on this frequency for your flipper region\n\nReturns:\n\n* true if allowed\n\n# Arguments\n\n* `frequency` - [Direction: In] The frequency\n* `value` - frequency in Hz\n\n"]
+    pub fn furi_hal_region_is_frequency_allowed(frequency: u32) -> bool;
+}
+extern "C" {
+    #[doc = "Get band data for frequency\n\nReturns:\n\n* { description_of_the_return_value }\n\n# Arguments\n\n* `frequency` - [Direction: In] The frequency\n\n"]
+    pub fn furi_hal_region_get_band(frequency: u32) -> *const FuriHalRegionBand;
+}
+pub const InputKey_InputKeyUp: InputKey = 0;
+pub const InputKey_InputKeyDown: InputKey = 1;
+pub const InputKey_InputKeyRight: InputKey = 2;
+pub const InputKey_InputKeyLeft: InputKey = 3;
+pub const InputKey_InputKeyOk: InputKey = 4;
+pub const InputKey_InputKeyBack: InputKey = 5;
+#[doc = "Special value\n\n"]
+pub const InputKey_InputKeyMAX: InputKey = 6;
+pub type InputKey = core::ffi::c_uchar;
+pub const Light_LightRed: Light = 1;
+pub const Light_LightGreen: Light = 2;
+pub const Light_LightBlue: Light = 4;
+pub const Light_LightBacklight: Light = 8;
+pub type Light = core::ffi::c_uchar;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct InputPin {
+    pub gpio: *const GpioPin,
+    pub key: InputKey,
+    pub inverted: bool,
+    pub name: *const core::ffi::c_char,
+}
+#[test]
+fn bindgen_test_layout_InputPin() {
+    const UNINIT: ::core::mem::MaybeUninit<InputPin> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<InputPin>(),
+        12usize,
+        concat!("Size of: ", stringify!(InputPin))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<InputPin>(),
+        4usize,
+        concat!("Alignment of ", stringify!(InputPin))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).gpio) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(InputPin),
+            "::",
+            stringify!(gpio)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).key) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(InputPin),
+            "::",
+            stringify!(key)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).inverted) as usize - ptr as usize },
+        5usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(InputPin),
+            "::",
+            stringify!(inverted)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(InputPin),
+            "::",
+            stringify!(name)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct GpioPinRecord {
+    pub pin: *const GpioPin,
+    pub name: *const core::ffi::c_char,
+    pub debug: bool,
+}
+#[test]
+fn bindgen_test_layout_GpioPinRecord() {
+    const UNINIT: ::core::mem::MaybeUninit<GpioPinRecord> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<GpioPinRecord>(),
+        12usize,
+        concat!("Size of: ", stringify!(GpioPinRecord))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<GpioPinRecord>(),
+        4usize,
+        concat!("Alignment of ", stringify!(GpioPinRecord))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).pin) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(GpioPinRecord),
+            "::",
+            stringify!(pin)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(GpioPinRecord),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).debug) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(GpioPinRecord),
+            "::",
+            stringify!(debug)
+        )
+    );
+}
+extern "C" {
+    pub static input_pins: [InputPin; 0usize];
+}
+extern "C" {
+    pub static input_pins_count: usize;
+}
+extern "C" {
+    pub static gpio_pins: [GpioPinRecord; 0usize];
+}
+extern "C" {
+    pub static gpio_pins_count: usize;
+}
+extern "C" {
+    pub static gpio_swdio: GpioPin;
+}
+extern "C" {
+    pub static gpio_swclk: GpioPin;
+}
+extern "C" {
+    pub static gpio_vibro: GpioPin;
+}
+extern "C" {
+    pub static gpio_ibutton: GpioPin;
+}
+extern "C" {
+    pub static gpio_cc1101_g0: GpioPin;
+}
+extern "C" {
+    pub static gpio_rf_sw_0: GpioPin;
+}
+extern "C" {
+    pub static gpio_subghz_cs: GpioPin;
+}
+extern "C" {
+    pub static gpio_display_cs: GpioPin;
+}
+extern "C" {
+    pub static gpio_display_rst_n: GpioPin;
+}
+extern "C" {
+    pub static gpio_display_di: GpioPin;
+}
+extern "C" {
+    pub static gpio_sdcard_cs: GpioPin;
+}
+extern "C" {
+    pub static gpio_sdcard_cd: GpioPin;
+}
+extern "C" {
+    pub static gpio_nfc_cs: GpioPin;
+}
+extern "C" {
+    pub static gpio_button_up: GpioPin;
+}
+extern "C" {
+    pub static gpio_button_down: GpioPin;
+}
+extern "C" {
+    pub static gpio_button_right: GpioPin;
+}
+extern "C" {
+    pub static gpio_button_left: GpioPin;
+}
+extern "C" {
+    pub static gpio_button_ok: GpioPin;
+}
+extern "C" {
+    pub static gpio_button_back: GpioPin;
+}
+extern "C" {
+    pub static gpio_spi_d_miso: GpioPin;
+}
+extern "C" {
+    pub static gpio_spi_d_mosi: GpioPin;
+}
+extern "C" {
+    pub static gpio_spi_d_sck: GpioPin;
+}
+extern "C" {
+    pub static gpio_spi_r_miso: GpioPin;
+}
+extern "C" {
+    pub static gpio_spi_r_mosi: GpioPin;
+}
+extern "C" {
+    pub static gpio_spi_r_sck: GpioPin;
+}
+extern "C" {
+    pub static gpio_ext_pc0: GpioPin;
+}
+extern "C" {
+    pub static gpio_ext_pc1: GpioPin;
+}
+extern "C" {
+    pub static gpio_ext_pc3: GpioPin;
+}
+extern "C" {
+    pub static gpio_ext_pb2: GpioPin;
+}
+extern "C" {
+    pub static gpio_ext_pb3: GpioPin;
+}
+extern "C" {
+    pub static gpio_ext_pa4: GpioPin;
+}
+extern "C" {
+    pub static gpio_ext_pa6: GpioPin;
+}
+extern "C" {
+    pub static gpio_ext_pa7: GpioPin;
+}
+extern "C" {
+    pub static gpio_nfc_irq_rfid_pull: GpioPin;
+}
+extern "C" {
+    pub static gpio_rfid_carrier_out: GpioPin;
+}
+extern "C" {
+    pub static gpio_rfid_data_in: GpioPin;
+}
+extern "C" {
+    pub static gpio_rfid_carrier: GpioPin;
+}
+extern "C" {
+    pub static gpio_infrared_rx: GpioPin;
+}
+extern "C" {
+    pub static gpio_infrared_tx: GpioPin;
+}
+extern "C" {
+    pub static gpio_usart_tx: GpioPin;
+}
+extern "C" {
+    pub static gpio_usart_rx: GpioPin;
+}
+extern "C" {
+    pub static gpio_i2c_power_sda: GpioPin;
+}
+extern "C" {
+    pub static gpio_i2c_power_scl: GpioPin;
+}
+extern "C" {
+    pub static gpio_speaker: GpioPin;
+}
+extern "C" {
+    pub static gpio_periph_power: GpioPin;
+}
+extern "C" {
+    pub static gpio_usb_dm: GpioPin;
+}
+extern "C" {
+    pub static gpio_usb_dp: GpioPin;
+}
+extern "C" {
+    #[doc = "Get a corresponding external connector pin number for a gpio\n\nReturns:\n\n* pin number or -1 if gpio is not on the external connector\n\n# Arguments\n\n* `gpio` - GpioPin\n\n"]
+    pub fn furi_hal_resources_get_ext_pin_number(gpio: *const GpioPin) -> i32;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FuriHalRtcDateTime {
+    #[doc = "Hour in 24H format: 0-23\n\n"]
+    pub hour: u8,
+    #[doc = "Minute: 0-59\n\n"]
+    pub minute: u8,
+    #[doc = "Second: 0-59\n\n"]
+    pub second: u8,
+    #[doc = "Current day: 1-31\n\n"]
+    pub day: u8,
+    #[doc = "Current month: 1-12\n\n"]
+    pub month: u8,
+    #[doc = "Current year: 2000-2099\n\n"]
+    pub year: u16,
+    #[doc = "Current weekday: 1-7\n\n"]
+    pub weekday: u8,
+}
+#[test]
+fn bindgen_test_layout_FuriHalRtcDateTime() {
+    const UNINIT: ::core::mem::MaybeUninit<FuriHalRtcDateTime> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FuriHalRtcDateTime>(),
+        10usize,
+        concat!("Size of: ", stringify!(FuriHalRtcDateTime))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FuriHalRtcDateTime>(),
+        2usize,
+        concat!("Alignment of ", stringify!(FuriHalRtcDateTime))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).hour) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRtcDateTime),
+            "::",
+            stringify!(hour)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).minute) as usize - ptr as usize },
+        1usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRtcDateTime),
+            "::",
+            stringify!(minute)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).second) as usize - ptr as usize },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRtcDateTime),
+            "::",
+            stringify!(second)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).day) as usize - ptr as usize },
+        3usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRtcDateTime),
+            "::",
+            stringify!(day)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).month) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRtcDateTime),
+            "::",
+            stringify!(month)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).year) as usize - ptr as usize },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRtcDateTime),
+            "::",
+            stringify!(year)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).weekday) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalRtcDateTime),
+            "::",
+            stringify!(weekday)
+        )
+    );
+}
+pub const FuriHalRtcFlag_FuriHalRtcFlagDebug: FuriHalRtcFlag = 1;
+pub const FuriHalRtcFlag_FuriHalRtcFlagFactoryReset: FuriHalRtcFlag = 2;
+pub const FuriHalRtcFlag_FuriHalRtcFlagLock: FuriHalRtcFlag = 4;
+pub const FuriHalRtcFlag_FuriHalRtcFlagC2Update: FuriHalRtcFlag = 8;
+pub const FuriHalRtcFlag_FuriHalRtcFlagHandOrient: FuriHalRtcFlag = 16;
+pub const FuriHalRtcFlag_FuriHalRtcFlagLegacySleep: FuriHalRtcFlag = 32;
+pub const FuriHalRtcFlag_FuriHalRtcFlagStealthMode: FuriHalRtcFlag = 64;
+pub type FuriHalRtcFlag = core::ffi::c_uchar;
+#[doc = "Normal boot mode, default value\n\n"]
+pub const FuriHalRtcBootMode_FuriHalRtcBootModeNormal: FuriHalRtcBootMode = 0;
+#[doc = "Boot to DFU (MCU bootloader by ST)\n\n"]
+pub const FuriHalRtcBootMode_FuriHalRtcBootModeDfu: FuriHalRtcBootMode = 1;
+#[doc = "Boot to Update, pre update\n\n"]
+pub const FuriHalRtcBootMode_FuriHalRtcBootModePreUpdate: FuriHalRtcBootMode = 2;
+#[doc = "Boot to Update, main\n\n"]
+pub const FuriHalRtcBootMode_FuriHalRtcBootModeUpdate: FuriHalRtcBootMode = 3;
+#[doc = "Boot to Update, post update\n\n"]
+pub const FuriHalRtcBootMode_FuriHalRtcBootModePostUpdate: FuriHalRtcBootMode = 4;
+pub type FuriHalRtcBootMode = core::ffi::c_uchar;
+#[doc = "Disable allocation tracking\n\n"]
+pub const FuriHalRtcHeapTrackMode_FuriHalRtcHeapTrackModeNone: FuriHalRtcHeapTrackMode = 0;
+#[doc = "Enable allocation tracking for main application thread\n\n"]
+pub const FuriHalRtcHeapTrackMode_FuriHalRtcHeapTrackModeMain: FuriHalRtcHeapTrackMode = 1;
+#[doc = "Enable allocation tracking for main and children application threads\n\n"]
+pub const FuriHalRtcHeapTrackMode_FuriHalRtcHeapTrackModeTree: FuriHalRtcHeapTrackMode = 2;
+#[doc = "Enable allocation tracking for all threads\n\n"]
+pub const FuriHalRtcHeapTrackMode_FuriHalRtcHeapTrackModeAll: FuriHalRtcHeapTrackMode = 3;
+pub type FuriHalRtcHeapTrackMode = core::ffi::c_uchar;
+#[doc = "RTC structure header\n\n"]
+pub const FuriHalRtcRegister_FuriHalRtcRegisterHeader: FuriHalRtcRegister = 0;
+#[doc = "Various system bits\n\n"]
+pub const FuriHalRtcRegister_FuriHalRtcRegisterSystem: FuriHalRtcRegister = 1;
+#[doc = "Pointer to Version\n\n"]
+pub const FuriHalRtcRegister_FuriHalRtcRegisterVersion: FuriHalRtcRegister = 2;
+#[doc = "LFS geometry fingerprint\n\n"]
+pub const FuriHalRtcRegister_FuriHalRtcRegisterLfsFingerprint: FuriHalRtcRegister = 3;
+#[doc = "Pointer to last fault message\n\n"]
+pub const FuriHalRtcRegister_FuriHalRtcRegisterFaultData: FuriHalRtcRegister = 4;
+#[doc = "Failed pins count\n\n"]
+pub const FuriHalRtcRegister_FuriHalRtcRegisterPinFails: FuriHalRtcRegister = 5;
+pub const FuriHalRtcRegister_FuriHalRtcRegisterUpdateFolderFSIndex: FuriHalRtcRegister = 6;
+#[doc = "Service value, do not use\n\n"]
+pub const FuriHalRtcRegister_FuriHalRtcRegisterMAX: FuriHalRtcRegister = 7;
+pub type FuriHalRtcRegister = core::ffi::c_uchar;
+#[doc = "Metric measurement units\n\n"]
+pub const FuriHalRtcLocaleUnits_FuriHalRtcLocaleUnitsMetric: FuriHalRtcLocaleUnits = 0;
+#[doc = "Imperial measurement units\n\n"]
+pub const FuriHalRtcLocaleUnits_FuriHalRtcLocaleUnitsImperial: FuriHalRtcLocaleUnits = 1;
+pub type FuriHalRtcLocaleUnits = core::ffi::c_uchar;
+#[doc = "24-hour format\n\n"]
+pub const FuriHalRtcLocaleTimeFormat_FuriHalRtcLocaleTimeFormat24h: FuriHalRtcLocaleTimeFormat = 0;
+#[doc = "12-hour format\n\n"]
+pub const FuriHalRtcLocaleTimeFormat_FuriHalRtcLocaleTimeFormat12h: FuriHalRtcLocaleTimeFormat = 1;
+pub type FuriHalRtcLocaleTimeFormat = core::ffi::c_uchar;
+#[doc = "Day/Month/Year\n\n"]
+pub const FuriHalRtcLocaleDateFormat_FuriHalRtcLocaleDateFormatDMY: FuriHalRtcLocaleDateFormat = 0;
+#[doc = "Month/Day/Year\n\n"]
+pub const FuriHalRtcLocaleDateFormat_FuriHalRtcLocaleDateFormatMDY: FuriHalRtcLocaleDateFormat = 1;
+#[doc = "Year/Month/Day\n\n"]
+pub const FuriHalRtcLocaleDateFormat_FuriHalRtcLocaleDateFormatYMD: FuriHalRtcLocaleDateFormat = 2;
+pub type FuriHalRtcLocaleDateFormat = core::ffi::c_uchar;
+extern "C" {
+    #[doc = "Force sync shadow registers\n\n"]
+    pub fn furi_hal_rtc_sync_shadow();
+}
+extern "C" {
+    #[doc = "Get RTC register content\n\nReturns:\n\n* content of the register\n\n# Arguments\n\n* `reg` - [Direction: In] The register identifier\n\n"]
+    pub fn furi_hal_rtc_get_register(reg: FuriHalRtcRegister) -> u32;
+}
+extern "C" {
+    #[doc = "Set register content\n\n# Arguments\n\n* `reg` - [Direction: In] The register identifier\n* `value` - [Direction: In] The value to store into register\n\n"]
+    pub fn furi_hal_rtc_set_register(reg: FuriHalRtcRegister, value: u32);
+}
+extern "C" {
+    #[doc = "Set Log Level value\n\n# Arguments\n\n* `level` - [Direction: In] The level to store\n\n"]
+    pub fn furi_hal_rtc_set_log_level(level: u8);
+}
+extern "C" {
+    #[doc = "Get Log Level value\n\nReturns:\n\n* The Log Level value\n\n"]
+    pub fn furi_hal_rtc_get_log_level() -> u8;
+}
+extern "C" {
+    #[doc = "Set RTC Flag\n\n# Arguments\n\n* `flag` - [Direction: In] The flag to set\n\n"]
+    pub fn furi_hal_rtc_set_flag(flag: FuriHalRtcFlag);
+}
+extern "C" {
+    #[doc = "Reset RTC Flag\n\n# Arguments\n\n* `flag` - [Direction: In] The flag to reset\n\n"]
+    pub fn furi_hal_rtc_reset_flag(flag: FuriHalRtcFlag);
+}
+extern "C" {
+    #[doc = "Check if RTC Flag is set\n\nReturns:\n\n* true if set\n\n# Arguments\n\n* `flag` - [Direction: In] The flag to check\n\n"]
+    pub fn furi_hal_rtc_is_flag_set(flag: FuriHalRtcFlag) -> bool;
+}
+extern "C" {
+    #[doc = "Set RTC boot mode\n\n# Arguments\n\n* `mode` - [Direction: In] The mode to set\n\n"]
+    pub fn furi_hal_rtc_set_boot_mode(mode: FuriHalRtcBootMode);
+}
+extern "C" {
+    #[doc = "Get RTC boot mode\n\nReturns:\n\n* The RTC boot mode.\n\n"]
+    pub fn furi_hal_rtc_get_boot_mode() -> FuriHalRtcBootMode;
+}
+extern "C" {
+    #[doc = "Set Heap Track mode\n\n# Arguments\n\n* `mode` - [Direction: In] The mode to set\n\n"]
+    pub fn furi_hal_rtc_set_heap_track_mode(mode: FuriHalRtcHeapTrackMode);
+}
+extern "C" {
+    #[doc = "Get RTC Heap Track mode\n\nReturns:\n\n* The RTC heap track mode.\n\n"]
+    pub fn furi_hal_rtc_get_heap_track_mode() -> FuriHalRtcHeapTrackMode;
+}
+extern "C" {
+    #[doc = "Set locale units\n\n# Arguments\n\n* `mode` - [Direction: In] The RTC Locale Units\n\n"]
+    pub fn furi_hal_rtc_set_locale_units(value: FuriHalRtcLocaleUnits);
+}
+extern "C" {
+    #[doc = "Get RTC Locale Units\n\nReturns:\n\n* The RTC Locale Units.\n\n"]
+    pub fn furi_hal_rtc_get_locale_units() -> FuriHalRtcLocaleUnits;
+}
+extern "C" {
+    #[doc = "Set RTC Locale Time Format\n\n# Arguments\n\n* `value` - [Direction: In] The RTC Locale Time Format\n\n"]
+    pub fn furi_hal_rtc_set_locale_timeformat(value: FuriHalRtcLocaleTimeFormat);
+}
+extern "C" {
+    #[doc = "Get RTC Locale Time Format\n\nReturns:\n\n* The RTC Locale Time Format.\n\n"]
+    pub fn furi_hal_rtc_get_locale_timeformat() -> FuriHalRtcLocaleTimeFormat;
+}
+extern "C" {
+    #[doc = "Set RTC Locale Date Format\n\n# Arguments\n\n* `value` - [Direction: In] The RTC Locale Date Format\n\n"]
+    pub fn furi_hal_rtc_set_locale_dateformat(value: FuriHalRtcLocaleDateFormat);
+}
+extern "C" {
+    #[doc = "Get RTC Locale Date Format\n\nReturns:\n\n* The RTC Locale Date Format\n\n"]
+    pub fn furi_hal_rtc_get_locale_dateformat() -> FuriHalRtcLocaleDateFormat;
+}
+extern "C" {
+    #[doc = "Set RTC Date Time\n\n# Arguments\n\n* `datetime` - The date time to set\n\n"]
+    pub fn furi_hal_rtc_set_datetime(datetime: *mut FuriHalRtcDateTime);
+}
+extern "C" {
+    #[doc = "Get RTC Date Time\n\n# Arguments\n\n* `datetime` - The datetime\n\n"]
+    pub fn furi_hal_rtc_get_datetime(datetime: *mut FuriHalRtcDateTime);
+}
+extern "C" {
+    #[doc = "Validate Date Time\n\nReturns:\n\n* { description_of_the_return_value }\n\n# Arguments\n\n* `datetime` - The datetime to validate\n\n"]
+    pub fn furi_hal_rtc_validate_datetime(datetime: *mut FuriHalRtcDateTime) -> bool;
+}
+extern "C" {
+    #[doc = "Set RTC Fault Data\n\n# Arguments\n\n* `value` - [Direction: In] The value\n\n"]
+    pub fn furi_hal_rtc_set_fault_data(value: u32);
+}
+extern "C" {
+    #[doc = "Get RTC Fault Data\n\nReturns:\n\n* RTC Fault Data value\n\n"]
+    pub fn furi_hal_rtc_get_fault_data() -> u32;
+}
+extern "C" {
+    #[doc = "Set Pin Fails count\n\n# Arguments\n\n* `value` - [Direction: In] The Pin Fails count\n\n"]
+    pub fn furi_hal_rtc_set_pin_fails(value: u32);
+}
+extern "C" {
+    #[doc = "Get Pin Fails count\n\nReturns:\n\n* Pin Fails Count\n\n"]
+    pub fn furi_hal_rtc_get_pin_fails() -> u32;
+}
+extern "C" {
+    #[doc = "Get UNIX Timestamp\n\nReturns:\n\n* Unix Timestamp in seconds from UNIX epoch start\n\n"]
+    pub fn furi_hal_rtc_get_timestamp() -> u32;
+}
+extern "C" {
+    #[doc = "Convert DateTime to UNIX timestamp\n\nReturns:\n\n* UNIX Timestamp in seconds from UNIX epoch start\n\n# Arguments\n\n* `datetime` - The datetime\n\n"]
+    pub fn furi_hal_rtc_datetime_to_timestamp(datetime: *mut FuriHalRtcDateTime) -> u32;
+}
+extern "C" {
+    #[doc = "Gets the number of days in the year according to the Gregorian calendar.\n\nReturns:\n\n* number of days in `year`.\n\n# Arguments\n\n* `year` - Input year.\n\n"]
+    pub fn furi_hal_rtc_get_days_per_year(year: u16) -> u16;
+}
+extern "C" {
+    #[doc = "Check if a year a leap year in the Gregorian calendar.\n\nReturns:\n\n* true if `year` is a leap year.\n\n# Arguments\n\n* `year` - Input year.\n\n"]
+    pub fn furi_hal_rtc_is_leap_year(year: u16) -> bool;
+}
+extern "C" {
+    #[doc = "Get the number of days in the month.\n\nReturns:\n\n* the number of days in the month\n\n# Arguments\n\n* `leap_year` - true to calculate based on leap years\n* `month` - month to check, where 1 = January\n\n"]
+    pub fn furi_hal_rtc_get_days_per_month(leap_year: bool, month: u8) -> u8;
+}
+extern "C" {
+    #[doc = "Acquire speaker ownership\n\n**Warning!**\n\n* You must acquire speaker ownership before use\n\nReturns:\n\n* bool returns true on success\n\n# Arguments\n\n* `timeout` - Timeout during which speaker ownership must be acquired\n\n"]
+    pub fn furi_hal_speaker_acquire(timeout: u32) -> bool;
+}
+extern "C" {
+    #[doc = "Release speaker ownership\n\n**Warning!**\n\n* You must release speaker ownership after use\n\n"]
+    pub fn furi_hal_speaker_release();
+}
+extern "C" {
+    #[doc = "Check current process speaker ownership\n\n**Warning!**\n\n* always returns true if called from ISR\n\nReturns:\n\n* bool returns true if process owns speaker\n\n"]
+    pub fn furi_hal_speaker_is_mine() -> bool;
+}
+extern "C" {
+    #[doc = "Play a note\n\n**Warning!**\n\n* no ownership check if called from ISR\n\n# Arguments\n\n* `frequency` - The frequency\n* `volume` - The volume\n\n"]
+    pub fn furi_hal_speaker_start(frequency: f32, volume: f32);
+}
+extern "C" {
+    #[doc = "Set volume\n\n**Warning!**\n\n* no ownership check if called from ISR\n\n# Arguments\n\n* `volume` - The volume\n\n"]
+    pub fn furi_hal_speaker_set_volume(volume: f32);
+}
+extern "C" {
+    #[doc = "Stop playback\n\n**Warning!**\n\n* no ownership check if called from ISR\n\n"]
+    pub fn furi_hal_speaker_stop();
+}
+extern "C" {
+    #[doc = "Set light value\n\n# Arguments\n\n* `light` - Light\n* `value` - light brightness [0-255]\n\n"]
+    pub fn furi_hal_light_set(light: Light, value: u8);
+}
+extern "C" {
+    #[doc = "Start hardware LED blinking mode\n\n# Arguments\n\n* `light` - Light\n* `brightness` - light brightness [0-255]\n* `on_time` - LED on time in ms\n* `period` - LED blink period in ms\n\n"]
+    pub fn furi_hal_light_blink_start(light: Light, brightness: u8, on_time: u16, period: u16);
+}
+extern "C" {
+    #[doc = "Stop hardware LED blinking mode\n\n"]
+    pub fn furi_hal_light_blink_stop();
+}
+extern "C" {
+    #[doc = "Set color in hardware LED blinking mode\n\n# Arguments\n\n* `light` - Light\n\n"]
+    pub fn furi_hal_light_blink_set_color(light: Light);
+}
+extern "C" {
+    #[doc = "Execute sequence\n\n# Arguments\n\n* `sequence` - Sequence to execute\n\n"]
+    pub fn furi_hal_light_sequence(sequence: *const core::ffi::c_char);
+}
+#[doc = "Callback type called every time another key-value pair of device information is ready\n\n# Arguments\n\n* `key[in]` - device information type identifier\n* `value[in]` - device information value\n* `last[in]` - whether the passed key-value pair is the last one\n* `context[in]` - to pass to callback\n\n"]
+pub type PropertyValueCallback = ::core::option::Option<
+    unsafe extern "C" fn(
+        key: *const core::ffi::c_char,
+        value: *const core::ffi::c_char,
+        last: bool,
+        context: *mut core::ffi::c_void,
+    ),
+>;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct PropertyValueContext {
+    #[doc = "key string buffer, must be initialised before use\n\n"]
+    pub key: *mut FuriString,
+    #[doc = "value string buffer, must be initialised before use\n\n"]
+    pub value: *mut FuriString,
+    #[doc = "output callback function\n\n"]
+    pub out: PropertyValueCallback,
+    #[doc = "separator character between key parts\n\n"]
+    pub sep: core::ffi::c_char,
+    #[doc = "flag to indicate last element\n\n"]
+    pub last: bool,
+    #[doc = "user-defined context, passed through to out callback\n\n"]
+    pub context: *mut core::ffi::c_void,
+}
+#[test]
+fn bindgen_test_layout_PropertyValueContext() {
+    const UNINIT: ::core::mem::MaybeUninit<PropertyValueContext> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<PropertyValueContext>(),
+        20usize,
+        concat!("Size of: ", stringify!(PropertyValueContext))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<PropertyValueContext>(),
+        4usize,
+        concat!("Alignment of ", stringify!(PropertyValueContext))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).key) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PropertyValueContext),
+            "::",
+            stringify!(key)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).value) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PropertyValueContext),
+            "::",
+            stringify!(value)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).out) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PropertyValueContext),
+            "::",
+            stringify!(out)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).sep) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PropertyValueContext),
+            "::",
+            stringify!(sep)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).last) as usize - ptr as usize },
+        13usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PropertyValueContext),
+            "::",
+            stringify!(last)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PropertyValueContext),
+            "::",
+            stringify!(context)
+        )
+    );
+}
+extern "C" {
+    #[doc = "Builds key and value strings and outputs them via a callback function\n\n# Arguments\n\n* `ctx[in]` - local property context\n* `fmt[in]` - value format, set to NULL to bypass formatting\n* `nparts[in]` - number of key parts (separated by character)\n* `...[in]` - list of key parts followed by value\n\n"]
+    pub fn property_value_out(
+        ctx: *mut PropertyValueContext,
+        fmt: *const core::ffi::c_char,
+        nparts: core::ffi::c_uint,
+        ...
+    );
+}
+pub const FuriHalPowerIC_FuriHalPowerICCharger: FuriHalPowerIC = 0;
+pub const FuriHalPowerIC_FuriHalPowerICFuelGauge: FuriHalPowerIC = 1;
+#[doc = "Power IC type\n\n"]
+pub type FuriHalPowerIC = core::ffi::c_uchar;
+extern "C" {
+    #[doc = "Check if gauge is ok\nVerifies that:\n* gauge is alive\n* correct profile loaded\n* self diagnostic status is good\n\nReturns:\n\n* true if gauge is ok\n\n"]
+    pub fn furi_hal_power_gauge_is_ok() -> bool;
+}
+extern "C" {
+    #[doc = "Check if gauge requests system shutdown\n\nReturns:\n\n* true if system shutdown requested\n\n"]
+    pub fn furi_hal_power_is_shutdown_requested() -> bool;
+}
+extern "C" {
+    #[doc = "Enter insomnia mode Prevents device from going to sleep\n\n**Warning!**\n\n* Internally increases insomnia level Must be paired with furi_hal_power_insomnia_exit\n\n"]
+    pub fn furi_hal_power_insomnia_enter();
+}
+extern "C" {
+    #[doc = "Exit insomnia mode Allow device to go to sleep\n\n**Warning!**\n\n* Internally decreases insomnia level. Must be paired with furi_hal_power_insomnia_enter\n\n"]
+    pub fn furi_hal_power_insomnia_exit();
+}
+extern "C" {
+    #[doc = "Check if sleep availble\n\nReturns:\n\n* true if available\n\n"]
+    pub fn furi_hal_power_sleep_available() -> bool;
+}
+extern "C" {
+    #[doc = "Go to sleep\n\n"]
+    pub fn furi_hal_power_sleep();
+}
+extern "C" {
+    #[doc = "Get predicted remaining battery capacity in percents\n\nReturns:\n\n* remaining battery capacity in percents\n\n"]
+    pub fn furi_hal_power_get_pct() -> u8;
+}
+extern "C" {
+    #[doc = "Get battery health state in percents\n\nReturns:\n\n* health in percents\n\n"]
+    pub fn furi_hal_power_get_bat_health_pct() -> u8;
+}
+extern "C" {
+    #[doc = "Get charging status\n\nReturns:\n\n* true if charging\n\n"]
+    pub fn furi_hal_power_is_charging() -> bool;
+}
+extern "C" {
+    #[doc = "Get charge complete status\n\nReturns:\n\n* true if done charging and connected to charger\n\n"]
+    pub fn furi_hal_power_is_charging_done() -> bool;
+}
+extern "C" {
+    #[doc = "Switch MCU to SHUTDOWN\n\n"]
+    pub fn furi_hal_power_shutdown();
+}
+extern "C" {
+    #[doc = "Poweroff device\n\n"]
+    pub fn furi_hal_power_off();
+}
+extern "C" {
+    #[doc = "Reset device\n\n"]
+    pub fn furi_hal_power_reset();
+}
+extern "C" {
+    #[doc = "OTG enable\n\n"]
+    pub fn furi_hal_power_enable_otg() -> bool;
+}
+extern "C" {
+    #[doc = "OTG disable\n\n"]
+    pub fn furi_hal_power_disable_otg();
+}
+extern "C" {
+    #[doc = "Check OTG status fault\n\n"]
+    pub fn furi_hal_power_check_otg_fault() -> bool;
+}
+extern "C" {
+    #[doc = "Check OTG status and disable it if falt happened\n\n"]
+    pub fn furi_hal_power_check_otg_status();
+}
+extern "C" {
+    #[doc = "Get OTG status\n\nReturns:\n\n* true if enabled\n\n"]
+    pub fn furi_hal_power_is_otg_enabled() -> bool;
+}
+extern "C" {
+    #[doc = "Get battery charge voltage limit in V\n\nReturns:\n\n* voltage in V\n\n"]
+    pub fn furi_hal_power_get_battery_charge_voltage_limit() -> f32;
+}
+extern "C" {
+    #[doc = "Set battery charge voltage limit in V\nInvalid values will be clamped downward to the nearest valid value.\n\nReturns:\n\n* voltage in V\n\n# Arguments\n\n* `voltage[in]` - voltage in V\n\n"]
+    pub fn furi_hal_power_set_battery_charge_voltage_limit(voltage: f32);
+}
+extern "C" {
+    #[doc = "Get remaining battery battery capacity in mAh\n\nReturns:\n\n* capacity in mAh\n\n"]
+    pub fn furi_hal_power_get_battery_remaining_capacity() -> u32;
+}
+extern "C" {
+    #[doc = "Get full charge battery capacity in mAh\n\nReturns:\n\n* capacity in mAh\n\n"]
+    pub fn furi_hal_power_get_battery_full_capacity() -> u32;
+}
+extern "C" {
+    #[doc = "Get battery capacity in mAh from battery profile\n\nReturns:\n\n* capacity in mAh\n\n"]
+    pub fn furi_hal_power_get_battery_design_capacity() -> u32;
+}
+extern "C" {
+    #[doc = "Get battery voltage in V\n\nReturns:\n\n* voltage in V\n\n# Arguments\n\n* `ic` - FuriHalPowerIc to get measurment\n\n"]
+    pub fn furi_hal_power_get_battery_voltage(ic: FuriHalPowerIC) -> f32;
+}
+extern "C" {
+    #[doc = "Get battery current in A\n\nReturns:\n\n* current in A\n\n# Arguments\n\n* `ic` - FuriHalPowerIc to get measurment\n\n"]
+    pub fn furi_hal_power_get_battery_current(ic: FuriHalPowerIC) -> f32;
+}
+extern "C" {
+    #[doc = "Get temperature in C\n\nReturns:\n\n* temperature in C\n\n# Arguments\n\n* `ic` - FuriHalPowerIc to get measurment\n\n"]
+    pub fn furi_hal_power_get_battery_temperature(ic: FuriHalPowerIC) -> f32;
+}
+extern "C" {
+    #[doc = "Get USB voltage in V\n\nReturns:\n\n* voltage in V\n\n"]
+    pub fn furi_hal_power_get_usb_voltage() -> f32;
+}
+extern "C" {
+    #[doc = "Enable 3.3v on external gpio and sd card\n\n"]
+    pub fn furi_hal_power_enable_external_3_3v();
+}
+extern "C" {
+    #[doc = "Disable 3.3v on external gpio and sd card\n\n"]
+    pub fn furi_hal_power_disable_external_3_3v();
+}
+extern "C" {
+    #[doc = "Enter supress charge mode.\nUse this function when your application need clean power supply.\n\n"]
+    pub fn furi_hal_power_suppress_charge_enter();
+}
+extern "C" {
+    #[doc = "Exit supress charge mode\n\n"]
+    pub fn furi_hal_power_suppress_charge_exit();
+}
+extern "C" {
+    #[doc = "Get power information\n\n# Arguments\n\n* `callback` - [Direction: In] callback to provide with new data\n* `sep` - [Direction: In] category separator character\n* `context` - [Direction: In] context to pass to callback\n\n"]
+    pub fn furi_hal_power_info_get(
+        callback: PropertyValueCallback,
+        sep: core::ffi::c_char,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    #[doc = "Get power debug information\n\n# Arguments\n\n* `callback` - [Direction: In] callback to provide with new data\n* `context` - [Direction: In] context to pass to callback\n\n"]
+    pub fn furi_hal_power_debug_get(
+        callback: PropertyValueCallback,
+        context: *mut core::ffi::c_void,
+    );
+}
+#[doc = "TIM Time Base configuration structure definition.\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct LL_TIM_InitTypeDef {
+    #[doc = "Specifies the prescaler value used to divide the TIM clock.\nThis parameter can be a number between Min_Data=0x0000 and Max_Data=0xFFFF.\nThis feature can be modified afterwards using unitary function [`LL_TIM_SetPrescaler()`]\n\n"]
+    pub Prescaler: u16,
+    #[doc = "Specifies the counter mode.\nThis parameter can be a value of  [`TIM_LL_EC_COUNTERMODE`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_SetCounterMode()`]\n\n"]
+    pub CounterMode: u32,
+    #[doc = "Specifies the auto reload value to be loaded into the active\nAuto-Reload Register at the next update event.\nThis parameter must be a number between Min_Data=0x0000 and Max_Data=0xFFFF.\nSome timer instances may support 32 bits counters. In that case this parameter must\nbe a number between 0x0000 and 0xFFFFFFFF.\nThis feature can be modified afterwards using unitary function [`LL_TIM_SetAutoReload()`]\n\n"]
+    pub Autoreload: u32,
+    #[doc = "Specifies the clock division.\nThis parameter can be a value of  [`TIM_LL_EC_CLOCKDIVISION`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_SetClockDivision()`]\n\n"]
+    pub ClockDivision: u32,
+    #[doc = "Specifies the repetition counter value. Each time the RCR downcounter\nreaches zero, an update event is generated and counting restarts\nfrom the RCR value (N).\nThis means in PWM mode that (N+1) corresponds to:\nthe number of PWM periods in edge-aligned mode\nthe number of half PWM period in center-aligned mode\nGP timers: this parameter must be a number between Min_Data = 0x00 and\nMax_Data = 0xFF.\nAdvanced timers: this parameter must be a number between Min_Data = 0x0000 and\nMax_Data = 0xFFFF.\nThis feature can be modified afterwards using unitary function [`LL_TIM_SetRepetitionCounter()`]\n\n"]
+    pub RepetitionCounter: u32,
+}
+#[test]
+fn bindgen_test_layout_LL_TIM_InitTypeDef() {
+    const UNINIT: ::core::mem::MaybeUninit<LL_TIM_InitTypeDef> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<LL_TIM_InitTypeDef>(),
+        20usize,
+        concat!("Size of: ", stringify!(LL_TIM_InitTypeDef))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<LL_TIM_InitTypeDef>(),
+        4usize,
+        concat!("Alignment of ", stringify!(LL_TIM_InitTypeDef))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).Prescaler) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_InitTypeDef),
+            "::",
+            stringify!(Prescaler)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).CounterMode) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_InitTypeDef),
+            "::",
+            stringify!(CounterMode)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).Autoreload) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_InitTypeDef),
+            "::",
+            stringify!(Autoreload)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).ClockDivision) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_InitTypeDef),
+            "::",
+            stringify!(ClockDivision)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).RepetitionCounter) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_InitTypeDef),
+            "::",
+            stringify!(RepetitionCounter)
+        )
+    );
+}
+#[doc = "TIM Output Compare configuration structure definition.\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct LL_TIM_OC_InitTypeDef {
+    #[doc = "Specifies the output mode.\nThis parameter can be a value of  [`TIM_LL_EC_OCMODE`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_OC_SetMode()`]\n\n"]
+    pub OCMode: u32,
+    #[doc = "Specifies the TIM Output Compare state.\nThis parameter can be a value of  [`TIM_LL_EC_OCSTATE`]\nThis feature can be modified afterwards using unitary functions [`LL_TIM_CC_EnableChannel()`] or  [`LL_TIM_CC_DisableChannel()`]\n\n"]
+    pub OCState: u32,
+    #[doc = "Specifies the TIM complementary Output Compare state.\nThis parameter can be a value of  [`TIM_LL_EC_OCSTATE`]\nThis feature can be modified afterwards using unitary functions [`LL_TIM_CC_EnableChannel()`] or  [`LL_TIM_CC_DisableChannel()`]\n\n"]
+    pub OCNState: u32,
+    #[doc = "Specifies the Compare value to be loaded into the Capture Compare Register.\nThis parameter can be a number between Min_Data=0x0000 and Max_Data=0xFFFF.\nThis feature can be modified afterwards using unitary function\nLL_TIM_OC_SetCompareCHx (x=1..6).\n\n"]
+    pub CompareValue: u32,
+    #[doc = "Specifies the output polarity.\nThis parameter can be a value of  [`TIM_LL_EC_OCPOLARITY`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_OC_SetPolarity()`]\n\n"]
+    pub OCPolarity: u32,
+    #[doc = "Specifies the complementary output polarity.\nThis parameter can be a value of  [`TIM_LL_EC_OCPOLARITY`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_OC_SetPolarity()`]\n\n"]
+    pub OCNPolarity: u32,
+    #[doc = "Specifies the TIM Output Compare pin state during Idle state.\nThis parameter can be a value of  [`TIM_LL_EC_OCIDLESTATE`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_OC_SetIdleState()`]\n\n"]
+    pub OCIdleState: u32,
+    #[doc = "Specifies the TIM Output Compare pin state during Idle state.\nThis parameter can be a value of  [`TIM_LL_EC_OCIDLESTATE`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_OC_SetIdleState()`]\n\n"]
+    pub OCNIdleState: u32,
+}
+#[test]
+fn bindgen_test_layout_LL_TIM_OC_InitTypeDef() {
+    const UNINIT: ::core::mem::MaybeUninit<LL_TIM_OC_InitTypeDef> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<LL_TIM_OC_InitTypeDef>(),
+        32usize,
+        concat!("Size of: ", stringify!(LL_TIM_OC_InitTypeDef))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<LL_TIM_OC_InitTypeDef>(),
+        4usize,
+        concat!("Alignment of ", stringify!(LL_TIM_OC_InitTypeDef))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).OCMode) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_OC_InitTypeDef),
+            "::",
+            stringify!(OCMode)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).OCState) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_OC_InitTypeDef),
+            "::",
+            stringify!(OCState)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).OCNState) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_OC_InitTypeDef),
+            "::",
+            stringify!(OCNState)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).CompareValue) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_OC_InitTypeDef),
+            "::",
+            stringify!(CompareValue)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).OCPolarity) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_OC_InitTypeDef),
+            "::",
+            stringify!(OCPolarity)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).OCNPolarity) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_OC_InitTypeDef),
+            "::",
+            stringify!(OCNPolarity)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).OCIdleState) as usize - ptr as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_OC_InitTypeDef),
+            "::",
+            stringify!(OCIdleState)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).OCNIdleState) as usize - ptr as usize },
+        28usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(LL_TIM_OC_InitTypeDef),
+            "::",
+            stringify!(OCNIdleState)
+        )
+    );
+}
+extern "C" {
+    pub fn LL_TIM_DeInit(TIMx: *mut TIM_TypeDef) -> ErrorStatus;
+}
+extern "C" {
+    pub fn LL_TIM_Init(
+        TIMx: *mut TIM_TypeDef,
+        TIM_InitStruct: *const LL_TIM_InitTypeDef,
+    ) -> ErrorStatus;
+}
+extern "C" {
+    pub fn LL_TIM_OC_Init(
+        TIMx: *mut TIM_TypeDef,
+        Channel: u32,
+        TIM_OC_InitStruct: *const LL_TIM_OC_InitTypeDef,
+    ) -> ErrorStatus;
+}
+#[doc = "Timer ISR\n\n"]
+pub type FuriHalInterruptISR =
+    ::core::option::Option<unsafe extern "C" fn(context: *mut core::ffi::c_void)>;
+pub const FuriHalInterruptId_FuriHalInterruptIdTim1TrgComTim17: FuriHalInterruptId = 0;
+pub const FuriHalInterruptId_FuriHalInterruptIdTim1Cc: FuriHalInterruptId = 1;
+pub const FuriHalInterruptId_FuriHalInterruptIdTim1UpTim16: FuriHalInterruptId = 2;
+pub const FuriHalInterruptId_FuriHalInterruptIdTIM2: FuriHalInterruptId = 3;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch1: FuriHalInterruptId = 4;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch2: FuriHalInterruptId = 5;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch3: FuriHalInterruptId = 6;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch4: FuriHalInterruptId = 7;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch5: FuriHalInterruptId = 8;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch6: FuriHalInterruptId = 9;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch7: FuriHalInterruptId = 10;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch1: FuriHalInterruptId = 11;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch2: FuriHalInterruptId = 12;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch3: FuriHalInterruptId = 13;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch4: FuriHalInterruptId = 14;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch5: FuriHalInterruptId = 15;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch6: FuriHalInterruptId = 16;
+pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch7: FuriHalInterruptId = 17;
+pub const FuriHalInterruptId_FuriHalInterruptIdRcc: FuriHalInterruptId = 18;
+pub const FuriHalInterruptId_FuriHalInterruptIdCOMP: FuriHalInterruptId = 19;
+pub const FuriHalInterruptId_FuriHalInterruptIdHsem: FuriHalInterruptId = 20;
+pub const FuriHalInterruptId_FuriHalInterruptIdLpTim1: FuriHalInterruptId = 21;
+pub const FuriHalInterruptId_FuriHalInterruptIdLpTim2: FuriHalInterruptId = 22;
+pub const FuriHalInterruptId_FuriHalInterruptIdMax: FuriHalInterruptId = 23;
+pub type FuriHalInterruptId = core::ffi::c_uchar;
+extern "C" {
+    #[doc = "Set ISR and enable interrupt with default priority We don't clear interrupt flags for you, do it by your self.\n\n# Arguments\n\n* `index` - - interrupt ID\n* `isr` - - your interrupt service routine or use NULL to clear\n* `context` - - isr context\n\n"]
+    pub fn furi_hal_interrupt_set_isr(
+        index: FuriHalInterruptId,
+        isr: FuriHalInterruptISR,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    #[doc = "Set ISR and enable interrupt with custom priority We don't clear interrupt flags for you, do it by your self.\n\n# Arguments\n\n* `index` - - interrupt ID\n* `priority` - - 0 to 15, 0 highest\n* `isr` - - your interrupt service routine or use NULL to clear\n* `context` - - isr context\n\n"]
+    pub fn furi_hal_interrupt_set_isr_ex(
+        index: FuriHalInterruptId,
+        priority: u16,
+        isr: FuriHalInterruptISR,
+        context: *mut core::ffi::c_void,
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Version {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = "Get current running firmware version handle.\nYou can store it somewhere. But if you want to retrieve data, you have to use 'version_*_get()' set of functions. Also, 'version_*_get()' imply to use this handle if no handle (NULL_PTR) provided.\n\nReturns:\n\n* pointer to Version data.\n\n"]
+    pub fn version_get() -> *const Version;
+}
+extern "C" {
+    #[doc = "Get git commit hash.\n\nReturns:\n\n* git hash\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
+    pub fn version_get_githash(v: *const Version) -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get git branch.\n\nReturns:\n\n* git branch\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
+    pub fn version_get_gitbranch(v: *const Version) -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get number of commit in git branch.\n\nReturns:\n\n* number of commit\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
+    pub fn version_get_gitbranchnum(v: *const Version) -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get build date.\n\nReturns:\n\n* build date\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
+    pub fn version_get_builddate(v: *const Version) -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get build version. Build version is last tag in git history.\n\nReturns:\n\n* build date\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
+    pub fn version_get_version(v: *const Version) -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get hardware target this firmware was built for\n\nReturns:\n\n* build date\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
+    pub fn version_get_target(v: *const Version) -> u8;
+}
+extern "C" {
+    #[doc = "Get flag indicating if this build is \"dirty\" (source code had uncommited changes)\n\nReturns:\n\n* build date\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
+    pub fn version_get_dirty_flag(v: *const Version) -> bool;
+}
+extern "C" {
+    #[doc = "Get firmware origin. \"Official\" for mainline firmware, fork name for forks. Set by FIRMWARE_ORIGIN fbt argument.\n\n"]
+    pub fn version_get_firmware_origin(v: *const Version) -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get git repo origin\n\n"]
+    pub fn version_get_git_origin(v: *const Version) -> *const core::ffi::c_char;
+}
+pub const FuriHalVersionOtpVersion_FuriHalVersionOtpVersion0: FuriHalVersionOtpVersion = 0;
+pub const FuriHalVersionOtpVersion_FuriHalVersionOtpVersion1: FuriHalVersionOtpVersion = 1;
+pub const FuriHalVersionOtpVersion_FuriHalVersionOtpVersion2: FuriHalVersionOtpVersion = 2;
+pub const FuriHalVersionOtpVersion_FuriHalVersionOtpVersionEmpty: FuriHalVersionOtpVersion =
+    4294967294;
+pub const FuriHalVersionOtpVersion_FuriHalVersionOtpVersionUnknown: FuriHalVersionOtpVersion =
+    4294967295;
+#[doc = "OTP Versions enum\n\n"]
+pub type FuriHalVersionOtpVersion = core::ffi::c_uint;
+pub const FuriHalVersionColor_FuriHalVersionColorUnknown: FuriHalVersionColor = 0;
+pub const FuriHalVersionColor_FuriHalVersionColorBlack: FuriHalVersionColor = 1;
+pub const FuriHalVersionColor_FuriHalVersionColorWhite: FuriHalVersionColor = 2;
+#[doc = "Device Colors\n\n"]
+pub type FuriHalVersionColor = core::ffi::c_uchar;
+pub const FuriHalVersionRegion_FuriHalVersionRegionUnknown: FuriHalVersionRegion = 0;
+pub const FuriHalVersionRegion_FuriHalVersionRegionEuRu: FuriHalVersionRegion = 1;
+pub const FuriHalVersionRegion_FuriHalVersionRegionUsCaAu: FuriHalVersionRegion = 2;
+pub const FuriHalVersionRegion_FuriHalVersionRegionJp: FuriHalVersionRegion = 3;
+pub const FuriHalVersionRegion_FuriHalVersionRegionWorld: FuriHalVersionRegion = 4;
+#[doc = "Device Regions\n\n"]
+pub type FuriHalVersionRegion = core::ffi::c_uchar;
+pub const FuriHalVersionDisplay_FuriHalVersionDisplayUnknown: FuriHalVersionDisplay = 0;
+pub const FuriHalVersionDisplay_FuriHalVersionDisplayErc: FuriHalVersionDisplay = 1;
+pub const FuriHalVersionDisplay_FuriHalVersionDisplayMgg: FuriHalVersionDisplay = 2;
+#[doc = "Device Display\n\n"]
+pub type FuriHalVersionDisplay = core::ffi::c_uchar;
+extern "C" {
+    #[doc = "Check target firmware version\n\nReturns:\n\n* true if target and real matches\n\n"]
+    pub fn furi_hal_version_do_i_belong_here() -> bool;
+}
+extern "C" {
+    #[doc = "Get model name\n\nReturns:\n\n* model name C-string\n\n"]
+    pub fn furi_hal_version_get_model_name() -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get model name\n\nReturns:\n\n* model code C-string\n\n"]
+    pub fn furi_hal_version_get_model_code() -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get FCC ID\n\nReturns:\n\n* FCC id as C-string\n\n"]
+    pub fn furi_hal_version_get_fcc_id() -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get IC id\n\nReturns:\n\n* IC id as C-string\n\n"]
+    pub fn furi_hal_version_get_ic_id() -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get MIC id\n\nReturns:\n\n* MIC id as C-string\n\n"]
+    pub fn furi_hal_version_get_mic_id() -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get OTP version\n\nReturns:\n\n* OTP Version\n\n"]
+    pub fn furi_hal_version_get_otp_version() -> FuriHalVersionOtpVersion;
+}
+extern "C" {
+    #[doc = "Get hardware version\n\nReturns:\n\n* Hardware Version\n\n"]
+    pub fn furi_hal_version_get_hw_version() -> u8;
+}
+extern "C" {
+    #[doc = "Get hardware target\n\nReturns:\n\n* Hardware Target\n\n"]
+    pub fn furi_hal_version_get_hw_target() -> u8;
+}
+extern "C" {
+    #[doc = "Get hardware body\n\nReturns:\n\n* Hardware Body\n\n"]
+    pub fn furi_hal_version_get_hw_body() -> u8;
+}
+extern "C" {
+    #[doc = "Get hardware body color\n\nReturns:\n\n* Hardware Color\n\n"]
+    pub fn furi_hal_version_get_hw_color() -> FuriHalVersionColor;
+}
+extern "C" {
+    #[doc = "Get hardware connect\n\nReturns:\n\n* Hardware Interconnect\n\n"]
+    pub fn furi_hal_version_get_hw_connect() -> u8;
+}
+extern "C" {
+    #[doc = "Get hardware region\n\nReturns:\n\n* Hardware Region\n\n"]
+    pub fn furi_hal_version_get_hw_region() -> FuriHalVersionRegion;
+}
+extern "C" {
+    #[doc = "Get hardware region name\n\nReturns:\n\n* Hardware Region name\n\n"]
+    pub fn furi_hal_version_get_hw_region_name() -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get hardware display id\n\nReturns:\n\n* Display id\n\n"]
+    pub fn furi_hal_version_get_hw_display() -> FuriHalVersionDisplay;
+}
+extern "C" {
+    #[doc = "Get hardware timestamp\n\nReturns:\n\n* Hardware Manufacture timestamp\n\n"]
+    pub fn furi_hal_version_get_hw_timestamp() -> u32;
+}
+extern "C" {
+    #[doc = "Get pointer to target name\n\nReturns:\n\n* Hardware Name C-string\n\n"]
+    pub fn furi_hal_version_get_name_ptr() -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get pointer to target device name\n\nReturns:\n\n* Hardware Device Name C-string\n\n"]
+    pub fn furi_hal_version_get_device_name_ptr() -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get pointer to target ble local device name\n\nReturns:\n\n* Ble Device Name C-string\n\n"]
+    pub fn furi_hal_version_get_ble_local_device_name_ptr() -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get BLE MAC address\n\nReturns:\n\n* pointer to BLE MAC address\n\n"]
+    pub fn furi_hal_version_get_ble_mac() -> *const u8;
+}
+extern "C" {
+    #[doc = "Get address of version structure of firmware.\n\nReturns:\n\n* Address of firmware version structure.\n\n"]
+    pub fn furi_hal_version_get_firmware_version() -> *const Version;
+}
+extern "C" {
+    #[doc = "Get platform UID size in bytes\n\nReturns:\n\n* UID size in bytes\n\n"]
+    pub fn furi_hal_version_uid_size() -> usize;
+}
+extern "C" {
+    #[doc = "Get const pointer to UID\n\nReturns:\n\n* pointer to UID\n\n"]
+    pub fn furi_hal_version_uid() -> *const u8;
+}
+pub const GapEventType_GapEventTypeConnected: GapEventType = 0;
+pub const GapEventType_GapEventTypeDisconnected: GapEventType = 1;
+pub const GapEventType_GapEventTypeStartAdvertising: GapEventType = 2;
+pub const GapEventType_GapEventTypeStopAdvertising: GapEventType = 3;
+pub const GapEventType_GapEventTypePinCodeShow: GapEventType = 4;
+pub const GapEventType_GapEventTypePinCodeVerify: GapEventType = 5;
+pub const GapEventType_GapEventTypeUpdateMTU: GapEventType = 6;
+pub type GapEventType = core::ffi::c_uchar;
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union GapEventData {
+    pub pin_code: u32,
+    pub max_packet_size: u16,
+}
+#[test]
+fn bindgen_test_layout_GapEventData() {
+    const UNINIT: ::core::mem::MaybeUninit<GapEventData> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<GapEventData>(),
+        4usize,
+        concat!("Size of: ", stringify!(GapEventData))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<GapEventData>(),
+        4usize,
+        concat!("Alignment of ", stringify!(GapEventData))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).pin_code) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(GapEventData),
+            "::",
+            stringify!(pin_code)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).max_packet_size) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(GapEventData),
+            "::",
+            stringify!(max_packet_size)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct GapEvent {
+    pub type_: GapEventType,
+    pub data: GapEventData,
+}
+#[test]
+fn bindgen_test_layout_GapEvent() {
+    const UNINIT: ::core::mem::MaybeUninit<GapEvent> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<GapEvent>(),
+        8usize,
+        concat!("Size of: ", stringify!(GapEvent))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<GapEvent>(),
+        4usize,
+        concat!("Alignment of ", stringify!(GapEvent))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(GapEvent),
+            "::",
+            stringify!(type_)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(GapEvent),
+            "::",
+            stringify!(data)
+        )
+    );
+}
+pub type GapEventCallback = ::core::option::Option<
+    unsafe extern "C" fn(event: GapEvent, context: *mut core::ffi::c_void) -> bool,
+>;
+pub const SerialServiceEventType_SerialServiceEventTypeDataReceived: SerialServiceEventType = 0;
+pub const SerialServiceEventType_SerialServiceEventTypeDataSent: SerialServiceEventType = 1;
+pub const SerialServiceEventType_SerialServiceEventTypesBleResetRequest: SerialServiceEventType = 2;
+pub type SerialServiceEventType = core::ffi::c_uchar;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct SerialServiceData {
+    pub buffer: *mut u8,
+    pub size: u16,
+}
+#[test]
+fn bindgen_test_layout_SerialServiceData() {
+    const UNINIT: ::core::mem::MaybeUninit<SerialServiceData> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<SerialServiceData>(),
+        8usize,
+        concat!("Size of: ", stringify!(SerialServiceData))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<SerialServiceData>(),
+        4usize,
+        concat!("Alignment of ", stringify!(SerialServiceData))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).buffer) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SerialServiceData),
+            "::",
+            stringify!(buffer)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SerialServiceData),
+            "::",
+            stringify!(size)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct SerialServiceEvent {
+    pub event: SerialServiceEventType,
+    pub data: SerialServiceData,
+}
+#[test]
+fn bindgen_test_layout_SerialServiceEvent() {
+    const UNINIT: ::core::mem::MaybeUninit<SerialServiceEvent> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<SerialServiceEvent>(),
+        12usize,
+        concat!("Size of: ", stringify!(SerialServiceEvent))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<SerialServiceEvent>(),
+        4usize,
+        concat!("Alignment of ", stringify!(SerialServiceEvent))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).event) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SerialServiceEvent),
+            "::",
+            stringify!(event)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SerialServiceEvent),
+            "::",
+            stringify!(data)
+        )
+    );
+}
+pub type SerialServiceEventCallback = ::core::option::Option<
+    unsafe extern "C" fn(event: SerialServiceEvent, context: *mut core::ffi::c_void) -> u16,
+>;
+pub const BleGlueC2Mode_BleGlueC2ModeUnknown: BleGlueC2Mode = 0;
+pub const BleGlueC2Mode_BleGlueC2ModeFUS: BleGlueC2Mode = 1;
+pub const BleGlueC2Mode_BleGlueC2ModeStack: BleGlueC2Mode = 2;
+pub type BleGlueC2Mode = core::ffi::c_uchar;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct BleGlueC2Info {
+    pub mode: BleGlueC2Mode,
+    #[doc = "Wireless Info\n\n"]
+    pub VersionMajor: u8,
+    pub VersionMinor: u8,
+    pub VersionSub: u8,
+    pub VersionBranch: u8,
+    pub VersionReleaseType: u8,
+    pub MemorySizeSram2B: u8,
+    pub MemorySizeSram2A: u8,
+    pub MemorySizeSram1: u8,
+    pub MemorySizeFlash: u8,
+    pub StackType: u8,
+    pub StackTypeString: [core::ffi::c_char; 20usize],
+    #[doc = "Fus Info\n\n"]
+    pub FusVersionMajor: u8,
+    pub FusVersionMinor: u8,
+    pub FusVersionSub: u8,
+    pub FusMemorySizeSram2B: u8,
+    pub FusMemorySizeSram2A: u8,
+    pub FusMemorySizeFlash: u8,
+}
+#[test]
+fn bindgen_test_layout_BleGlueC2Info() {
+    const UNINIT: ::core::mem::MaybeUninit<BleGlueC2Info> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<BleGlueC2Info>(),
+        37usize,
+        concat!("Size of: ", stringify!(BleGlueC2Info))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<BleGlueC2Info>(),
+        1usize,
+        concat!("Alignment of ", stringify!(BleGlueC2Info))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).mode) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(mode)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).VersionMajor) as usize - ptr as usize },
+        1usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(VersionMajor)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).VersionMinor) as usize - ptr as usize },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(VersionMinor)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).VersionSub) as usize - ptr as usize },
+        3usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(VersionSub)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).VersionBranch) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(VersionBranch)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).VersionReleaseType) as usize - ptr as usize },
+        5usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(VersionReleaseType)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).MemorySizeSram2B) as usize - ptr as usize },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(MemorySizeSram2B)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).MemorySizeSram2A) as usize - ptr as usize },
+        7usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(MemorySizeSram2A)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).MemorySizeSram1) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(MemorySizeSram1)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).MemorySizeFlash) as usize - ptr as usize },
+        9usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(MemorySizeFlash)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).StackType) as usize - ptr as usize },
+        10usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(StackType)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).StackTypeString) as usize - ptr as usize },
+        11usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(StackTypeString)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).FusVersionMajor) as usize - ptr as usize },
+        31usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(FusVersionMajor)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).FusVersionMinor) as usize - ptr as usize },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(FusVersionMinor)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).FusVersionSub) as usize - ptr as usize },
+        33usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(FusVersionSub)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).FusMemorySizeSram2B) as usize - ptr as usize },
+        34usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(FusMemorySizeSram2B)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).FusMemorySizeSram2A) as usize - ptr as usize },
+        35usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(FusMemorySizeSram2A)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).FusMemorySizeFlash) as usize - ptr as usize },
+        36usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(BleGlueC2Info),
+            "::",
+            stringify!(FusMemorySizeFlash)
+        )
+    );
+}
+pub type BleGlueKeyStorageChangedCallback = ::core::option::Option<
+    unsafe extern "C" fn(change_addr_start: *mut u8, size: u16, context: *mut core::ffi::c_void),
+>;
+extern "C" {
+    #[doc = "Initialize start core2 and initialize transport\n\n"]
+    pub fn ble_glue_init();
+}
+extern "C" {
+    #[doc = "Start Core2 Radio stack\n\nReturns:\n\n* true on success\n\n"]
+    pub fn ble_glue_start() -> bool;
+}
+extern "C" {
+    #[doc = "Is core2 alive and at least FUS is running\n\nReturns:\n\n* true if core2 is alive\n\n"]
+    pub fn ble_glue_is_alive() -> bool;
+}
+extern "C" {
+    #[doc = "Waits for C2 to reports its mode to callback\n\nReturns:\n\n* true if it reported before reaching timeout\n\n"]
+    pub fn ble_glue_wait_for_c2_start(timeout: i32) -> bool;
+}
+extern "C" {
+    pub fn ble_glue_get_c2_info() -> *const BleGlueC2Info;
+}
+extern "C" {
+    #[doc = "Is core2 radio stack present and ready\n\nReturns:\n\n* true if present and ready\n\n"]
+    pub fn ble_glue_is_radio_stack_ready() -> bool;
+}
+extern "C" {
+    #[doc = "Set callback for NVM in RAM changes\n\n# Arguments\n\n* `callback` - [Direction: In] The callback to call on NVM change\n* `context` - The context for callback\n\n"]
+    pub fn ble_glue_set_key_storage_changed_callback(
+        callback: BleGlueKeyStorageChangedCallback,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    #[doc = "Stop SHCI thread\n\n"]
+    pub fn ble_glue_thread_stop();
+}
+extern "C" {
+    pub fn ble_glue_reinit_c2() -> bool;
+}
+pub const BleGlueCommandResult_BleGlueCommandResultUnknown: BleGlueCommandResult = 0;
+pub const BleGlueCommandResult_BleGlueCommandResultOK: BleGlueCommandResult = 1;
+pub const BleGlueCommandResult_BleGlueCommandResultError: BleGlueCommandResult = 2;
+pub const BleGlueCommandResult_BleGlueCommandResultRestartPending: BleGlueCommandResult = 3;
+pub const BleGlueCommandResult_BleGlueCommandResultOperationOngoing: BleGlueCommandResult = 4;
+pub type BleGlueCommandResult = core::ffi::c_uchar;
+extern "C" {
+    #[doc = "Restart MCU to launch radio stack firmware if necessary\n\nReturns:\n\n* true on radio stack start command\n\n"]
+    pub fn ble_glue_force_c2_mode(mode: BleGlueC2Mode) -> BleGlueCommandResult;
+}
+extern "C" {
+    pub fn ble_app_init() -> bool;
+}
+extern "C" {
+    pub fn ble_app_get_key_storage_buff(addr: *mut *mut u8, size: *mut u16);
+}
+extern "C" {
+    pub fn ble_app_thread_stop();
+}
+pub const FuriHalBtSerialRpcStatus_FuriHalBtSerialRpcStatusNotActive: FuriHalBtSerialRpcStatus = 0;
+pub const FuriHalBtSerialRpcStatus_FuriHalBtSerialRpcStatusActive: FuriHalBtSerialRpcStatus = 1;
+pub type FuriHalBtSerialRpcStatus = core::ffi::c_uchar;
+#[doc = "Serial service callback type\n\n"]
+pub type FuriHalBtSerialCallback = SerialServiceEventCallback;
+extern "C" {
+    #[doc = "Start Serial Profile\n\n"]
+    pub fn furi_hal_bt_serial_start();
+}
+extern "C" {
+    #[doc = "Stop Serial Profile\n\n"]
+    pub fn furi_hal_bt_serial_stop();
+}
+extern "C" {
+    #[doc = "Set Serial service events callback\n\n# Arguments\n\n* `buffer_size` - Applicaition buffer size\n* `calback` - FuriHalBtSerialCallback instance\n* `context` - pointer to context\n\n"]
+    pub fn furi_hal_bt_serial_set_event_callback(
+        buff_size: u16,
+        callback: FuriHalBtSerialCallback,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    #[doc = "Set BLE RPC status\n\n# Arguments\n\n* `status` - FuriHalBtSerialRpcStatus instance\n\n"]
+    pub fn furi_hal_bt_serial_set_rpc_status(status: FuriHalBtSerialRpcStatus);
+}
+extern "C" {
+    #[doc = "Notify that application buffer is empty\n\n"]
+    pub fn furi_hal_bt_serial_notify_buffer_is_empty();
+}
+extern "C" {
+    #[doc = "Send data through BLE\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `data` - data buffer\n* `size` - data buffer size\n\n"]
+    pub fn furi_hal_bt_serial_tx(data: *mut u8, size: u16) -> bool;
+}
+pub const FuriHalBtStack_FuriHalBtStackUnknown: FuriHalBtStack = 0;
+pub const FuriHalBtStack_FuriHalBtStackLight: FuriHalBtStack = 1;
+pub const FuriHalBtStack_FuriHalBtStackFull: FuriHalBtStack = 2;
+pub type FuriHalBtStack = core::ffi::c_uchar;
+pub const FuriHalBtProfile_FuriHalBtProfileSerial: FuriHalBtProfile = 0;
+pub const FuriHalBtProfile_FuriHalBtProfileHidKeyboard: FuriHalBtProfile = 1;
+pub const FuriHalBtProfile_FuriHalBtProfileNumber: FuriHalBtProfile = 2;
+pub type FuriHalBtProfile = core::ffi::c_uchar;
+extern "C" {
+    #[doc = "Lock core2 state transition\n\n"]
+    pub fn furi_hal_bt_lock_core2();
+}
+extern "C" {
+    #[doc = "Lock core2 state transition\n\n"]
+    pub fn furi_hal_bt_unlock_core2();
+}
+extern "C" {
+    #[doc = "Start radio stack\n\nReturns:\n\n* true on successfull radio stack start\n\n"]
+    pub fn furi_hal_bt_start_radio_stack() -> bool;
+}
+extern "C" {
+    #[doc = "Get radio stack type\n\nReturns:\n\n* FuriHalBtStack instance\n\n"]
+    pub fn furi_hal_bt_get_radio_stack() -> FuriHalBtStack;
+}
+extern "C" {
+    #[doc = "Check if radio stack supports BLE GAT/GAP\n\nReturns:\n\n* true if supported\n\n"]
+    pub fn furi_hal_bt_is_ble_gatt_gap_supported() -> bool;
+}
+extern "C" {
+    #[doc = "Check if radio stack supports testing\n\nReturns:\n\n* true if supported\n\n"]
+    pub fn furi_hal_bt_is_testing_supported() -> bool;
+}
+extern "C" {
+    #[doc = "Start BLE app\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `profile` - FuriHalBtProfile instance\n* `event_cb` - GapEventCallback instance\n* `context` - pointer to context\n\n"]
+    pub fn furi_hal_bt_start_app(
+        profile: FuriHalBtProfile,
+        event_cb: GapEventCallback,
+        context: *mut core::ffi::c_void,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Reinitialize core2\nAlso can be used to prepare core2 for stop modes\n\n"]
+    pub fn furi_hal_bt_reinit();
+}
+extern "C" {
+    #[doc = "Change BLE app Restarts 2nd core\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `profile` - FuriHalBtProfile instance\n* `event_cb` - GapEventCallback instance\n* `context` - pointer to context\n\n"]
+    pub fn furi_hal_bt_change_app(
+        profile: FuriHalBtProfile,
+        event_cb: GapEventCallback,
+        context: *mut core::ffi::c_void,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Update battery level\n\n# Arguments\n\n* `battery_level` - battery level\n\n"]
+    pub fn furi_hal_bt_update_battery_level(battery_level: u8);
+}
+extern "C" {
+    #[doc = "Update battery power state\n\n"]
+    pub fn furi_hal_bt_update_power_state();
+}
+extern "C" {
+    #[doc = "Checks if BLE state is active\n\nReturns:\n\n* true if device is connected or advertising, false otherwise\n\n"]
+    pub fn furi_hal_bt_is_active() -> bool;
+}
+extern "C" {
+    #[doc = "Start advertising\n\n"]
+    pub fn furi_hal_bt_start_advertising();
+}
+extern "C" {
+    #[doc = "Stop advertising\n\n"]
+    pub fn furi_hal_bt_stop_advertising();
+}
+extern "C" {
+    #[doc = "Get BT/BLE system component state\n\n# Arguments\n\n* `buffer` - [Direction: In] FuriString* buffer to write to\n\n"]
+    pub fn furi_hal_bt_dump_state(buffer: *mut FuriString);
+}
+extern "C" {
+    #[doc = "Get BT/BLE system component state\n\nReturns:\n\n* true if core2 is alive\n\n"]
+    pub fn furi_hal_bt_is_alive() -> bool;
+}
+extern "C" {
+    #[doc = "Get key storage buffer address and size\n\n# Arguments\n\n* `key_buff_addr` - pointer to store buffer address\n* `key_buff_size` - pointer to store buffer size\n\n"]
+    pub fn furi_hal_bt_get_key_storage_buff(key_buff_addr: *mut *mut u8, key_buff_size: *mut u16);
+}
+extern "C" {
+    #[doc = "Get SRAM2 hardware semaphore\n\n# Notes\n\n* Must be called before SRAM2 read/write operations\n\n"]
+    pub fn furi_hal_bt_nvm_sram_sem_acquire();
+}
+extern "C" {
+    #[doc = "Release SRAM2 hardware semaphore\n\n# Notes\n\n* Must be called after SRAM2 read/write operations\n\n"]
+    pub fn furi_hal_bt_nvm_sram_sem_release();
+}
+extern "C" {
+    #[doc = "Clear key storage\n\nReturns:\n\n* true on success\n\n"]
+    pub fn furi_hal_bt_clear_white_list() -> bool;
+}
+extern "C" {
+    #[doc = "Set key storage change callback\n\n# Arguments\n\n* `callback` - BleGlueKeyStorageChangedCallback instance\n* `context` - pointer to context\n\n"]
+    pub fn furi_hal_bt_set_key_storage_change_callback(
+        callback: BleGlueKeyStorageChangedCallback,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    #[doc = "Start ble tone tx at given channel and power\n\n# Arguments\n\n* `channel` - [Direction: In] The channel\n* `power` - [Direction: In] The power\n\n"]
+    pub fn furi_hal_bt_start_tone_tx(channel: u8, power: u8);
+}
+extern "C" {
+    #[doc = "Stop ble tone tx\n\n"]
+    pub fn furi_hal_bt_stop_tone_tx();
+}
+extern "C" {
+    #[doc = "Start sending ble packets at a given frequency and datarate\n\n# Arguments\n\n* `channel` - [Direction: In] The channel\n* `pattern` - [Direction: In] The pattern\n* `datarate` - [Direction: In] The datarate\n\n"]
+    pub fn furi_hal_bt_start_packet_tx(channel: u8, pattern: u8, datarate: u8);
+}
+extern "C" {
+    #[doc = "Stop sending ble packets\n\nReturns:\n\n* sent packet count\n\n"]
+    pub fn furi_hal_bt_stop_packet_test() -> u16;
+}
+extern "C" {
+    #[doc = "Start receiving packets\n\n# Arguments\n\n* `channel` - [Direction: In] RX channel\n* `datarate` - [Direction: In] Datarate\n\n"]
+    pub fn furi_hal_bt_start_packet_rx(channel: u8, datarate: u8);
+}
+extern "C" {
+    #[doc = "Set up the RF to listen to a given RF channel\n\n# Arguments\n\n* `channel` - [Direction: In] RX channel\n\n"]
+    pub fn furi_hal_bt_start_rx(channel: u8);
+}
+extern "C" {
+    #[doc = "Stop RF listenning\n\n"]
+    pub fn furi_hal_bt_stop_rx();
+}
+extern "C" {
+    #[doc = "Get RSSI\n\nReturns:\n\n* RSSI in dBm\n\n"]
+    pub fn furi_hal_bt_get_rssi() -> f32;
+}
+extern "C" {
+    #[doc = "Get number of transmitted packets\n\nReturns:\n\n* packet count\n\n"]
+    pub fn furi_hal_bt_get_transmitted_packets() -> u32;
+}
+extern "C" {
+    #[doc = "Check & switch C2 to given mode\n\n# Arguments\n\n* `mode` - [Direction: In] mode to switch into\n\n"]
+    pub fn furi_hal_bt_ensure_c2_mode(mode: BleGlueC2Mode) -> bool;
+}
+extern "C" {
+    #[doc = "Preset for ST25R916\n\n"]
+    pub static furi_hal_spi_preset_2edge_low_8m: LL_SPI_InitTypeDef;
+}
+extern "C" {
+    #[doc = "Preset for CC1101\n\n"]
+    pub static furi_hal_spi_preset_1edge_low_8m: LL_SPI_InitTypeDef;
+}
+extern "C" {
+    #[doc = "Preset for ST7567 (Display)\n\n"]
+    pub static furi_hal_spi_preset_1edge_low_4m: LL_SPI_InitTypeDef;
+}
+extern "C" {
+    #[doc = "Preset for SdCard in fast mode\n\n"]
+    pub static furi_hal_spi_preset_1edge_low_16m: LL_SPI_InitTypeDef;
+}
+extern "C" {
+    #[doc = "Preset for SdCard in slow mode\n\n"]
+    pub static furi_hal_spi_preset_1edge_low_2m: LL_SPI_InitTypeDef;
+}
+extern "C" {
+    #[doc = "Furi Hal Spi Bus R (Radio: CC1101, Nfc, External)\n\n"]
+    pub static mut furi_hal_spi_bus_r: FuriHalSpiBus;
+}
+extern "C" {
+    #[doc = "Furi Hal Spi Bus D (Display, SdCard)\n\n"]
+    pub static mut furi_hal_spi_bus_d: FuriHalSpiBus;
+}
+extern "C" {
+    #[doc = "CC1101 on `furi_hal_spi_bus_r`\n\n"]
+    pub static mut furi_hal_spi_bus_handle_subghz: FuriHalSpiBusHandle;
+}
+extern "C" {
+    #[doc = "ST25R3916 on `furi_hal_spi_bus_r`\n\n"]
+    pub static mut furi_hal_spi_bus_handle_nfc: FuriHalSpiBusHandle;
+}
+extern "C" {
+    #[doc = "External on `furi_hal_spi_bus_r` Preset: `furi_hal_spi_preset_1edge_low_2m`\nmiso: pa6 mosi: pa7 sck: pb3 cs:  pa4 (software controlled)\n\n**Warning!**\n\n* not initialized by default, call `furi_hal_spi_bus_handle_init` to initialize Bus pins are floating on inactive state, CS high after initialization\n\n"]
+    pub static mut furi_hal_spi_bus_handle_external: FuriHalSpiBusHandle;
+}
+extern "C" {
+    #[doc = "ST7567(Display) on `furi_hal_spi_bus_d`\n\n"]
+    pub static mut furi_hal_spi_bus_handle_display: FuriHalSpiBusHandle;
+}
+extern "C" {
+    #[doc = "SdCard in fast mode on `furi_hal_spi_bus_d`\n\n"]
+    pub static mut furi_hal_spi_bus_handle_sd_fast: FuriHalSpiBusHandle;
+}
+extern "C" {
+    #[doc = "SdCard in slow mode on `furi_hal_spi_bus_d`\n\n"]
+    pub static mut furi_hal_spi_bus_handle_sd_slow: FuriHalSpiBusHandle;
+}
+extern "C" {
+    #[doc = "Initialize SPI Bus\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBus instance\n\n"]
+    pub fn furi_hal_spi_bus_init(bus: *mut FuriHalSpiBus);
+}
+extern "C" {
+    #[doc = "Deinitialize SPI Bus\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBus instance\n\n"]
+    pub fn furi_hal_spi_bus_deinit(bus: *mut FuriHalSpiBus);
+}
+extern "C" {
+    #[doc = "Initialize SPI Bus Handle\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n\n"]
+    pub fn furi_hal_spi_bus_handle_init(handle: *mut FuriHalSpiBusHandle);
+}
+extern "C" {
+    #[doc = "Deinitialize SPI Bus Handle\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n\n"]
+    pub fn furi_hal_spi_bus_handle_deinit(handle: *mut FuriHalSpiBusHandle);
+}
+extern "C" {
+    #[doc = "Acquire SPI bus\n\n**Warning!**\n\n* blocking, calls `furi_crash` on programming error, CS transition is up to handler event routine\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n\n"]
+    pub fn furi_hal_spi_acquire(handle: *mut FuriHalSpiBusHandle);
+}
+extern "C" {
+    #[doc = "Release SPI bus\n\n**Warning!**\n\n* calls `furi_crash` on programming error, CS transition is up to handler event routine\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n\n"]
+    pub fn furi_hal_spi_release(handle: *mut FuriHalSpiBusHandle);
+}
+extern "C" {
+    #[doc = "SPI Receive\n\nReturns:\n\n* true on sucess\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n* `buffer` - receive buffer\n* `size` - transaction size (buffer size)\n* `timeout` - operation timeout in ms\n\n"]
+    pub fn furi_hal_spi_bus_rx(
+        handle: *mut FuriHalSpiBusHandle,
+        buffer: *mut u8,
+        size: usize,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "SPI Transmit\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n* `buffer` - transmit buffer\n* `size` - transaction size (buffer size)\n* `timeout` - operation timeout in ms\n\n"]
+    pub fn furi_hal_spi_bus_tx(
+        handle: *mut FuriHalSpiBusHandle,
+        buffer: *const u8,
+        size: usize,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "SPI Transmit and Receive\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n* `tx_buffer` - pointer to tx buffer\n* `rx_buffer` - pointer to rx buffer\n* `size` - transaction size (buffer size)\n* `timeout` - operation timeout in ms\n\n"]
+    pub fn furi_hal_spi_bus_trx(
+        handle: *mut FuriHalSpiBusHandle,
+        tx_buffer: *const u8,
+        rx_buffer: *mut u8,
+        size: usize,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "SPI Transmit and Receive with DMA\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n* `tx_buffer` - pointer to tx buffer\n* `rx_buffer` - pointer to rx buffer\n* `size` - transaction size (buffer size)\n* `timeout_ms` - operation timeout in ms\n\n"]
+    pub fn furi_hal_spi_bus_trx_dma(
+        handle: *mut FuriHalSpiBusHandle,
+        tx_buffer: *mut u8,
+        rx_buffer: *mut u8,
+        size: usize,
+        timeout_ms: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Turn on/off vibro\n\n# Arguments\n\n* `value` - [Direction: In] new state\n\n"]
+    pub fn furi_hal_vibro_on(value: bool);
+}
+#[doc = "<\\brief Function has an error, STALLPID will be issued.\n\n"]
+pub const _usbd_respond_usbd_fail: _usbd_respond = 0;
+#[doc = "<\\brief Function completes request accepted ZLP or data will be send.\n\n"]
+pub const _usbd_respond_usbd_ack: _usbd_respond = 1;
+#[doc = "<\\brief Function is busy. NAK handshake.\n\n"]
+pub const _usbd_respond_usbd_nak: _usbd_respond = 2;
+#[doc = "Reporting status results.\n\n"]
+pub type _usbd_respond = core::ffi::c_uchar;
+#[doc = "Reporting status results.\n\n"]
+pub use self::_usbd_respond as usbd_respond;
+#[doc = "Represents a USB device data.\n\n"]
+pub type usbd_device = _usbd_device;
+#[doc = "Represents generic USB control request.\n\n"]
+#[repr(C)]
+#[derive(Debug)]
+pub struct usbd_ctlreq {
+    #[doc = "<\\brief This bitmapped field identifies the characteristics of the specific request.\n\n"]
+    pub bmRequestType: u8,
+    #[doc = "<\\brief This field specifies the particular request.\n\n"]
+    pub bRequest: u8,
+    #[doc = "<\\brief It is used to pass a parameter to the device, specific to the request.\n\n"]
+    pub wValue: u16,
+    #[doc = "<\\brief It is used to pass a parameter to the device, specific to the request.\n\n"]
+    pub wIndex: u16,
+    #[doc = "<\\brief This field specifies the length of the data transferred during the second phase of the control transfer.\n\n"]
+    pub wLength: u16,
+    #[doc = "<\\brief Data payload.\n\n"]
+    pub data: __IncompleteArrayField<u8>,
+}
+#[test]
+fn bindgen_test_layout_usbd_ctlreq() {
+    const UNINIT: ::core::mem::MaybeUninit<usbd_ctlreq> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<usbd_ctlreq>(),
+        8usize,
+        concat!("Size of: ", stringify!(usbd_ctlreq))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<usbd_ctlreq>(),
+        2usize,
+        concat!("Alignment of ", stringify!(usbd_ctlreq))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bmRequestType) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_ctlreq),
+            "::",
+            stringify!(bmRequestType)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bRequest) as usize - ptr as usize },
+        1usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_ctlreq),
+            "::",
+            stringify!(bRequest)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).wValue) as usize - ptr as usize },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_ctlreq),
+            "::",
+            stringify!(wValue)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).wIndex) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_ctlreq),
+            "::",
+            stringify!(wIndex)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).wLength) as usize - ptr as usize },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_ctlreq),
+            "::",
+            stringify!(wLength)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_ctlreq),
+            "::",
+            stringify!(data)
+        )
+    );
+}
+#[doc = "USB device status data.\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct usbd_status {
+    #[doc = "<\\brief Pointer to data buffer used for control requests.\n\n"]
+    pub data_buf: *mut core::ffi::c_void,
+    #[doc = "<\\brief Pointer to current data for control request.\n\n"]
+    pub data_ptr: *mut core::ffi::c_void,
+    #[doc = "<\\brief Count remained data for control request.\n\n"]
+    pub data_count: u16,
+    #[doc = "<\\brief Size of the data buffer for control requests.\n\n"]
+    pub data_maxsize: u16,
+    #[doc = "<\\brief Size of the control endpoint.\n\n"]
+    pub ep0size: u8,
+    #[doc = "<\\brief Current device configuration number.\n\n"]
+    pub device_cfg: u8,
+    #[doc = "<\\brief Current  [`usbd_machine_state`]\n\n"]
+    pub device_state: u8,
+    #[doc = "<\\brief Current  [`usbd_ctl_state`]\n\n"]
+    pub control_state: u8,
+}
+#[test]
+fn bindgen_test_layout_usbd_status() {
+    const UNINIT: ::core::mem::MaybeUninit<usbd_status> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<usbd_status>(),
+        16usize,
+        concat!("Size of: ", stringify!(usbd_status))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<usbd_status>(),
+        4usize,
+        concat!("Alignment of ", stringify!(usbd_status))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).data_buf) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_status),
+            "::",
+            stringify!(data_buf)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).data_ptr) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_status),
+            "::",
+            stringify!(data_ptr)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).data_count) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_status),
+            "::",
+            stringify!(data_count)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).data_maxsize) as usize - ptr as usize },
+        10usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_status),
+            "::",
+            stringify!(data_maxsize)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).ep0size) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_status),
+            "::",
+            stringify!(ep0size)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).device_cfg) as usize - ptr as usize },
+        13usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_status),
+            "::",
+            stringify!(device_cfg)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).device_state) as usize - ptr as usize },
+        14usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_status),
+            "::",
+            stringify!(device_state)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).control_state) as usize - ptr as usize },
+        15usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_status),
+            "::",
+            stringify!(control_state)
+        )
+    );
+}
+#[doc = "Generic USB device event callback for events and endpoints processing\n\n# Arguments\n\n* `dev` - [Direction: In] pointer to USB device\n* `event` - [`USB_EVENTS`] \"USB event\"\n* `ep` - active endpoint number\n\n# Notes\n\n* endpoints with same indexes i.e. 0x01 and 0x81 shares same callback.\n\n"]
+pub type usbd_evt_callback =
+    ::core::option::Option<unsafe extern "C" fn(dev: *mut usbd_device, event: u8, ep: u8)>;
+#[doc = "USB control transfer completed callback function.\n\n# Arguments\n\n* `dev` - [Direction: In] pointer to USB device\n* `req` - [Direction: In] pointer to usb request structure\n\n# Notes\n\n* usbd_device->complete_callback will be set to NULL after this callback completion.\n\n"]
+pub type usbd_rqc_callback =
+    ::core::option::Option<unsafe extern "C" fn(dev: *mut usbd_device, req: *mut usbd_ctlreq)>;
+#[doc = "USB control callback function.\n\nUses for the control request processing. Some requests will be handled by core if callback don't process it (returns FALSE).\n*  If request was not processed STALL PID will be issued.\n* GET_CONFIGURATION\n* SET_CONFIGURATION (passes to  [`usbd_cfg_callback)`]\n* GET_DESCRIPTOR (passes to  [`usbd_dsc_callback)`]\n* GET_STATUS\n* SET_FEATURE, CLEAR_FEATURE (endpoints only)\n* SET_ADDRESS\n\nReturns:\n\n* usbd_respond status.\n\n# Arguments\n\n* `dev` - [Direction: In] points to USB device\n* `req` - [Direction: In] points to usb control request\n* `*callback` - [Direction: In, Out] USB control transfer completion callback, default is NULL (no callback)\n\n"]
+pub type usbd_ctl_callback = ::core::option::Option<
+    unsafe extern "C" fn(
+        dev: *mut usbd_device,
+        req: *mut usbd_ctlreq,
+        callback: *mut usbd_rqc_callback,
+    ) -> usbd_respond,
+>;
+#[doc = "USB get descriptor callback function\n\nCalled when GET_DESCRIPTOR request issued\n\nReturns:\n\n* usbd_ack if you passed the correct descriptor, usbd_fail otherwise.\n\n# Arguments\n\n* `req` - [Direction: In] pointer to usb control request structure\n* `address` - [Direction: Out] pointer to the descriptor in memory. Points to req->data by default. You can use this buffer.\n* `dsize` - [Direction: Out] descriptor size. maximum buffer size by default.\n\n"]
+pub type usbd_dsc_callback = ::core::option::Option<
+    unsafe extern "C" fn(
+        req: *mut usbd_ctlreq,
+        address: *mut *mut core::ffi::c_void,
+        dsize: *mut u16,
+    ) -> usbd_respond,
+>;
+#[doc = "USB set configuration callback function\n\ncalled when SET_CONFIGURATION request issued\n\nReturns:\n\n* TRUE if success\n\n# Arguments\n\n* `dev` - [Direction: In] pointer to USB device\n* `cfg` - [Direction: In] configuration number.\n\n# Notes\n\n* if config is 0 device endpoints should be de-configured\n\n"]
+pub type usbd_cfg_callback =
+    ::core::option::Option<unsafe extern "C" fn(dev: *mut usbd_device, cfg: u8) -> usbd_respond>;
+#[doc = "USBD_HW*\n/**\\brief Get USB device status and capabilities.\n\nReturns:\n\n* Hardware status and capabilities [`USBD_HW_CAPS`]\n\n"]
+pub type usbd_hw_getinfo = ::core::option::Option<unsafe extern "C" fn() -> u32>;
+#[doc = "Enables or disables USB hardware\n\n# Arguments\n\n* `enable` - Enables USB when TRUE disables otherwise.\n\n"]
+pub type usbd_hw_enable = ::core::option::Option<unsafe extern "C" fn(enable: bool)>;
+#[doc = "Connects or disconnects USB hardware to/from usb host\n\nReturns:\n\n* lanes connection status.\n\n# Arguments\n\n* `connect` - Connects USB to host if TRUE, disconnects otherwise\n\n"]
+pub type usbd_hw_connect = ::core::option::Option<unsafe extern "C" fn(connect: bool) -> u8>;
+#[doc = "Sets USB hardware address\n\n# Arguments\n\n* `address` - USB address\n\n"]
+pub type usbd_hw_setaddr = ::core::option::Option<unsafe extern "C" fn(address: u8)>;
+#[doc = "Configures endpoint\n\nReturns:\n\n* TRUE if success\n\n# Arguments\n\n* `ep` - endpoint address. Use USB_EPDIR_ macros to set endpoint direction\n* `eptype` - endpoint type. Use USB_EPTYPE_* macros.\n* `epsize` - endpoint size in bytes\n\n"]
+pub type usbd_hw_ep_config =
+    ::core::option::Option<unsafe extern "C" fn(ep: u8, eptype: u8, epsize: u16) -> bool>;
+#[doc = "De-configures, cleans and disables endpoint\n\n# Arguments\n\n* `ep` - endpoint index\n\n# Notes\n\n* if you have two one-direction single-buffered endpoints with same index (i.e. 0x02 and 0x82) both will be deconfigured.\n\n"]
+pub type usbd_hw_ep_deconfig = ::core::option::Option<unsafe extern "C" fn(ep: u8)>;
+#[doc = "Reads data from OUT or control endpoint\n\nReturns:\n\n* size of the actually received data, -1 on error.\n\n# Arguments\n\n* `ep` - endpoint index, should belong to OUT or CONTROL endpoint.\n* `buf` - pointer to read buffer\n* `blen` - size of the read buffer in bytes\n\n# Notes\n\n* if data does not fit buffer it will be truncated\n\n"]
+pub type usbd_hw_ep_read = ::core::option::Option<
+    unsafe extern "C" fn(ep: u8, buf: *mut core::ffi::c_void, blen: u16) -> i32,
+>;
+#[doc = "Writes data to IN or control endpoint\n\nReturns:\n\n* number of written bytes\n\n# Arguments\n\n* `ep` - endpoint index, hould belong to IN or CONTROL endpoint\n* `buf` - pointer to data buffer\n* `blen` - size of data will be written\n\n"]
+pub type usbd_hw_ep_write = ::core::option::Option<
+    unsafe extern "C" fn(ep: u8, buf: *const core::ffi::c_void, blen: u16) -> i32,
+>;
+#[doc = "Stalls and unstalls endpoint\n\n# Arguments\n\n* `ep` - endpoint address\n* `stall` - endpoint will be stalled if TRUE and unstalled otherwise.\n\n# Notes\n\n* Has no effect on inactive endpoints.\n\n"]
+pub type usbd_hw_ep_setstall = ::core::option::Option<unsafe extern "C" fn(ep: u8, stall: bool)>;
+#[doc = "Checks endpoint for stalled state\n\nReturns:\n\n* TRUE if endpoint is stalled\n\n# Arguments\n\n* `ep` - endpoint address\n\n"]
+pub type usbd_hw_ep_isstalled = ::core::option::Option<unsafe extern "C" fn(ep: u8) -> bool>;
+#[doc = "Polls USB hardware for the events\n\n# Arguments\n\n* `dev` - [Direction: In] pointer to usb device structure\n* `callback` - callback to event processing subroutine\n\n"]
+pub type usbd_hw_poll = ::core::option::Option<
+    unsafe extern "C" fn(dev: *mut usbd_device, callback: usbd_evt_callback),
+>;
+#[doc = "Gets frame number from usb hardware.\n\n"]
+pub type usbd_hw_get_frameno = ::core::option::Option<unsafe extern "C" fn() -> u16>;
+#[doc = "Makes a string descriptor contains unique serial number from hardware ID's\n\nReturns:\n\n* of the descriptor in bytes\n\n# Arguments\n\n* `buffer` - [Direction: In] pointer to buffer for the descriptor\n\n"]
+pub type usbd_hw_get_serialno =
+    ::core::option::Option<unsafe extern "C" fn(buffer: *mut core::ffi::c_void) -> u16>;
+#[doc = "Represents a hardware USB driver call table.\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct usbd_driver {
+    #[doc = "<\\copybrief usbd_hw_getinfo\n\n"]
+    pub getinfo: usbd_hw_getinfo,
+    #[doc = "<\\copybrief usbd_hw_enable\n\n"]
+    pub enable: usbd_hw_enable,
+    #[doc = "<\\copybrief usbd_hw_connect\n\n"]
+    pub connect: usbd_hw_connect,
+    #[doc = "<\\copybrief usbd_hw_setaddr\n\n"]
+    pub setaddr: usbd_hw_setaddr,
+    #[doc = "<\\copybrief usbd_hw_ep_config\n\n"]
+    pub ep_config: usbd_hw_ep_config,
+    #[doc = "<\\copybrief usbd_hw_ep_deconfig\n\n"]
+    pub ep_deconfig: usbd_hw_ep_deconfig,
+    #[doc = "<\\copybrief usbd_hw_ep_read\n\n"]
+    pub ep_read: usbd_hw_ep_read,
+    #[doc = "<\\copybrief usbd_hw_ep_write\n\n"]
+    pub ep_write: usbd_hw_ep_write,
+    #[doc = "<\\copybrief usbd_hw_ep_setstall\n\n"]
+    pub ep_setstall: usbd_hw_ep_setstall,
+    #[doc = "<\\copybrief usbd_hw_ep_isstalled\n\n"]
+    pub ep_isstalled: usbd_hw_ep_isstalled,
+    #[doc = "<\\copybrief usbd_hw_poll\n\n"]
+    pub poll: usbd_hw_poll,
+    #[doc = "<\\copybrief usbd_hw_get_frameno\n\n"]
+    pub frame_no: usbd_hw_get_frameno,
+    #[doc = "<\\copybrief usbd_hw_get_serialno\n\n"]
+    pub get_serialno_desc: usbd_hw_get_serialno,
+}
+#[test]
+fn bindgen_test_layout_usbd_driver() {
+    const UNINIT: ::core::mem::MaybeUninit<usbd_driver> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<usbd_driver>(),
+        52usize,
+        concat!("Size of: ", stringify!(usbd_driver))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<usbd_driver>(),
+        4usize,
+        concat!("Alignment of ", stringify!(usbd_driver))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).getinfo) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(getinfo)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).enable) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(enable)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).connect) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(connect)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).setaddr) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(setaddr)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).ep_config) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(ep_config)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).ep_deconfig) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(ep_deconfig)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).ep_read) as usize - ptr as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(ep_read)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).ep_write) as usize - ptr as usize },
+        28usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(ep_write)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).ep_setstall) as usize - ptr as usize },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(ep_setstall)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).ep_isstalled) as usize - ptr as usize },
+        36usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(ep_isstalled)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).poll) as usize - ptr as usize },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(poll)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).frame_no) as usize - ptr as usize },
+        44usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(frame_no)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).get_serialno_desc) as usize - ptr as usize },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usbd_driver),
+            "::",
+            stringify!(get_serialno_desc)
+        )
+    );
+}
+#[doc = "Represents a USB device data.\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _usbd_device {
+    #[doc = "<\\copybrief usbd_driver\n\n"]
+    pub driver: *const usbd_driver,
+    #[doc = "<\\copybrief usbd_ctl_callback\n\n"]
+    pub control_callback: usbd_ctl_callback,
+    #[doc = "<\\copybrief usbd_rqc_callback\n\n"]
+    pub complete_callback: usbd_rqc_callback,
+    #[doc = "<\\copybrief usbd_cfg_callback\n\n"]
+    pub config_callback: usbd_cfg_callback,
+    #[doc = "<\\copybrief usbd_dsc_callback\n\n"]
+    pub descriptor_callback: usbd_dsc_callback,
+    #[doc = "<\\brief array of the event callbacks.\n\n"]
+    pub events: [usbd_evt_callback; 8usize],
+    #[doc = "<\\brief array of the endpoint callbacks.\n\n"]
+    pub endpoint: [usbd_evt_callback; 8usize],
+    #[doc = "<\\copybrief usbd_status\n\n"]
+    pub status: usbd_status,
+}
+#[test]
+fn bindgen_test_layout__usbd_device() {
+    const UNINIT: ::core::mem::MaybeUninit<_usbd_device> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<_usbd_device>(),
+        100usize,
+        concat!("Size of: ", stringify!(_usbd_device))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<_usbd_device>(),
+        4usize,
+        concat!("Alignment of ", stringify!(_usbd_device))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).driver) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_usbd_device),
+            "::",
+            stringify!(driver)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).control_callback) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_usbd_device),
+            "::",
+            stringify!(control_callback)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).complete_callback) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_usbd_device),
+            "::",
+            stringify!(complete_callback)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).config_callback) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_usbd_device),
+            "::",
+            stringify!(config_callback)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).descriptor_callback) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_usbd_device),
+            "::",
+            stringify!(descriptor_callback)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).events) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_usbd_device),
+            "::",
+            stringify!(events)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).endpoint) as usize - ptr as usize },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_usbd_device),
+            "::",
+            stringify!(endpoint)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).status) as usize - ptr as usize },
+        84usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_usbd_device),
+            "::",
+            stringify!(status)
+        )
+    );
+}
+#[doc = "Represents a USB device descriptor\n\nA device descriptor describes general information about a USB device. It includes information that applies globally to the device and all of the device’s configurations. A USB device has only one device descriptor. A high-speed capable device that has different device information for full-speed and high-speed must also  have a  [`usb_qualifier_descriptor`]\n\n"]
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct usb_device_descriptor {
+    #[doc = "<\\brief Size of the descriptor, in bytes.\n\n"]
+    pub bLength: u8,
+    #[doc = "<\\brief  [`USB_DTYPE_DEVICE`] Device descriptor.\n\n"]
+    pub bDescriptorType: u8,
+    #[doc = "<\\brief BCD of the supported USB specification.\n\n"]
+    pub bcdUSB: u16,
+    #[doc = "<\\brief USB device class.\n\n"]
+    pub bDeviceClass: u8,
+    #[doc = "<\\brief USB device subclass.\n\n"]
+    pub bDeviceSubClass: u8,
+    #[doc = "<\\brief USB device protocol.\n\n"]
+    pub bDeviceProtocol: u8,
+    #[doc = "<\\brief Size of the control endpoint's bank in bytes.\n\n"]
+    pub bMaxPacketSize0: u8,
+    #[doc = "<\\brief Vendor ID for the USB product.\n\n"]
+    pub idVendor: u16,
+    #[doc = "<\\brief Unique product ID for the USB product.\n\n"]
+    pub idProduct: u16,
+    #[doc = "<\\brief Product release (version) number.\n\n"]
+    pub bcdDevice: u16,
+    #[doc = "<\\brief String index for the manufacturer's name.\n\n"]
+    pub iManufacturer: u8,
+    #[doc = "<\\brief String index for the product name/details.\n\n"]
+    pub iProduct: u8,
+    #[doc = "<\\brief String index for the product serial number.\n\n"]
+    pub iSerialNumber: u8,
+    #[doc = "<\\brief Total number of configurations supported by the device.\n\n"]
+    pub bNumConfigurations: u8,
+}
+#[test]
+fn bindgen_test_layout_usb_device_descriptor() {
+    const UNINIT: ::core::mem::MaybeUninit<usb_device_descriptor> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<usb_device_descriptor>(),
+        18usize,
+        concat!("Size of: ", stringify!(usb_device_descriptor))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<usb_device_descriptor>(),
+        1usize,
+        concat!("Alignment of ", stringify!(usb_device_descriptor))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bLength) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(bLength)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bDescriptorType) as usize - ptr as usize },
+        1usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(bDescriptorType)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bcdUSB) as usize - ptr as usize },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(bcdUSB)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bDeviceClass) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(bDeviceClass)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bDeviceSubClass) as usize - ptr as usize },
+        5usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(bDeviceSubClass)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bDeviceProtocol) as usize - ptr as usize },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(bDeviceProtocol)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bMaxPacketSize0) as usize - ptr as usize },
+        7usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(bMaxPacketSize0)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).idVendor) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(idVendor)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).idProduct) as usize - ptr as usize },
+        10usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(idProduct)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bcdDevice) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(bcdDevice)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).iManufacturer) as usize - ptr as usize },
+        14usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(iManufacturer)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).iProduct) as usize - ptr as usize },
+        15usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(iProduct)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).iSerialNumber) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(iSerialNumber)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).bNumConfigurations) as usize - ptr as usize },
+        17usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(usb_device_descriptor),
+            "::",
+            stringify!(bNumConfigurations)
+        )
+    );
+}
+extern "C" {
+    pub static usbd_devfs: usbd_driver;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FuriHalUsbInterface {
+    pub init: ::core::option::Option<
+        unsafe extern "C" fn(
+            dev: *mut usbd_device,
+            intf: *mut FuriHalUsbInterface,
+            ctx: *mut core::ffi::c_void,
+        ),
+    >,
+    pub deinit: ::core::option::Option<unsafe extern "C" fn(dev: *mut usbd_device)>,
+    pub wakeup: ::core::option::Option<unsafe extern "C" fn(dev: *mut usbd_device)>,
+    pub suspend: ::core::option::Option<unsafe extern "C" fn(dev: *mut usbd_device)>,
+    pub dev_descr: *mut usb_device_descriptor,
+    pub str_manuf_descr: *mut core::ffi::c_void,
+    pub str_prod_descr: *mut core::ffi::c_void,
+    pub str_serial_descr: *mut core::ffi::c_void,
+    pub cfg_descr: *mut core::ffi::c_void,
+}
+#[test]
+fn bindgen_test_layout_FuriHalUsbInterface() {
+    const UNINIT: ::core::mem::MaybeUninit<FuriHalUsbInterface> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FuriHalUsbInterface>(),
+        36usize,
+        concat!("Size of: ", stringify!(FuriHalUsbInterface))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FuriHalUsbInterface>(),
+        4usize,
+        concat!("Alignment of ", stringify!(FuriHalUsbInterface))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).init) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalUsbInterface),
+            "::",
+            stringify!(init)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).deinit) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalUsbInterface),
+            "::",
+            stringify!(deinit)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).wakeup) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalUsbInterface),
+            "::",
+            stringify!(wakeup)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).suspend) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalUsbInterface),
+            "::",
+            stringify!(suspend)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).dev_descr) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalUsbInterface),
+            "::",
+            stringify!(dev_descr)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).str_manuf_descr) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalUsbInterface),
+            "::",
+            stringify!(str_manuf_descr)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).str_prod_descr) as usize - ptr as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalUsbInterface),
+            "::",
+            stringify!(str_prod_descr)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).str_serial_descr) as usize - ptr as usize },
+        28usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalUsbInterface),
+            "::",
+            stringify!(str_serial_descr)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).cfg_descr) as usize - ptr as usize },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalUsbInterface),
+            "::",
+            stringify!(cfg_descr)
+        )
+    );
+}
+extern "C" {
+    #[doc = "USB device interface modes\n\n"]
+    pub static mut usb_cdc_single: FuriHalUsbInterface;
+}
+extern "C" {
+    pub static mut usb_cdc_dual: FuriHalUsbInterface;
+}
+extern "C" {
+    pub static mut usb_hid: FuriHalUsbInterface;
+}
+extern "C" {
+    pub static mut usb_hid_u2f: FuriHalUsbInterface;
+}
+extern "C" {
+    #[doc = "Set USB device configuration\n\nReturns:\n\n* true - mode switch started, false - mode switch is locked\n\n# Arguments\n\n* `mode` - new USB device mode\n* `ctx` - context passed to device mode init function\n\n"]
+    pub fn furi_hal_usb_set_config(
+        new_if: *mut FuriHalUsbInterface,
+        ctx: *mut core::ffi::c_void,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Get USB device configuration\n\nReturns:\n\n* current USB device mode\n\n"]
+    pub fn furi_hal_usb_get_config() -> *mut FuriHalUsbInterface;
+}
+extern "C" {
+    #[doc = "Lock USB device mode switch\n\n"]
+    pub fn furi_hal_usb_lock();
+}
+extern "C" {
+    #[doc = "Unlock USB device mode switch\n\n"]
+    pub fn furi_hal_usb_unlock();
+}
+extern "C" {
+    #[doc = "Check if USB device mode switch locked\n\nReturns:\n\n* lock state\n\n"]
+    pub fn furi_hal_usb_is_locked() -> bool;
+}
+extern "C" {
+    #[doc = "Disable USB device\n\n"]
+    pub fn furi_hal_usb_disable();
+}
+extern "C" {
+    #[doc = "Enable USB device\n\n"]
+    pub fn furi_hal_usb_enable();
+}
+extern "C" {
+    #[doc = "Restart USB device\n\n"]
+    pub fn furi_hal_usb_reinit();
+}
+pub type HidStateCallback =
+    ::core::option::Option<unsafe extern "C" fn(state: bool, context: *mut core::ffi::c_void)>;
+extern "C" {
+    #[doc = "Get USB HID connection state\n\nReturns:\n\n* true / false\n\n"]
+    pub fn furi_hal_hid_is_connected() -> bool;
+}
+extern "C" {
+    #[doc = "Get USB HID keyboard leds state\n\nReturns:\n\n* leds state\n\n"]
+    pub fn furi_hal_hid_get_led_state() -> u8;
+}
+extern "C" {
+    #[doc = "Set USB HID connect/disconnect callback\n\n# Arguments\n\n* `cb` - callback\n* `ctx` - callback context\n\n"]
+    pub fn furi_hal_hid_set_state_callback(cb: HidStateCallback, ctx: *mut core::ffi::c_void);
+}
+extern "C" {
+    #[doc = "Set the following key to pressed state and send HID report\n\n# Arguments\n\n* `button` - key code\n\n"]
+    pub fn furi_hal_hid_kb_press(button: u16) -> bool;
+}
+extern "C" {
+    #[doc = "Set the following key to released state and send HID report\n\n# Arguments\n\n* `button` - key code\n\n"]
+    pub fn furi_hal_hid_kb_release(button: u16) -> bool;
+}
+extern "C" {
+    #[doc = "Clear all pressed keys and send HID report\n\n"]
+    pub fn furi_hal_hid_kb_release_all() -> bool;
+}
+extern "C" {
+    #[doc = "Set mouse movement and send HID report\n\n# Arguments\n\n* `dx` - x coordinate delta\n* `dy` - y coordinate delta\n\n"]
+    pub fn furi_hal_hid_mouse_move(dx: i8, dy: i8) -> bool;
+}
+extern "C" {
+    #[doc = "Set mouse button to pressed state and send HID report\n\n# Arguments\n\n* `button` - key code\n\n"]
+    pub fn furi_hal_hid_mouse_press(button: u8) -> bool;
+}
+extern "C" {
+    #[doc = "Set mouse button to released state and send HID report\n\n# Arguments\n\n* `button` - key code\n\n"]
+    pub fn furi_hal_hid_mouse_release(button: u8) -> bool;
+}
+extern "C" {
+    #[doc = "Set mouse wheel position and send HID report\n\n# Arguments\n\n* `delta` - number of scroll steps\n\n"]
+    pub fn furi_hal_hid_mouse_scroll(delta: i8) -> bool;
+}
+extern "C" {
+    #[doc = "Set the following consumer key to pressed state and send HID report\n\n# Arguments\n\n* `button` - key code\n\n"]
+    pub fn furi_hal_hid_consumer_key_press(button: u16) -> bool;
+}
+extern "C" {
+    #[doc = "Set the following consumer key to released state and send HID report\n\n# Arguments\n\n* `button` - key code\n\n"]
+    pub fn furi_hal_hid_consumer_key_release(button: u16) -> bool;
+}
+pub const FuriHalUartId_FuriHalUartIdUSART1: FuriHalUartId = 0;
+pub const FuriHalUartId_FuriHalUartIdLPUART1: FuriHalUartId = 1;
+#[doc = "UART channels\n\n"]
+pub type FuriHalUartId = core::ffi::c_uchar;
+pub const UartIrqEvent_UartIrqEventRXNE: UartIrqEvent = 0;
+#[doc = "UART events\n\n"]
+pub type UartIrqEvent = core::ffi::c_uchar;
+extern "C" {
+    #[doc = "Init UART Configures GPIO to UART function, сonfigures UART hardware, enables UART hardware\n\n# Arguments\n\n* `channel` - UART channel\n* `baud` - baudrate\n\n"]
+    pub fn furi_hal_uart_init(channel: FuriHalUartId, baud: u32);
+}
+extern "C" {
+    #[doc = "Deinit UART Configures GPIO to analog, clears callback and callback context, disables UART hardware\n\n# Arguments\n\n* `channel` - UART channel\n\n"]
+    pub fn furi_hal_uart_deinit(channel: FuriHalUartId);
+}
+extern "C" {
+    #[doc = "Suspend UART operation Disables UART hardware, settings and callbacks are preserved\n\n# Arguments\n\n* `channel` - UART channel\n\n"]
+    pub fn furi_hal_uart_suspend(channel: FuriHalUartId);
+}
+extern "C" {
+    #[doc = "Resume UART operation Resumes UART hardware from suspended state\n\n# Arguments\n\n* `channel` - UART channel\n\n"]
+    pub fn furi_hal_uart_resume(channel: FuriHalUartId);
+}
+extern "C" {
+    #[doc = "Changes UART baudrate\n\n# Arguments\n\n* `channel` - UART channel\n* `baud` - baudrate\n\n"]
+    pub fn furi_hal_uart_set_br(channel: FuriHalUartId, baud: u32);
+}
+extern "C" {
+    #[doc = "Transmits data\n\n# Arguments\n\n* `channel` - UART channel\n* `buffer` - data\n* `buffer_size` - data size (in bytes)\n\n"]
+    pub fn furi_hal_uart_tx(channel: FuriHalUartId, buffer: *mut u8, buffer_size: usize);
+}
+extern "C" {
+    #[doc = "Sets UART event callback\n\n# Arguments\n\n* `channel` - UART channel\n* `callback` - callback pointer\n* `context` - callback context\n\n"]
+    pub fn furi_hal_uart_set_irq_cb(
+        channel: FuriHalUartId,
+        callback: ::core::option::Option<
+            unsafe extern "C" fn(event: UartIrqEvent, data: u8, context: *mut core::ffi::c_void),
+        >,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    pub fn furi_hal_info_get_api_version(major: *mut u16, minor: *mut u16);
+}
+extern "C" {
+    #[doc = "Get device information\n\n# Arguments\n\n* `callback` - [Direction: In] callback to provide with new data\n* `sep` - [Direction: In] category separator character\n* `context` - [Direction: In] context to pass to callback\n\n"]
+    pub fn furi_hal_info_get(
+        callback: PropertyValueCallback,
+        sep: core::ffi::c_char,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    #[doc = "Initialize random subsystem\n\n"]
+    pub fn furi_hal_random_init();
+}
+extern "C" {
+    #[doc = "Get random value\n\nReturns:\n\n* random value\n\n"]
+    pub fn furi_hal_random_get() -> u32;
+}
+extern "C" {
+    #[doc = "Fill buffer with random data\n\n# Arguments\n\n* `buf` - buffer pointer\n* `data` - buffer len\n\n"]
+    pub fn furi_hal_random_fill_buf(buf: *mut u8, len: u32);
+}
+#[doc = "default configuration\n\n"]
+pub const FuriHalSubGhzPreset_FuriHalSubGhzPresetIDLE: FuriHalSubGhzPreset = 0;
+#[doc = "OOK, bandwidth 270kHz, asynchronous\n\n"]
+pub const FuriHalSubGhzPreset_FuriHalSubGhzPresetOok270Async: FuriHalSubGhzPreset = 1;
+#[doc = "OOK, bandwidth 650kHz, asynchronous\n\n"]
+pub const FuriHalSubGhzPreset_FuriHalSubGhzPresetOok650Async: FuriHalSubGhzPreset = 2;
+#[doc = "FM, deviation 2.380371 kHz, asynchronous\n\n"]
+pub const FuriHalSubGhzPreset_FuriHalSubGhzPreset2FSKDev238Async: FuriHalSubGhzPreset = 3;
+#[doc = "FM, deviation 47.60742 kHz, asynchronous\n\n"]
+pub const FuriHalSubGhzPreset_FuriHalSubGhzPreset2FSKDev476Async: FuriHalSubGhzPreset = 4;
+#[doc = "MSK, deviation 47.60742 kHz, 99.97Kb/s, asynchronous\n\n"]
+pub const FuriHalSubGhzPreset_FuriHalSubGhzPresetMSK99_97KbAsync: FuriHalSubGhzPreset = 5;
+#[doc = "GFSK, deviation 19.042969 kHz, 9.996Kb/s, asynchronous\n\n"]
+pub const FuriHalSubGhzPreset_FuriHalSubGhzPresetGFSK9_99KbAsync: FuriHalSubGhzPreset = 6;
+pub const FuriHalSubGhzPreset_FuriHalSubGhzPresetCustom: FuriHalSubGhzPreset = 7;
+#[doc = "Radio Presets\n\n"]
+pub type FuriHalSubGhzPreset = core::ffi::c_uchar;
+#[repr(C)]
+#[repr(align(4))]
+#[derive(Debug, Copy, Clone)]
+pub struct LevelDuration {
+    pub _bitfield_align_1: [u32; 0],
+    pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
+}
+#[test]
+fn bindgen_test_layout_LevelDuration() {
+    assert_eq!(
+        ::core::mem::size_of::<LevelDuration>(),
+        4usize,
+        concat!("Size of: ", stringify!(LevelDuration))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<LevelDuration>(),
+        4usize,
+        concat!("Alignment of ", stringify!(LevelDuration))
+    );
+}
+impl LevelDuration {
+    #[inline]
+    pub fn duration(&self) -> u32 {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 30u8) as u32) }
+    }
+    #[inline]
+    pub fn set_duration(&mut self, val: u32) {
+        unsafe {
+            let val: u32 = ::core::mem::transmute(val);
+            self._bitfield_1.set(0usize, 30u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn level(&self) -> u8 {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(30usize, 2u8) as u8) }
+    }
+    #[inline]
+    pub fn set_level(&mut self, val: u8) {
+        unsafe {
+            let val: u8 = ::core::mem::transmute(val);
+            self._bitfield_1.set(30usize, 2u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn new_bitfield_1(duration: u32, level: u8) -> __BindgenBitfieldUnit<[u8; 4usize]> {
+        let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize]> = Default::default();
+        __bindgen_bitfield_unit.set(0usize, 30u8, {
+            let duration: u32 = unsafe { ::core::mem::transmute(duration) };
+            duration as u64
+        });
+        __bindgen_bitfield_unit.set(30usize, 2u8, {
+            let level: u8 = unsafe { ::core::mem::transmute(level) };
+            level as u64
+        });
+        __bindgen_bitfield_unit
+    }
+}
+#[doc = "Isolate Radio from antenna\n\n"]
+pub const FuriHalSubGhzPath_FuriHalSubGhzPathIsolate: FuriHalSubGhzPath = 0;
+#[doc = "Center Frequency: 433MHz. Path 1: SW1RF1-SW2RF2, LCLCL\n\n"]
+pub const FuriHalSubGhzPath_FuriHalSubGhzPath433: FuriHalSubGhzPath = 1;
+#[doc = "Center Frequency: 315MHz. Path 2: SW1RF2-SW2RF1, LCLCLCL\n\n"]
+pub const FuriHalSubGhzPath_FuriHalSubGhzPath315: FuriHalSubGhzPath = 2;
+#[doc = "Center Frequency: 868MHz. Path 3: SW1RF3-SW2RF3, LCLC\n\n"]
+pub const FuriHalSubGhzPath_FuriHalSubGhzPath868: FuriHalSubGhzPath = 3;
+#[doc = "Switchable Radio Paths\n\n"]
+pub type FuriHalSubGhzPath = core::ffi::c_uchar;
+extern "C" {
+    pub fn furi_hal_subghz_set_async_mirror_pin(pin: *const GpioPin);
+}
+extern "C" {
+    #[doc = "Get data GPIO\n\nReturns:\n\n* pointer to the gpio pin structure\n\n"]
+    pub fn furi_hal_subghz_get_data_gpio() -> *const GpioPin;
+}
+extern "C" {
+    #[doc = "Send device to sleep mode\n\n"]
+    pub fn furi_hal_subghz_sleep();
+}
+extern "C" {
+    #[doc = "Load custom registers from preset\n\n# Arguments\n\n* `preset_data` - registers to load\n\n"]
+    pub fn furi_hal_subghz_load_custom_preset(preset_data: *const u8);
+}
+extern "C" {
+    #[doc = "Load registers\n\n# Arguments\n\n* `data` - Registers data\n\n"]
+    pub fn furi_hal_subghz_load_registers(data: *const u8);
+}
+extern "C" {
+    #[doc = "Load PATABLE\n\n# Arguments\n\n* `data` - 8 uint8_t values\n\n"]
+    pub fn furi_hal_subghz_load_patable(data: *const u8);
+}
+extern "C" {
+    #[doc = "Write packet to FIFO\n\n# Arguments\n\n* `data` - bytes array\n* `size` - size\n\n"]
+    pub fn furi_hal_subghz_write_packet(data: *const u8, size: u8);
+}
+extern "C" {
+    #[doc = "Check if receive pipe is not empty\n\nReturns:\n\n* true if not empty\n\n"]
+    pub fn furi_hal_subghz_rx_pipe_not_empty() -> bool;
+}
+extern "C" {
+    #[doc = "Check if received data crc is valid\n\nReturns:\n\n* true if valid\n\n"]
+    pub fn furi_hal_subghz_is_rx_data_crc_valid() -> bool;
+}
+extern "C" {
+    #[doc = "Read packet from FIFO\n\n# Arguments\n\n* `data` - pointer\n* `size` - size\n\n"]
+    pub fn furi_hal_subghz_read_packet(data: *mut u8, size: *mut u8);
+}
+extern "C" {
+    #[doc = "Flush rx FIFO buffer\n\n"]
+    pub fn furi_hal_subghz_flush_rx();
+}
+extern "C" {
+    #[doc = "Flush tx FIFO buffer\n\n"]
+    pub fn furi_hal_subghz_flush_tx();
+}
+extern "C" {
+    #[doc = "Shutdown Issue SPWD command\n\n**Warning!**\n\n* registers content will be lost\n\n"]
+    pub fn furi_hal_subghz_shutdown();
+}
+extern "C" {
+    #[doc = "Reset Issue reset command\n\n**Warning!**\n\n* registers content will be lost\n\n"]
+    pub fn furi_hal_subghz_reset();
+}
+extern "C" {
+    #[doc = "Switch to Idle\n\n"]
+    pub fn furi_hal_subghz_idle();
+}
+extern "C" {
+    #[doc = "Switch to Receive\n\n"]
+    pub fn furi_hal_subghz_rx();
+}
+extern "C" {
+    #[doc = "Switch to Transmit\n\nReturns:\n\n* true if the transfer is allowed by belonging to the region\n\n"]
+    pub fn furi_hal_subghz_tx() -> bool;
+}
+extern "C" {
+    #[doc = "Get RSSI value in dBm\n\nReturns:\n\n* RSSI value\n\n"]
+    pub fn furi_hal_subghz_get_rssi() -> f32;
+}
+extern "C" {
+    #[doc = "Get LQI\n\nReturns:\n\n* LQI value\n\n"]
+    pub fn furi_hal_subghz_get_lqi() -> u8;
+}
+extern "C" {
+    #[doc = "Check if frequency is in valid range\n\nReturns:\n\n* true if frequency is valid, otherwise false\n\n# Arguments\n\n* `value` - frequency in Hz\n\n"]
+    pub fn furi_hal_subghz_is_frequency_valid(value: u32) -> bool;
+}
+extern "C" {
+    #[doc = "Set frequency and path This function automatically selects antenna matching network\n\nReturns:\n\n* real frequency in Hz\n\n# Arguments\n\n* `value` - frequency in Hz\n\n"]
+    pub fn furi_hal_subghz_set_frequency_and_path(value: u32) -> u32;
+}
+extern "C" {
+    #[doc = "Set frequency\n\nReturns:\n\n* real frequency in Hz\n\n# Arguments\n\n* `value` - frequency in Hz\n\n"]
+    pub fn furi_hal_subghz_set_frequency(value: u32) -> u32;
+}
+extern "C" {
+    #[doc = "Set path\n\n# Arguments\n\n* `path` - path to use\n\n"]
+    pub fn furi_hal_subghz_set_path(path: FuriHalSubGhzPath);
+}
+#[doc = "Signal Timings Capture callback\n\n"]
+pub type FuriHalSubGhzCaptureCallback = ::core::option::Option<
+    unsafe extern "C" fn(level: bool, duration: u32, context: *mut core::ffi::c_void),
+>;
+extern "C" {
+    #[doc = "Enable signal timings capture Initializes GPIO and TIM2 for timings capture\n\n# Arguments\n\n* `callback` - FuriHalSubGhzCaptureCallback\n* `context` - callback context\n\n"]
+    pub fn furi_hal_subghz_start_async_rx(
+        callback: FuriHalSubGhzCaptureCallback,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    #[doc = "Disable signal timings capture Resets GPIO and TIM2\n\n"]
+    pub fn furi_hal_subghz_stop_async_rx();
+}
+#[doc = "Async TX callback type\n\nReturns:\n\n* LevelDuration\n\n# Arguments\n\n* `context` - callback context\n\n"]
+pub type FuriHalSubGhzAsyncTxCallback =
+    ::core::option::Option<unsafe extern "C" fn(context: *mut core::ffi::c_void) -> LevelDuration>;
+extern "C" {
+    #[doc = "Start async TX Initializes GPIO, TIM2 and DMA1 for signal output\n\nReturns:\n\n* true if the transfer is allowed by belonging to the region\n\n# Arguments\n\n* `callback` - FuriHalSubGhzAsyncTxCallback\n* `context` - callback context\n\n"]
+    pub fn furi_hal_subghz_start_async_tx(
+        callback: FuriHalSubGhzAsyncTxCallback,
+        context: *mut core::ffi::c_void,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Wait for async transmission to complete\n\nReturns:\n\n* true if TX complete\n\n"]
+    pub fn furi_hal_subghz_is_async_tx_complete() -> bool;
+}
+extern "C" {
+    #[doc = "Stop async transmission and cleanup resources Resets GPIO, TIM2, and DMA1\n\n"]
+    pub fn furi_hal_subghz_stop_async_tx();
+}
+pub type FuriHalIbuttonEmulateCallback =
+    ::core::option::Option<unsafe extern "C" fn(context: *mut core::ffi::c_void)>;
+extern "C" {
+    #[doc = "Start emulation timer\n\n# Arguments\n\n* `period` - timer period\n* `callback` - timer callback\n* `context` - callback context\n\n"]
+    pub fn furi_hal_ibutton_emulate_start(
+        period: u32,
+        callback: FuriHalIbuttonEmulateCallback,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    #[doc = "Update emulation timer period\n\n# Arguments\n\n* `period` - new timer period\n\n"]
+    pub fn furi_hal_ibutton_emulate_set_next(period: u32);
+}
+extern "C" {
+    #[doc = "Stop emulation timer\n\n"]
+    pub fn furi_hal_ibutton_emulate_stop();
+}
+extern "C" {
+    #[doc = "Set the pin to normal mode (open collector), and sets it to float\n\n"]
+    pub fn furi_hal_ibutton_pin_configure();
+}
+extern "C" {
+    #[doc = "Sets the pin to analog mode, and sets it to float\n\n"]
+    pub fn furi_hal_ibutton_pin_reset();
+}
+extern "C" {
+    #[doc = "iButton write pin\n\n# Arguments\n\n* `state` - true / false\n\n"]
+    pub fn furi_hal_ibutton_pin_write(state: bool);
+}
+extern "C" {
+    #[doc = "Config rfid pins to reset state\n\n"]
+    pub fn furi_hal_rfid_pins_reset();
+}
+extern "C" {
+    #[doc = "Release rfid pull pin\n\n"]
+    pub fn furi_hal_rfid_pin_pull_release();
+}
+extern "C" {
+    #[doc = "Pulldown rfid pull pin\n\n"]
+    pub fn furi_hal_rfid_pin_pull_pulldown();
+}
+extern "C" {
+    #[doc = "Start read timer\n\n# Arguments\n\n* `freq` - timer frequency\n* `duty_cycle` - timer duty cycle, 0.0-1.0\n\n"]
+    pub fn furi_hal_rfid_tim_read_start(freq: f32, duty_cycle: f32);
+}
+extern "C" {
+    #[doc = "Pause read timer, to be able to continue later\n\n"]
+    pub fn furi_hal_rfid_tim_read_pause();
+}
+extern "C" {
+    #[doc = "Continue read timer\n\n"]
+    pub fn furi_hal_rfid_tim_read_continue();
+}
+extern "C" {
+    #[doc = "Stop read timer\n\n"]
+    pub fn furi_hal_rfid_tim_read_stop();
+}
+pub type FuriHalRfidReadCaptureCallback = ::core::option::Option<
+    unsafe extern "C" fn(level: bool, duration: u32, context: *mut core::ffi::c_void),
+>;
+extern "C" {
+    pub fn furi_hal_rfid_tim_read_capture_start(
+        callback: FuriHalRfidReadCaptureCallback,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    pub fn furi_hal_rfid_tim_read_capture_stop();
+}
+pub type FuriHalRfidDMACallback =
+    ::core::option::Option<unsafe extern "C" fn(half: bool, context: *mut core::ffi::c_void)>;
+extern "C" {
+    pub fn furi_hal_rfid_tim_emulate_dma_start(
+        duration: *mut u32,
+        pulse: *mut u32,
+        length: usize,
+        callback: FuriHalRfidDMACallback,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    pub fn furi_hal_rfid_tim_emulate_dma_stop();
+}
+extern "C" {
+    #[doc = "Set read timer period\n\n# Arguments\n\n* `period` - overall duration\n\n"]
+    pub fn furi_hal_rfid_set_read_period(period: u32);
+}
+extern "C" {
+    #[doc = "Set read timer pulse\n\n# Arguments\n\n* `pulse` - duration of high level\n\n"]
+    pub fn furi_hal_rfid_set_read_pulse(pulse: u32);
+}
+extern "C" {
+    #[doc = "Start/Enable comparator\n\n"]
+    pub fn furi_hal_rfid_comp_start();
+}
+extern "C" {
+    #[doc = "Stop/Disable comparator\n\n"]
+    pub fn furi_hal_rfid_comp_stop();
+}
+pub type FuriHalRfidCompCallback =
+    ::core::option::Option<unsafe extern "C" fn(level: bool, context: *mut core::ffi::c_void)>;
+extern "C" {
+    #[doc = "Set comparator callback\n\n"]
+    pub fn furi_hal_rfid_comp_set_callback(
+        callback: FuriHalRfidCompCallback,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    #[doc = "Start/Enable Field Presence detect\n\n"]
+    pub fn furi_hal_rfid_field_detect_start();
+}
+extern "C" {
+    #[doc = "Stop/Disable Field Presence detect\n\n"]
+    pub fn furi_hal_rfid_field_detect_stop();
+}
+extern "C" {
+    #[doc = "Check Field Presence\n\nReturns:\n\n* true if field is present, false if not\n\n# Arguments\n\n* `frequency` - [Direction: In, Out] pointer to frequency value to be set if filed detected\n\n"]
+    pub fn furi_hal_rfid_field_is_present(frequency: *mut u32) -> bool;
+}
+pub type ReturnCode = u16;
+extern "C" {
+    #[doc = "Calculate Timer\n\nThis method calculates when the timer will be expired given the amount time in milliseconds /a tOut. Once the timer has been calculated it will then be used to check when it expires.\n[`timersIsExpired`]\n\nReturns:\n\n* u32 : The new timer calculated based on the given time\n\n# Arguments\n\n* `time` - [Direction: In] : time/duration in Milliseconds for the timer\n\n"]
+    pub fn timerCalculateTimer(time: u16) -> u32;
+}
+extern "C" {
+    #[doc = "Checks if a Timer is Expired\n\nThis method checks if a timer has already expired. Based on the given timer previously calculated it checks if this timer has already elapsed\n[`timersCalculateTimer`]\n\nReturns:\n\n* true : timer has already expired\n* false : timer is still running\n\n# Arguments\n\n* `timer` - [Direction: In] : the timer to check\n\n"]
+    pub fn timerIsExpired(timer: u32) -> bool;
+}
+extern "C" {
+    pub fn powf(arg1: f32, arg2: f32) -> f32;
+}
+extern "C" {
+    pub fn roundf(arg1: f32) -> f32;
+}
+extern "C" {
+    pub fn scalbnf(arg1: f32, arg2: core::ffi::c_int) -> f32;
+}
+extern "C" {
+    #[doc = "RFAL Turn Field On and Start GT\n\nTurns the Field On, performing Initial Collision Avoidance\nAfter Field On, if GT was set before, it starts the GT timer to be used on the following communications.\n\nReturns:\n\n* ERR_RF_COLLISION : External field detected\n* ERR_NONE : Field turned On\n\n"]
+    pub fn rfalFieldOnAndStartGT() -> ReturnCode;
+}
+extern "C" {
+    #[doc = "RFAL Worker\n\nThis runs RFAL layer, which drives the actual Transceive procedure It MUST be executed frequently in order to execute the RFAL internal states and perform the requested operations\n\n"]
+    pub fn rfalWorker();
+}
+extern "C" {
+    #[doc = "Low Power Mode Start\n\nSets the RF Chip in Low Power Mode. In this mode the RF Chip is placed in Low Power Mode, similar to Wake-up mode but no operation nor period measurement is performed. Mode must be terminated by rfalLowPowerModeStop()\n\nReturns:\n\n* ERR_WRONG_STATE : Not initialized properly\n* ERR_PARAM : Invalid parameter\n* ERR_NONE : Done with no error\n\n"]
+    pub fn rfalLowPowerModeStart() -> ReturnCode;
+}
+extern "C" {
+    #[doc = "Low Power Mode Stop\n\nStops the Low Power Mode re-enabling the device\n\nReturns:\n\n* ERR_WRONG_STATE : Not initialized properly\n* ERR_PARAM : Invalid parameter\n* ERR_NONE : Done with no error\n\n"]
+    pub fn rfalLowPowerModeStop() -> ReturnCode;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct DigitalSignalInternals {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct DigitalSignal {
+    pub start_level: bool,
+    pub edge_cnt: u32,
+    pub edges_max_cnt: u32,
+    pub edge_timings: *mut u32,
+    pub reload_reg_buff: *mut u32,
+    pub internals: *mut DigitalSignalInternals,
+}
+#[test]
+fn bindgen_test_layout_DigitalSignal() {
+    const UNINIT: ::core::mem::MaybeUninit<DigitalSignal> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<DigitalSignal>(),
+        24usize,
+        concat!("Size of: ", stringify!(DigitalSignal))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<DigitalSignal>(),
+        4usize,
+        concat!("Alignment of ", stringify!(DigitalSignal))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).start_level) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(DigitalSignal),
+            "::",
+            stringify!(start_level)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).edge_cnt) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(DigitalSignal),
+            "::",
+            stringify!(edge_cnt)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).edges_max_cnt) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(DigitalSignal),
+            "::",
+            stringify!(edges_max_cnt)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).edge_timings) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(DigitalSignal),
+            "::",
+            stringify!(edge_timings)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).reload_reg_buff) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(DigitalSignal),
+            "::",
+            stringify!(reload_reg_buff)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).internals) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(DigitalSignal),
+            "::",
+            stringify!(internals)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct DigitalSequence {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct NfcaSignal {
+    pub one: *mut DigitalSignal,
+    pub zero: *mut DigitalSignal,
+    pub tx_signal: *mut DigitalSignal,
+}
+#[test]
+fn bindgen_test_layout_NfcaSignal() {
+    const UNINIT: ::core::mem::MaybeUninit<NfcaSignal> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<NfcaSignal>(),
+        12usize,
+        concat!("Size of: ", stringify!(NfcaSignal))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<NfcaSignal>(),
+        4usize,
+        concat!("Alignment of ", stringify!(NfcaSignal))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).one) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(NfcaSignal),
+            "::",
+            stringify!(one)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).zero) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(NfcaSignal),
+            "::",
+            stringify!(zero)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).tx_signal) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(NfcaSignal),
+            "::",
+            stringify!(tx_signal)
+        )
+    );
+}
+pub const FuriHalNfcTxRxType_FuriHalNfcTxRxTypeDefault: FuriHalNfcTxRxType = 0;
+pub const FuriHalNfcTxRxType_FuriHalNfcTxRxTypeRxNoCrc: FuriHalNfcTxRxType = 1;
+pub const FuriHalNfcTxRxType_FuriHalNfcTxRxTypeRxKeepPar: FuriHalNfcTxRxType = 2;
+pub const FuriHalNfcTxRxType_FuriHalNfcTxRxTypeRaw: FuriHalNfcTxRxType = 3;
+pub const FuriHalNfcTxRxType_FuriHalNfcTxRxTypeRxRaw: FuriHalNfcTxRxType = 4;
+pub const FuriHalNfcTxRxType_FuriHalNfcTxRxTransparent: FuriHalNfcTxRxType = 5;
+pub type FuriHalNfcTxRxType = core::ffi::c_uchar;
+pub type FuriHalNfcEmulateCallback = ::core::option::Option<
+    unsafe extern "C" fn(
+        buff_rx: *mut u8,
+        buff_rx_len: u16,
+        buff_tx: *mut u8,
+        buff_tx_len: *mut u16,
+        flags: *mut u32,
+        context: *mut core::ffi::c_void,
+    ) -> bool,
+>;
+pub const FuriHalNfcType_FuriHalNfcTypeA: FuriHalNfcType = 0;
+pub const FuriHalNfcType_FuriHalNfcTypeB: FuriHalNfcType = 1;
+pub const FuriHalNfcType_FuriHalNfcTypeF: FuriHalNfcType = 2;
+pub const FuriHalNfcType_FuriHalNfcTypeV: FuriHalNfcType = 3;
+pub type FuriHalNfcType = core::ffi::c_uchar;
+pub const FuriHalNfcInterface_FuriHalNfcInterfaceRf: FuriHalNfcInterface = 0;
+pub const FuriHalNfcInterface_FuriHalNfcInterfaceIsoDep: FuriHalNfcInterface = 1;
+pub const FuriHalNfcInterface_FuriHalNfcInterfaceNfcDep: FuriHalNfcInterface = 2;
+pub type FuriHalNfcInterface = core::ffi::c_uchar;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FuriHalNfcDevData {
+    pub type_: FuriHalNfcType,
+    pub interface: FuriHalNfcInterface,
+    pub uid_len: u8,
+    pub uid: [u8; 10usize],
+    pub cuid: u32,
+    pub atqa: [u8; 2usize],
+    pub sak: u8,
+}
+#[test]
+fn bindgen_test_layout_FuriHalNfcDevData() {
+    const UNINIT: ::core::mem::MaybeUninit<FuriHalNfcDevData> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FuriHalNfcDevData>(),
+        24usize,
+        concat!("Size of: ", stringify!(FuriHalNfcDevData))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FuriHalNfcDevData>(),
+        4usize,
+        concat!("Alignment of ", stringify!(FuriHalNfcDevData))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcDevData),
+            "::",
+            stringify!(type_)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).interface) as usize - ptr as usize },
+        1usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcDevData),
+            "::",
+            stringify!(interface)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).uid_len) as usize - ptr as usize },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcDevData),
+            "::",
+            stringify!(uid_len)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).uid) as usize - ptr as usize },
+        3usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcDevData),
+            "::",
+            stringify!(uid)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).cuid) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcDevData),
+            "::",
+            stringify!(cuid)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).atqa) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcDevData),
+            "::",
+            stringify!(atqa)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).sak) as usize - ptr as usize },
+        22usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcDevData),
+            "::",
+            stringify!(sak)
+        )
+    );
+}
+pub type FuriHalNfcTxRxSniffCallback = ::core::option::Option<
+    unsafe extern "C" fn(
+        data: *mut u8,
+        bits: u16,
+        crc_dropped: bool,
+        context: *mut core::ffi::c_void,
+    ),
+>;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FuriHalNfcTxRxContext {
+    pub tx_data: [u8; 512usize],
+    pub tx_parity: [u8; 64usize],
+    pub tx_bits: u16,
+    pub rx_data: [u8; 512usize],
+    pub rx_parity: [u8; 64usize],
+    pub rx_bits: u16,
+    pub tx_rx_type: FuriHalNfcTxRxType,
+    pub nfca_signal: *mut NfcaSignal,
+    pub sniff_tx: FuriHalNfcTxRxSniffCallback,
+    pub sniff_rx: FuriHalNfcTxRxSniffCallback,
+    pub sniff_context: *mut core::ffi::c_void,
+}
+#[test]
+fn bindgen_test_layout_FuriHalNfcTxRxContext() {
+    const UNINIT: ::core::mem::MaybeUninit<FuriHalNfcTxRxContext> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FuriHalNfcTxRxContext>(),
+        1176usize,
+        concat!("Size of: ", stringify!(FuriHalNfcTxRxContext))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FuriHalNfcTxRxContext>(),
+        4usize,
+        concat!("Alignment of ", stringify!(FuriHalNfcTxRxContext))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).tx_data) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcTxRxContext),
+            "::",
+            stringify!(tx_data)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).tx_parity) as usize - ptr as usize },
+        512usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcTxRxContext),
+            "::",
+            stringify!(tx_parity)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).tx_bits) as usize - ptr as usize },
+        576usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcTxRxContext),
+            "::",
+            stringify!(tx_bits)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).rx_data) as usize - ptr as usize },
+        578usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcTxRxContext),
+            "::",
+            stringify!(rx_data)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).rx_parity) as usize - ptr as usize },
+        1090usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcTxRxContext),
+            "::",
+            stringify!(rx_parity)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).rx_bits) as usize - ptr as usize },
+        1154usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcTxRxContext),
+            "::",
+            stringify!(rx_bits)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).tx_rx_type) as usize - ptr as usize },
+        1156usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcTxRxContext),
+            "::",
+            stringify!(tx_rx_type)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).nfca_signal) as usize - ptr as usize },
+        1160usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcTxRxContext),
+            "::",
+            stringify!(nfca_signal)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).sniff_tx) as usize - ptr as usize },
+        1164usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcTxRxContext),
+            "::",
+            stringify!(sniff_tx)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).sniff_rx) as usize - ptr as usize },
+        1168usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcTxRxContext),
+            "::",
+            stringify!(sniff_rx)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).sniff_context) as usize - ptr as usize },
+        1172usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FuriHalNfcTxRxContext),
+            "::",
+            stringify!(sniff_context)
+        )
+    );
+}
+extern "C" {
+    #[doc = "Check if nfc worker is busy\n\nReturns:\n\n* true if busy\n\n"]
+    pub fn furi_hal_nfc_is_busy() -> bool;
+}
+extern "C" {
+    #[doc = "Check if nfc is initialized\n\nReturns:\n\n* true if initialized\n\n"]
+    pub fn furi_hal_nfc_is_init() -> bool;
+}
+extern "C" {
+    #[doc = "NFC field on\n\n"]
+    pub fn furi_hal_nfc_field_on();
+}
+extern "C" {
+    #[doc = "NFC field off\n\n"]
+    pub fn furi_hal_nfc_field_off();
+}
+extern "C" {
+    #[doc = "NFC start sleep\n\n"]
+    pub fn furi_hal_nfc_start_sleep();
+}
+extern "C" {
+    pub fn furi_hal_nfc_stop_cmd();
+}
+extern "C" {
+    #[doc = "NFC stop sleep\n\n"]
+    pub fn furi_hal_nfc_exit_sleep();
+}
+extern "C" {
+    #[doc = "NFC poll\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `dev_list` - pointer to rfalNfcDevice buffer\n* `dev_cnt` - pointer device count\n* `timeout` - timeout in ms\n* `deactivate` - deactivate flag\n\n"]
+    pub fn furi_hal_nfc_detect(nfc_data: *mut FuriHalNfcDevData, timeout: u32) -> bool;
+}
+extern "C" {
+    #[doc = "Activate NFC-A tag\n\nReturns:\n\n* true on succeess\n\n# Arguments\n\n* `timeout` - timeout in ms\n* `cuid` - pointer to 32bit uid\n\n"]
+    pub fn furi_hal_nfc_activate_nfca(timeout: u32, cuid: *mut u32) -> bool;
+}
+extern "C" {
+    #[doc = "NFC listen\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `uid` - pointer to uid buffer\n* `uid_len` - uid length\n* `atqa` - pointer to atqa\n* `sak` - sak\n* `activate_after_sak` - activate after sak flag\n* `timeout` - timeout in ms\n\n"]
+    pub fn furi_hal_nfc_listen(
+        uid: *mut u8,
+        uid_len: u8,
+        atqa: *mut u8,
+        sak: u8,
+        activate_after_sak: bool,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Start Target Listen mode\n\n# Arguments\n\n* `nfc_data` - FuriHalNfcDevData instance\n\n# Notes\n\n* RFAL free implementation\n\n"]
+    pub fn furi_hal_nfc_listen_start(nfc_data: *mut FuriHalNfcDevData);
+}
+extern "C" {
+    #[doc = "Read data in Target Listen mode\n\nReturns:\n\n* true on not empty receive\n\n# Arguments\n\n* `tx_rx` - FuriHalNfcTxRxContext instance\n* `timeout_ms` - timeout im ms\n\n# Notes\n\n* Must be called only after furi_hal_nfc_listen_start()\n\n"]
+    pub fn furi_hal_nfc_listen_rx(tx_rx: *mut FuriHalNfcTxRxContext, timeout_ms: u32) -> bool;
+}
+extern "C" {
+    #[doc = "Set Target in Sleep state\n\n"]
+    pub fn furi_hal_nfc_listen_sleep();
+}
+extern "C" {
+    #[doc = "Emulate NFC-A Target\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `uid` - NFC-A UID\n* `uid_len` - NFC-A UID length\n* `atqa` - NFC-A ATQA\n* `sak` - NFC-A SAK\n* `callback` - FuriHalNfcEmulateCallback instance\n* `context` - pointer to context for callback\n* `timeout` - timeout in ms\n\n# Notes\n\n* RFAL based implementation\n\n"]
+    pub fn furi_hal_nfc_emulate_nfca(
+        uid: *mut u8,
+        uid_len: u8,
+        atqa: *mut u8,
+        sak: u8,
+        callback: FuriHalNfcEmulateCallback,
+        context: *mut core::ffi::c_void,
+        timeout: u32,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "NFC data exchange\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `tx_rx_ctx` - FuriHalNfcTxRxContext instance\n\n"]
+    pub fn furi_hal_nfc_tx_rx(tx_rx: *mut FuriHalNfcTxRxContext, timeout_ms: u16) -> bool;
+}
+extern "C" {
+    #[doc = "NFC data full exhange\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `tx_rx_ctx` - FuriHalNfcTxRxContext instance\n\n"]
+    pub fn furi_hal_nfc_tx_rx_full(tx_rx: *mut FuriHalNfcTxRxContext) -> bool;
+}
+extern "C" {
+    #[doc = "NFC deactivate and start sleep\n\n"]
+    pub fn furi_hal_nfc_sleep();
+}
+extern "C" {
+    pub fn furi_hal_nfc_stop();
+}
+#[doc = "no error occurred\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnOk: FuriHalNfcReturn = 0;
+#[doc = "not enough memory to perform the requested operation\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnNomem: FuriHalNfcReturn = 1;
+#[doc = "device or resource busy\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnBusy: FuriHalNfcReturn = 2;
+#[doc = "generic IO error\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnIo: FuriHalNfcReturn = 3;
+#[doc = "error due to timeout\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnTimeout: FuriHalNfcReturn = 4;
+pub const FuriHalNfcReturn_FuriHalNfcReturnRequest: FuriHalNfcReturn = 5;
+#[doc = "No message of desired type\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnNomsg: FuriHalNfcReturn = 6;
+#[doc = "Parameter error\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnParam: FuriHalNfcReturn = 7;
+#[doc = "System error\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnSystem: FuriHalNfcReturn = 8;
+#[doc = "Framing error\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnFraming: FuriHalNfcReturn = 9;
+#[doc = "lost one or more received bytes\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnOverrun: FuriHalNfcReturn = 10;
+#[doc = "protocol error\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnProto: FuriHalNfcReturn = 11;
+#[doc = "Internal Error\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnInternal: FuriHalNfcReturn = 12;
+#[doc = "Call again\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnAgain: FuriHalNfcReturn = 13;
+#[doc = "memory corruption\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnMemCorrupt: FuriHalNfcReturn = 14;
+#[doc = "not implemented\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnNotImplemented: FuriHalNfcReturn = 15;
+pub const FuriHalNfcReturn_FuriHalNfcReturnPcCorrupt: FuriHalNfcReturn = 16;
+#[doc = "error sending\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnSend: FuriHalNfcReturn = 17;
+#[doc = "indicates error detected but to be ignored\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnIgnore: FuriHalNfcReturn = 18;
+#[doc = "indicates error in state machine (unexpected cmd)\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnSemantic: FuriHalNfcReturn = 19;
+#[doc = "indicates error in state machine (unknown cmd)\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnSyntax: FuriHalNfcReturn = 20;
+#[doc = "crc error\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnCrc: FuriHalNfcReturn = 21;
+#[doc = "transponder not found\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnNotfound: FuriHalNfcReturn = 22;
+pub const FuriHalNfcReturn_FuriHalNfcReturnNotunique: FuriHalNfcReturn = 23;
+#[doc = "requested operation not supported\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnNotsupp: FuriHalNfcReturn = 24;
+#[doc = "write error\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnWrite: FuriHalNfcReturn = 25;
+#[doc = "fifo over or underflow error\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnFifo: FuriHalNfcReturn = 26;
+#[doc = "parity error\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnPar: FuriHalNfcReturn = 27;
+#[doc = "transfer has already finished\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnDone: FuriHalNfcReturn = 28;
+pub const FuriHalNfcReturn_FuriHalNfcReturnRfCollision: FuriHalNfcReturn = 29;
+#[doc = "lost one or more received bytes\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnHwOverrun: FuriHalNfcReturn = 30;
+#[doc = "device requested release\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnReleaseReq: FuriHalNfcReturn = 31;
+#[doc = "device requested sleep\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnSleepReq: FuriHalNfcReturn = 32;
+#[doc = "incorrent state for requested operation\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnWrongState: FuriHalNfcReturn = 33;
+#[doc = "blocking procedure reached maximum runs\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnMaxReruns: FuriHalNfcReturn = 34;
+#[doc = "operation aborted due to disabled configuration\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnDisabled: FuriHalNfcReturn = 35;
+#[doc = "expected hw do not match\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnHwMismatch: FuriHalNfcReturn = 36;
+pub const FuriHalNfcReturn_FuriHalNfcReturnLinkLoss: FuriHalNfcReturn = 37;
+#[doc = "invalid or not initalized device handle\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnInvalidHandle: FuriHalNfcReturn = 38;
+#[doc = "Incomplete byte rcvd\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte: FuriHalNfcReturn = 40;
+#[doc = "Incomplete byte rcvd - 1 bit\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte01: FuriHalNfcReturn = 41;
+#[doc = "Incomplete byte rcvd - 2 bit\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte02: FuriHalNfcReturn = 42;
+#[doc = "Incomplete byte rcvd - 3 bit\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte03: FuriHalNfcReturn = 43;
+#[doc = "Incomplete byte rcvd - 4 bit\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte04: FuriHalNfcReturn = 44;
+#[doc = "Incomplete byte rcvd - 5 bit\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte05: FuriHalNfcReturn = 45;
+#[doc = "Incomplete byte rcvd - 6 bit\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte06: FuriHalNfcReturn = 46;
+#[doc = "Incomplete byte rcvd - 7 bit\n\n"]
+pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte07: FuriHalNfcReturn = 47;
+pub type FuriHalNfcReturn = core::ffi::c_uchar;
+#[doc = "No mode selected/defined\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModeNone: FuriHalNfcMode = 0;
+#[doc = "Mode to perform as NFCA (ISO14443A) Poller (PCD)\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModePollNfca: FuriHalNfcMode = 1;
+#[doc = "Mode to perform as NFCA T1T (Topaz) Poller (PCD)\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModePollNfcaT1t: FuriHalNfcMode = 2;
+#[doc = "Mode to perform as NFCB (ISO14443B) Poller (PCD)\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModePollNfcb: FuriHalNfcMode = 3;
+#[doc = "Mode to perform as B' Calypso (Innovatron) (PCD)\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModePollBPrime: FuriHalNfcMode = 4;
+#[doc = "Mode to perform as CTS Poller (PCD)\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModePollBCts: FuriHalNfcMode = 5;
+#[doc = "Mode to perform as NFCF (FeliCa) Poller (PCD)\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModePollNfcf: FuriHalNfcMode = 6;
+#[doc = "Mode to perform as NFCV (ISO15963) Poller (PCD)\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModePollNfcv: FuriHalNfcMode = 7;
+#[doc = "Mode to perform as PicoPass / iClass Poller (PCD)\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModePollPicopass: FuriHalNfcMode = 8;
+#[doc = "Mode to perform as Active P2P (ISO18092) Initiator\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModePollActiveP2p: FuriHalNfcMode = 9;
+#[doc = "Mode to perform as NFCA (ISO14443A) Listener (PICC)\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModeListenNfca: FuriHalNfcMode = 10;
+#[doc = "Mode to perform as NFCA (ISO14443B) Listener (PICC)\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModeListenNfcb: FuriHalNfcMode = 11;
+#[doc = "Mode to perform as NFCA (ISO15963) Listener (PICC)\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModeListenNfcf: FuriHalNfcMode = 12;
+#[doc = "Mode to perform as Active P2P (ISO18092) Target\n\n"]
+pub const FuriHalNfcMode_FuriHalNfcModeListenActiveP2p: FuriHalNfcMode = 13;
+pub type FuriHalNfcMode = core::ffi::c_uchar;
+#[doc = "Bit Rate 106 kbit/s (fc/128)\n\n"]
+pub const FuriHalNfcBitrate_FuriHalNfcBitrate106: FuriHalNfcBitrate = 0;
+#[doc = "Bit Rate 212 kbit/s (fc/64)\n\n"]
+pub const FuriHalNfcBitrate_FuriHalNfcBitrate212: FuriHalNfcBitrate = 1;
+#[doc = "Bit Rate 424 kbit/s (fc/32)\n\n"]
+pub const FuriHalNfcBitrate_FuriHalNfcBitrate424: FuriHalNfcBitrate = 2;
+#[doc = "Bit Rate 848 kbit/s (fc/16)\n\n"]
+pub const FuriHalNfcBitrate_FuriHalNfcBitrate848: FuriHalNfcBitrate = 3;
+#[doc = "Bit Rate 1695 kbit/s (fc/8)\n\n"]
+pub const FuriHalNfcBitrate_FuriHalNfcBitrate1695: FuriHalNfcBitrate = 4;
+#[doc = "Bit Rate 3390 kbit/s (fc/4)\n\n"]
+pub const FuriHalNfcBitrate_FuriHalNfcBitrate3390: FuriHalNfcBitrate = 5;
+#[doc = "Bit Rate 6780 kbit/s (fc/2)\n\n"]
+pub const FuriHalNfcBitrate_FuriHalNfcBitrate6780: FuriHalNfcBitrate = 6;
+#[doc = "Bit Rate 13560 kbit/s (fc)\n\n"]
+pub const FuriHalNfcBitrate_FuriHalNfcBitrate13560: FuriHalNfcBitrate = 7;
+#[doc = "Bit Rate 52.97 kbit/s (fc/256) Fast Mode VICC->VCD\n\n"]
+pub const FuriHalNfcBitrate_FuriHalNfcBitrate52p97: FuriHalNfcBitrate = 235;
+pub const FuriHalNfcBitrate_FuriHalNfcBitrate26p48: FuriHalNfcBitrate = 236;
+#[doc = "Bit Rate 1,66 kbit/s (fc/8192) NFCV VCD->VICC 1of256\n\n"]
+pub const FuriHalNfcBitrate_FuriHalNfcBitrate1p66: FuriHalNfcBitrate = 237;
+#[doc = "Value indicating to keep the same previous bit rate\n\n"]
+pub const FuriHalNfcBitrate_FuriHalNfcBitrateKeep: FuriHalNfcBitrate = 255;
+pub type FuriHalNfcBitrate = core::ffi::c_uchar;
+extern "C" {
+    pub fn furi_hal_nfc_ll_set_mode(
+        mode: FuriHalNfcMode,
+        txBR: FuriHalNfcBitrate,
+        rxBR: FuriHalNfcBitrate,
+    ) -> FuriHalNfcReturn;
+}
+extern "C" {
+    pub fn furi_hal_nfc_ll_set_guard_time(cycles: u32);
+}
+#[doc = "No special error handling will be performed\n\n"]
+pub const FuriHalNfcErrorHandling_FuriHalNfcErrorHandlingNone: FuriHalNfcErrorHandling = 0;
+#[doc = "Error handling set to perform as NFC compliant device\n\n"]
+pub const FuriHalNfcErrorHandling_FuriHalNfcErrorHandlingNfc: FuriHalNfcErrorHandling = 1;
+pub const FuriHalNfcErrorHandling_FuriHalNfcErrorHandlingEmvco: FuriHalNfcErrorHandling = 2;
+pub type FuriHalNfcErrorHandling = core::ffi::c_uchar;
+extern "C" {
+    pub fn furi_hal_nfc_ll_set_error_handling(eHandling: FuriHalNfcErrorHandling);
+}
+extern "C" {
+    pub fn furi_hal_nfc_ll_set_fdt_listen(cycles: u32);
+}
+extern "C" {
+    pub fn furi_hal_nfc_ll_set_fdt_poll(FDTPoll: u32);
+}
+extern "C" {
+    pub fn furi_hal_nfc_ll_txrx_on();
+}
+extern "C" {
+    pub fn furi_hal_nfc_ll_txrx_off();
+}
+extern "C" {
+    pub fn furi_hal_nfc_ll_txrx(
+        txBuf: *mut u8,
+        txBufLen: u16,
+        rxBuf: *mut u8,
+        rxBufLen: u16,
+        actLen: *mut u16,
+        flags: u32,
+        fwt: u32,
+    ) -> FuriHalNfcReturn;
+}
+extern "C" {
+    pub fn furi_hal_nfc_ll_txrx_bits(
+        txBuf: *mut u8,
+        txBufLen: u16,
+        rxBuf: *mut u8,
+        rxBufLen: u16,
+        actLen: *mut u16,
+        flags: u32,
+        fwt: u32,
+    ) -> FuriHalNfcReturn;
+}
+extern "C" {
+    pub fn furi_hal_nfc_ll_poll();
+}
+extern "C" {
+    pub fn furi_hal_nfc_field_detect_start();
+}
+extern "C" {
+    pub fn furi_hal_nfc_field_is_present() -> bool;
+}
+extern "C" {
+    #[doc = "Transfer execution to address\n\n# Arguments\n\n* `address` - [Direction: In] pointer to new executable\n\n"]
+    pub fn furi_hal_switch(address: *mut core::ffi::c_void);
+}
+pub type Elf32_Addr = u32;
+#[doc = "Interface for ELF loader to resolve symbols\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ElfApiInterface {
+    pub api_version_major: u16,
+    pub api_version_minor: u16,
+    pub resolver_callback: ::core::option::Option<
+        unsafe extern "C" fn(
+            interface: *const ElfApiInterface,
+            hash: u32,
+            address: *mut Elf32_Addr,
+        ) -> bool,
+    >,
+}
+#[test]
+fn bindgen_test_layout_ElfApiInterface() {
+    const UNINIT: ::core::mem::MaybeUninit<ElfApiInterface> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<ElfApiInterface>(),
+        8usize,
+        concat!("Size of: ", stringify!(ElfApiInterface))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<ElfApiInterface>(),
+        4usize,
+        concat!("Alignment of ", stringify!(ElfApiInterface))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).api_version_major) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ElfApiInterface),
+            "::",
+            stringify!(api_version_major)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).api_version_minor) as usize - ptr as usize },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ElfApiInterface),
+            "::",
+            stringify!(api_version_minor)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).resolver_callback) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ElfApiInterface),
+            "::",
+            stringify!(resolver_callback)
+        )
+    );
+}
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+pub struct FlipperApplicationManifestBase {
+    pub manifest_magic: u32,
+    pub manifest_version: u32,
+    pub api_version: FlipperApplicationManifestBase__bindgen_ty_1,
+    pub hardware_target_id: u16,
+}
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+pub union FlipperApplicationManifestBase__bindgen_ty_1 {
+    pub __bindgen_anon_1: FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1,
+    pub version: u32,
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1 {
+    pub minor: u16,
+    pub major: u16,
+}
+#[test]
+fn bindgen_test_layout_FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1() {
+    const UNINIT: ::core::mem::MaybeUninit<
+        FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1,
+    > = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1>(),
+        4usize,
+        concat!(
+            "Size of: ",
+            stringify!(FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1>(),
+        1usize,
+        concat!(
+            "Alignment of ",
+            stringify!(FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).minor) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(minor)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).major) as usize - ptr as usize },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(major)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout_FlipperApplicationManifestBase__bindgen_ty_1() {
+    const UNINIT: ::core::mem::MaybeUninit<FlipperApplicationManifestBase__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FlipperApplicationManifestBase__bindgen_ty_1>(),
+        4usize,
+        concat!(
+            "Size of: ",
+            stringify!(FlipperApplicationManifestBase__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FlipperApplicationManifestBase__bindgen_ty_1>(),
+        1usize,
+        concat!(
+            "Alignment of ",
+            stringify!(FlipperApplicationManifestBase__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).version) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestBase__bindgen_ty_1),
+            "::",
+            stringify!(version)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout_FlipperApplicationManifestBase() {
+    const UNINIT: ::core::mem::MaybeUninit<FlipperApplicationManifestBase> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FlipperApplicationManifestBase>(),
+        14usize,
+        concat!("Size of: ", stringify!(FlipperApplicationManifestBase))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FlipperApplicationManifestBase>(),
+        1usize,
+        concat!("Alignment of ", stringify!(FlipperApplicationManifestBase))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).manifest_magic) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestBase),
+            "::",
+            stringify!(manifest_magic)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).manifest_version) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestBase),
+            "::",
+            stringify!(manifest_version)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).api_version) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestBase),
+            "::",
+            stringify!(api_version)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).hardware_target_id) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestBase),
+            "::",
+            stringify!(hardware_target_id)
+        )
+    );
+}
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+pub struct FlipperApplicationManifestV1 {
+    pub base: FlipperApplicationManifestBase,
+    pub stack_size: u16,
+    pub app_version: u32,
+    pub name: [core::ffi::c_char; 32usize],
+    pub has_icon: core::ffi::c_char,
+    pub icon: [core::ffi::c_char; 32usize],
+}
+#[test]
+fn bindgen_test_layout_FlipperApplicationManifestV1() {
+    const UNINIT: ::core::mem::MaybeUninit<FlipperApplicationManifestV1> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FlipperApplicationManifestV1>(),
+        85usize,
+        concat!("Size of: ", stringify!(FlipperApplicationManifestV1))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FlipperApplicationManifestV1>(),
+        1usize,
+        concat!("Alignment of ", stringify!(FlipperApplicationManifestV1))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).base) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestV1),
+            "::",
+            stringify!(base)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).stack_size) as usize - ptr as usize },
+        14usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestV1),
+            "::",
+            stringify!(stack_size)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).app_version) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestV1),
+            "::",
+            stringify!(app_version)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestV1),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).has_icon) as usize - ptr as usize },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestV1),
+            "::",
+            stringify!(has_icon)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).icon) as usize - ptr as usize },
+        53usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperApplicationManifestV1),
+            "::",
+            stringify!(icon)
+        )
+    );
+}
+pub type FlipperApplicationManifest = FlipperApplicationManifestV1;
+extern "C" {
+    #[doc = "Check if manifest is valid\n\nReturns:\n\n* bool\n\n# Arguments\n\n* `manifest` - \n\n"]
+    pub fn flipper_application_manifest_is_valid(
+        manifest: *const FlipperApplicationManifest,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Check if manifest is compatible with current ELF API interface\n\nReturns:\n\n* bool\n\n# Arguments\n\n* `manifest` - \n* `api_interface` - \n\n"]
+    pub fn flipper_application_manifest_is_compatible(
+        manifest: *const FlipperApplicationManifest,
+        api_interface: *const ElfApiInterface,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Check if application is compatible with current hardware\n\nReturns:\n\n* bool\n\n# Arguments\n\n* `manifest` - \n\n"]
+    pub fn flipper_application_manifest_is_target_compatible(
+        manifest: *const FlipperApplicationManifest,
+    ) -> bool;
+}
+#[doc = "Read access\n\n"]
+pub const FS_AccessMode_FSAM_READ: FS_AccessMode = 1;
+#[doc = "Write access\n\n"]
+pub const FS_AccessMode_FSAM_WRITE: FS_AccessMode = 2;
+#[doc = "Read and write access\n\n"]
+pub const FS_AccessMode_FSAM_READ_WRITE: FS_AccessMode = 3;
+#[doc = "Access mode flags\n\n"]
+pub type FS_AccessMode = core::ffi::c_uchar;
+#[doc = "Open file, fail if file doesn't exist\n\n"]
+pub const FS_OpenMode_FSOM_OPEN_EXISTING: FS_OpenMode = 1;
+#[doc = "Open file. Create new file if not exist\n\n"]
+pub const FS_OpenMode_FSOM_OPEN_ALWAYS: FS_OpenMode = 2;
+#[doc = "Open file. Create new file if not exist. Set R/W pointer to EOF\n\n"]
+pub const FS_OpenMode_FSOM_OPEN_APPEND: FS_OpenMode = 4;
+#[doc = "Creates a new file. Fails if the file is exist\n\n"]
+pub const FS_OpenMode_FSOM_CREATE_NEW: FS_OpenMode = 8;
+#[doc = "Creates a new file. If file exist, truncate to zero size\n\n"]
+pub const FS_OpenMode_FSOM_CREATE_ALWAYS: FS_OpenMode = 16;
+#[doc = "Open mode flags\n\n"]
+pub type FS_OpenMode = core::ffi::c_uchar;
+#[doc = "No error\n\n"]
+pub const FS_Error_FSE_OK: FS_Error = 0;
+#[doc = "FS not ready\n\n"]
+pub const FS_Error_FSE_NOT_READY: FS_Error = 1;
+#[doc = "File/Dir already exist\n\n"]
+pub const FS_Error_FSE_EXIST: FS_Error = 2;
+#[doc = "File/Dir does not exist\n\n"]
+pub const FS_Error_FSE_NOT_EXIST: FS_Error = 3;
+#[doc = "Invalid API parameter\n\n"]
+pub const FS_Error_FSE_INVALID_PARAMETER: FS_Error = 4;
+#[doc = "Access denied\n\n"]
+pub const FS_Error_FSE_DENIED: FS_Error = 5;
+#[doc = "Invalid name/path\n\n"]
+pub const FS_Error_FSE_INVALID_NAME: FS_Error = 6;
+#[doc = "Internal error\n\n"]
+pub const FS_Error_FSE_INTERNAL: FS_Error = 7;
+#[doc = "Function not implemented\n\n"]
+pub const FS_Error_FSE_NOT_IMPLEMENTED: FS_Error = 8;
+#[doc = "File/Dir already opened\n\n"]
+pub const FS_Error_FSE_ALREADY_OPEN: FS_Error = 9;
+#[doc = "API errors enumeration\n\n"]
+pub type FS_Error = core::ffi::c_uchar;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct File {
+    _unused: [u8; 0],
+}
+#[doc = "Structure that hold file info\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FileInfo {
+    #[doc = "flags from FS_Flags enum\n\n"]
+    pub flags: u8,
+    #[doc = "file size\n\n"]
+    pub size: u64,
+}
+#[test]
+fn bindgen_test_layout_FileInfo() {
+    const UNINIT: ::core::mem::MaybeUninit<FileInfo> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FileInfo>(),
+        16usize,
+        concat!("Size of: ", stringify!(FileInfo))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FileInfo>(),
+        8usize,
+        concat!("Alignment of ", stringify!(FileInfo))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FileInfo),
+            "::",
+            stringify!(flags)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FileInfo),
+            "::",
+            stringify!(size)
+        )
+    );
+}
+extern "C" {
+    #[doc = "Gets the error text from FS_Error\n\nReturns:\n\n* const char* error text\n\n# Arguments\n\n* `error_id` - error id\n\n"]
+    pub fn filesystem_api_error_get_desc(error_id: FS_Error) -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Checks if file info is directory\n\nReturns:\n\n* bool is directory\n\n# Arguments\n\n* `file_info` - file info pointer\n\n"]
+    pub fn file_info_is_dir(file_info: *const FileInfo) -> bool;
+}
+pub const SDFsType_FST_UNKNOWN: SDFsType = 0;
+pub const SDFsType_FST_FAT12: SDFsType = 1;
+pub const SDFsType_FST_FAT16: SDFsType = 2;
+pub const SDFsType_FST_FAT32: SDFsType = 3;
+pub const SDFsType_FST_EXFAT: SDFsType = 4;
+pub type SDFsType = core::ffi::c_uchar;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct SDInfo {
+    pub fs_type: SDFsType,
+    pub kb_total: u32,
+    pub kb_free: u32,
+    pub cluster_size: u16,
+    pub sector_size: u16,
+    pub label: [core::ffi::c_char; 34usize],
+    pub manufacturer_id: u8,
+    pub oem_id: [core::ffi::c_char; 3usize],
+    pub product_name: [core::ffi::c_char; 6usize],
+    pub product_revision_major: u8,
+    pub product_revision_minor: u8,
+    pub product_serial_number: u32,
+    pub manufacturing_month: u8,
+    pub manufacturing_year: u16,
+    pub error: FS_Error,
+}
+#[test]
+fn bindgen_test_layout_SDInfo() {
+    const UNINIT: ::core::mem::MaybeUninit<SDInfo> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<SDInfo>(),
+        76usize,
+        concat!("Size of: ", stringify!(SDInfo))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<SDInfo>(),
+        4usize,
+        concat!("Alignment of ", stringify!(SDInfo))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).fs_type) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(fs_type)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).kb_total) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(kb_total)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).kb_free) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(kb_free)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).cluster_size) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(cluster_size)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).sector_size) as usize - ptr as usize },
+        14usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(sector_size)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).label) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(label)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).manufacturer_id) as usize - ptr as usize },
+        50usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(manufacturer_id)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).oem_id) as usize - ptr as usize },
+        51usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(oem_id)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).product_name) as usize - ptr as usize },
+        54usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(product_name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).product_revision_major) as usize - ptr as usize },
+        60usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(product_revision_major)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).product_revision_minor) as usize - ptr as usize },
+        61usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(product_revision_minor)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).product_serial_number) as usize - ptr as usize },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(product_serial_number)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).manufacturing_month) as usize - ptr as usize },
+        68usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(manufacturing_month)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).manufacturing_year) as usize - ptr as usize },
+        70usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(manufacturing_year)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).error) as usize - ptr as usize },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SDInfo),
+            "::",
+            stringify!(error)
+        )
+    );
+}
+extern "C" {
+    pub fn sd_api_get_fs_type_text(fs_type: SDFsType) -> *const core::ffi::c_char;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Storage {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = "Allocates and initializes a file descriptor\n\nReturns:\n\n* File*\n\n"]
+    pub fn storage_file_alloc(storage: *mut Storage) -> *mut File;
+}
+extern "C" {
+    #[doc = "Frees the file descriptor. Closes the file if it was open.\n\n"]
+    pub fn storage_file_free(file: *mut File);
+}
+extern "C" {
+    #[doc = "Get storage pubsub. Storage will send StorageEvent messages.\n\nReturns:\n\n* FuriPubSub*\n\n# Arguments\n\n* `storage` - \n\n"]
+    pub fn storage_get_pubsub(storage: *mut Storage) -> *mut FuriPubSub;
+}
+extern "C" {
+    #[doc = "Opens an existing file or create a new one.\n\nReturns:\n\n* success flag. You need to close the file even if the open operation failed.\n\n# Arguments\n\n* `file` - pointer to file object.\n* `path` - path to file\n* `access_mode` - access mode from FS_AccessMode\n* `open_mode` - open mode from FS_OpenMode\n\n"]
+    pub fn storage_file_open(
+        file: *mut File,
+        path: *const core::ffi::c_char,
+        access_mode: FS_AccessMode,
+        open_mode: FS_OpenMode,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Close the file.\n\nReturns:\n\n* success flag\n\n# Arguments\n\n* `file` - pointer to a file object, the file object will be freed.\n\n"]
+    pub fn storage_file_close(file: *mut File) -> bool;
+}
+extern "C" {
+    #[doc = "Tells if the file is open\n\nReturns:\n\n* bool true if file is open\n\n# Arguments\n\n* `file` - pointer to a file object\n\n"]
+    pub fn storage_file_is_open(file: *mut File) -> bool;
+}
+extern "C" {
+    #[doc = "Tells if the file is a directory\n\nReturns:\n\n* bool true if file is a directory\n\n# Arguments\n\n* `file` - pointer to a file object\n\n"]
+    pub fn storage_file_is_dir(file: *mut File) -> bool;
+}
+extern "C" {
+    #[doc = "Reads bytes from a file into a buffer\n\nReturns:\n\n* uint16_t how many bytes were actually read\n\n# Arguments\n\n* `file` - pointer to file object.\n* `buff` - pointer to a buffer, for reading\n* `bytes_to_read` - how many bytes to read. Must be less than or equal to the size of the buffer.\n\n"]
+    pub fn storage_file_read(
+        file: *mut File,
+        buff: *mut core::ffi::c_void,
+        bytes_to_read: u16,
+    ) -> u16;
+}
+extern "C" {
+    #[doc = "Writes bytes from a buffer to a file\n\nReturns:\n\n* uint16_t how many bytes were actually written\n\n# Arguments\n\n* `file` - pointer to file object.\n* `buff` - pointer to buffer, for writing\n* `bytes_to_write` - how many bytes to write. Must be less than or equal to the size of the buffer.\n\n"]
+    pub fn storage_file_write(
+        file: *mut File,
+        buff: *const core::ffi::c_void,
+        bytes_to_write: u16,
+    ) -> u16;
+}
+extern "C" {
+    #[doc = "Moves the r/w pointer\n\nReturns:\n\n* success flag\n\n# Arguments\n\n* `file` - pointer to file object.\n* `offset` - offset to move the r/w pointer\n* `from_start` - set an offset from the start or from the current position\n\n"]
+    pub fn storage_file_seek(file: *mut File, offset: u32, from_start: bool) -> bool;
+}
+extern "C" {
+    #[doc = "Gets the position of the r/w pointer\n\nReturns:\n\n* uint64_t position of the r/w pointer\n\n# Arguments\n\n* `file` - pointer to file object.\n\n"]
+    pub fn storage_file_tell(file: *mut File) -> u64;
+}
+extern "C" {
+    #[doc = "Truncates the file size to the current position of the r/w pointer\n\nReturns:\n\n* bool success flag\n\n# Arguments\n\n* `file` - pointer to file object.\n\n"]
+    pub fn storage_file_truncate(file: *mut File) -> bool;
+}
+extern "C" {
+    #[doc = "Gets the size of the file\n\nReturns:\n\n* uint64_t size of the file\n\n# Arguments\n\n* `file` - pointer to file object.\n\n"]
+    pub fn storage_file_size(file: *mut File) -> u64;
+}
+extern "C" {
+    #[doc = "Checks that the r/w pointer is at the end of the file\n\nReturns:\n\n* bool success flag\n\n# Arguments\n\n* `file` - pointer to file object.\n\n"]
+    pub fn storage_file_eof(file: *mut File) -> bool;
+}
+extern "C" {
+    #[doc = "Check that file exists\n\nReturns:\n\n* true if file exists\n\n# Arguments\n\n* `storage` - \n* `path` - \n\n"]
+    pub fn storage_file_exists(storage: *mut Storage, path: *const core::ffi::c_char) -> bool;
+}
+extern "C" {
+    #[doc = "Copy data from one opened file to another opened file Size bytes will be copied from current position of source file to current position of destination file\n\nReturns:\n\n* bool success flag\n\n# Arguments\n\n* `source` - source file\n* `destination` - destination file\n* `size` - size of data to copy\n\n"]
+    pub fn storage_file_copy_to_file(source: *mut File, destination: *mut File, size: u32) -> bool;
+}
+extern "C" {
+    #[doc = "Opens a directory to get objects from it\n\nReturns:\n\n* bool success flag. You need to close the directory even if the open operation failed.\n\n# Arguments\n\n* `app` - pointer to the api\n* `file` - pointer to file object.\n* `path` - path to directory\n\n"]
+    pub fn storage_dir_open(file: *mut File, path: *const core::ffi::c_char) -> bool;
+}
+extern "C" {
+    #[doc = "Close the directory. Also free file handle structure and point it to the NULL.\n\nReturns:\n\n* bool success flag\n\n# Arguments\n\n* `file` - pointer to a file object.\n\n"]
+    pub fn storage_dir_close(file: *mut File) -> bool;
+}
+extern "C" {
+    #[doc = "Reads the next object in the directory\n\nReturns:\n\n* success flag (if the next object does not exist, it also returns false and sets the file error id to FSE_NOT_EXIST)\n\n# Arguments\n\n* `file` - pointer to file object.\n* `fileinfo` - pointer to the read FileInfo, may be NULL\n* `name` - pointer to name buffer, may be NULL\n* `name_length` - name buffer length\n\n"]
+    pub fn storage_dir_read(
+        file: *mut File,
+        fileinfo: *mut FileInfo,
+        name: *mut core::ffi::c_char,
+        name_length: u16,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Check that dir exists\n\nReturns:\n\n* bool\n\n# Arguments\n\n* `storage` - \n* `path` - \n\n"]
+    pub fn storage_dir_exists(storage: *mut Storage, path: *const core::ffi::c_char) -> bool;
+}
+extern "C" {
+    #[doc = "Retrieves unix timestamp of last access\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `storage` - The storage instance\n* `path` - path to file/directory\n* `timestamp` - the timestamp pointer\n\n"]
+    pub fn storage_common_timestamp(
+        storage: *mut Storage,
+        path: *const core::ffi::c_char,
+        timestamp: *mut u32,
+    ) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Retrieves information about a file/directory\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `path` - path to file/directory\n* `fileinfo` - pointer to the read FileInfo, may be NULL\n\n"]
+    pub fn storage_common_stat(
+        storage: *mut Storage,
+        path: *const core::ffi::c_char,
+        fileinfo: *mut FileInfo,
+    ) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Removes a file/directory from the repository, the directory must be empty and the file/directory must not be open\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `path` - \n\n"]
+    pub fn storage_common_remove(storage: *mut Storage, path: *const core::ffi::c_char)
+        -> FS_Error;
+}
+extern "C" {
+    #[doc = "Renames file/directory, file/directory must not be open. Will overwrite existing file.\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `old_path` - old path\n* `new_path` - new path\n\n"]
+    pub fn storage_common_rename(
+        storage: *mut Storage,
+        old_path: *const core::ffi::c_char,
+        new_path: *const core::ffi::c_char,
+    ) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Copy file, file must not be open\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `old_path` - old path\n* `new_path` - new path\n\n"]
+    pub fn storage_common_copy(
+        storage: *mut Storage,
+        old_path: *const core::ffi::c_char,
+        new_path: *const core::ffi::c_char,
+    ) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Copy one folder contents into another with rename of all conflicting files\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `old_path` - old path\n* `new_path` - new path\n\n"]
+    pub fn storage_common_merge(
+        storage: *mut Storage,
+        old_path: *const core::ffi::c_char,
+        new_path: *const core::ffi::c_char,
+    ) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Creates a directory\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `path` - directory path\n\n"]
+    pub fn storage_common_mkdir(storage: *mut Storage, path: *const core::ffi::c_char) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Gets general information about the storage\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `fs_path` - the path to the storage of interest\n* `total_space` - pointer to total space record, will be filled\n* `free_space` - pointer to free space record, will be filled\n\n"]
+    pub fn storage_common_fs_info(
+        storage: *mut Storage,
+        fs_path: *const core::ffi::c_char,
+        total_space: *mut u64,
+        free_space: *mut u64,
+    ) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Parse aliases in path and replace them with real path Also will create special folders if they are not exist\n\nReturns:\n\n* bool\n\n# Arguments\n\n* `storage` - \n* `path` - \n\n"]
+    pub fn storage_common_resolve_path_and_ensure_app_directory(
+        storage: *mut Storage,
+        path: *mut FuriString,
+    );
+}
+extern "C" {
+    #[doc = "Move content of one folder to another, with rename of all conflicting files. Source folder will be deleted if the migration is successful.\n\nReturns:\n\n* FS_Error\n\n# Arguments\n\n* `storage` - \n* `source` - \n* `dest` - \n\n"]
+    pub fn storage_common_migrate(
+        storage: *mut Storage,
+        source: *const core::ffi::c_char,
+        dest: *const core::ffi::c_char,
+    ) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Check that file or dir exists\n\nReturns:\n\n* bool\n\n# Arguments\n\n* `storage` - \n* `path` - \n\n"]
+    pub fn storage_common_exists(storage: *mut Storage, path: *const core::ffi::c_char) -> bool;
+}
+extern "C" {
+    #[doc = "Retrieves the error text from the error id\n\nReturns:\n\n* const char* error text\n\n# Arguments\n\n* `error_id` - error id\n\n"]
+    pub fn storage_error_get_desc(error_id: FS_Error) -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Retrieves the error id from the file object\n\nReturns:\n\n* FS_Error error id\n\n# Arguments\n\n* `file` - pointer to file object. Pointer must not point to NULL. YOU CANNOT RETRIEVE THE ERROR ID IF THE FILE HAS BEEN CLOSED\n\n"]
+    pub fn storage_file_get_error(file: *mut File) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Retrieves the error text from the file object\n\nReturns:\n\n* const char* error text\n\n# Arguments\n\n* `file` - pointer to file object. Pointer must not point to NULL. YOU CANNOT RETRIEVE THE ERROR TEXT IF THE FILE HAS BEEN CLOSED\n\n"]
+    pub fn storage_file_get_error_desc(file: *mut File) -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Formats SD Card\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `api` - pointer to the api\n\n"]
+    pub fn storage_sd_format(api: *mut Storage) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Will unmount the SD card\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `api` - pointer to the api\n\n"]
+    pub fn storage_sd_unmount(api: *mut Storage) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Retrieves SD card information\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `api` - pointer to the api\n* `info` - pointer to the info\n\n"]
+    pub fn storage_sd_info(api: *mut Storage, info: *mut SDInfo) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Retrieves SD card status\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `api` - pointer to the api\n\n"]
+    pub fn storage_sd_status(api: *mut Storage) -> FS_Error;
+}
+#[doc = "Internal LFS Functions\n\n"]
+pub type Storage_name_converter =
+    ::core::option::Option<unsafe extern "C" fn(arg1: *mut FuriString)>;
+extern "C" {
+    #[doc = "Backs up internal storage to a tar archive\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `api` - pointer to the api\n* `dstmane` - destination archive path\n\n"]
+    pub fn storage_int_backup(api: *mut Storage, dstname: *const core::ffi::c_char) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Restores internal storage from a tar archive\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `api` - pointer to the api\n* `dstmane` - archive path\n* `converter` - pointer to filename conversion function, may be NULL\n\n"]
+    pub fn storage_int_restore(
+        api: *mut Storage,
+        dstname: *const core::ffi::c_char,
+        converter: Storage_name_converter,
+    ) -> FS_Error;
+}
+extern "C" {
+    #[doc = "Removes a file/directory, the directory must be empty and the file/directory must not be open\n\nReturns:\n\n* true on success or if file/dir is not exist\n\n# Arguments\n\n* `storage` - pointer to the api\n* `path` - \n\n"]
+    pub fn storage_simply_remove(storage: *mut Storage, path: *const core::ffi::c_char) -> bool;
+}
+extern "C" {
+    #[doc = "Recursively removes a file/directory, the directory can be not empty\n\nReturns:\n\n* true on success or if file/dir is not exist\n\n# Arguments\n\n* `storage` - pointer to the api\n* `path` - \n\n"]
+    pub fn storage_simply_remove_recursive(
+        storage: *mut Storage,
+        path: *const core::ffi::c_char,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "Creates a directory\n\nReturns:\n\n* true on success or if directory is already exist\n\n# Arguments\n\n* `storage` - \n* `path` - \n\n"]
+    pub fn storage_simply_mkdir(storage: *mut Storage, path: *const core::ffi::c_char) -> bool;
+}
+extern "C" {
+    #[doc = "Get next free filename.\n\n# Arguments\n\n* `storage` - \n* `dirname` - \n* `filename` - \n* `fileextension` - \n* `nextfilename` - return name\n* `max_len` - max len name\n\n"]
+    pub fn storage_get_next_filename(
+        storage: *mut Storage,
+        dirname: *const core::ffi::c_char,
+        filename: *const core::ffi::c_char,
+        fileextension: *const core::ffi::c_char,
+        nextfilename: *mut FuriString,
+        max_len: u8,
+    );
+}
+pub const FlipperApplicationPreloadStatus_FlipperApplicationPreloadStatusSuccess:
+    FlipperApplicationPreloadStatus = 0;
+pub const FlipperApplicationPreloadStatus_FlipperApplicationPreloadStatusUnspecifiedError:
+    FlipperApplicationPreloadStatus = 1;
+pub const FlipperApplicationPreloadStatus_FlipperApplicationPreloadStatusInvalidFile:
+    FlipperApplicationPreloadStatus = 2;
+pub const FlipperApplicationPreloadStatus_FlipperApplicationPreloadStatusInvalidManifest:
+    FlipperApplicationPreloadStatus = 3;
+pub const FlipperApplicationPreloadStatus_FlipperApplicationPreloadStatusApiMismatch:
+    FlipperApplicationPreloadStatus = 4;
+pub const FlipperApplicationPreloadStatus_FlipperApplicationPreloadStatusTargetMismatch:
+    FlipperApplicationPreloadStatus = 5;
+pub type FlipperApplicationPreloadStatus = core::ffi::c_uchar;
+pub const FlipperApplicationLoadStatus_FlipperApplicationLoadStatusSuccess:
+    FlipperApplicationLoadStatus = 0;
+pub const FlipperApplicationLoadStatus_FlipperApplicationLoadStatusUnspecifiedError:
+    FlipperApplicationLoadStatus = 1;
+pub const FlipperApplicationLoadStatus_FlipperApplicationLoadStatusNoFreeMemory:
+    FlipperApplicationLoadStatus = 2;
+pub const FlipperApplicationLoadStatus_FlipperApplicationLoadStatusMissingImports:
+    FlipperApplicationLoadStatus = 3;
+pub type FlipperApplicationLoadStatus = core::ffi::c_uchar;
+extern "C" {
+    #[doc = "Get text description of preload status\n\nReturns:\n\n* String pointer to description\n\n# Arguments\n\n* `status` - Status code\n\n"]
+    pub fn flipper_application_preload_status_to_string(
+        status: FlipperApplicationPreloadStatus,
+    ) -> *const core::ffi::c_char;
+}
+extern "C" {
+    #[doc = "Get text description of load status\n\nReturns:\n\n* String pointer to description\n\n# Arguments\n\n* `status` - Status code\n\n"]
+    pub fn flipper_application_load_status_to_string(
+        status: FlipperApplicationLoadStatus,
+    ) -> *const core::ffi::c_char;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FlipperApplication {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = "Initialize FlipperApplication object\n\nReturns:\n\n* Application instance\n\n# Arguments\n\n* `storage` - Storage instance\n* `api_interface` - ELF API interface to use for pre-loading and symbol resolving\n\n"]
+    pub fn flipper_application_alloc(
+        storage: *mut Storage,
+        api_interface: *const ElfApiInterface,
+    ) -> *mut FlipperApplication;
+}
+extern "C" {
+    #[doc = "Destroy FlipperApplication object\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
+    pub fn flipper_application_free(app: *mut FlipperApplication);
+}
+extern "C" {
+    #[doc = "Validate elf file and load application metadata\n\nReturns:\n\n* Preload result code\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
+    pub fn flipper_application_preload(
+        app: *mut FlipperApplication,
+        path: *const core::ffi::c_char,
+    ) -> FlipperApplicationPreloadStatus;
+}
+extern "C" {
+    #[doc = "Validate elf file and load application manifest\n\nReturns:\n\n* Preload result code\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
+    pub fn flipper_application_preload_manifest(
+        app: *mut FlipperApplication,
+        path: *const core::ffi::c_char,
+    ) -> FlipperApplicationPreloadStatus;
+}
+extern "C" {
+    #[doc = "Get pointer to application manifest for preloaded application\n\nReturns:\n\n* Pointer to application manifest\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
+    pub fn flipper_application_get_manifest(
+        app: *mut FlipperApplication,
+    ) -> *const FlipperApplicationManifest;
+}
+extern "C" {
+    #[doc = "Load sections and process relocations for already pre-loaded application\n\nReturns:\n\n* Load result code\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
+    pub fn flipper_application_map_to_memory(
+        app: *mut FlipperApplication,
+    ) -> FlipperApplicationLoadStatus;
+}
+extern "C" {
+    #[doc = "Allocate application thread at entry point address, using app name and stack size from metadata. Returned thread isn't started yet. Can be only called once for application instance.\n\nReturns:\n\n* Created thread\n\n# Arguments\n\n* `app` - Applicaiton pointer\n* `args` - Args to pass to app's entry point\n\n"]
+    pub fn flipper_application_alloc_thread(
+        app: *mut FlipperApplication,
+        args: *const core::ffi::c_char,
+    ) -> *mut FuriThread;
+}
+extern "C" {
+    #[doc = "Check if application is a plugin (not a runnable standalone app)\n\nReturns:\n\n* true if application is a plugin, false otherwise\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
+    pub fn flipper_application_is_plugin(app: *mut FlipperApplication) -> bool;
+}
+#[doc = "An object that describes a plugin - must be returned by plugin's entry point\n\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct FlipperAppPluginDescriptor {
+    pub appid: *const core::ffi::c_char,
+    pub ep_api_version: u32,
+    pub entry_point: *const core::ffi::c_void,
+}
+#[test]
+fn bindgen_test_layout_FlipperAppPluginDescriptor() {
+    const UNINIT: ::core::mem::MaybeUninit<FlipperAppPluginDescriptor> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<FlipperAppPluginDescriptor>(),
+        12usize,
+        concat!("Size of: ", stringify!(FlipperAppPluginDescriptor))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<FlipperAppPluginDescriptor>(),
+        4usize,
+        concat!("Alignment of ", stringify!(FlipperAppPluginDescriptor))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).appid) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperAppPluginDescriptor),
+            "::",
+            stringify!(appid)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).ep_api_version) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperAppPluginDescriptor),
+            "::",
+            stringify!(ep_api_version)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).entry_point) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(FlipperAppPluginDescriptor),
+            "::",
+            stringify!(entry_point)
+        )
+    );
+}
+extern "C" {
+    #[doc = "Get plugin descriptor for preloaded plugin\n\nReturns:\n\n* Pointer to plugin descriptor\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
+    pub fn flipper_application_plugin_get_descriptor(
+        app: *mut FlipperApplication,
+    ) -> *const FlipperAppPluginDescriptor;
+}
+extern "C" {
+    #[doc = "Load name and icon from FAP file.\n\nReturns:\n\n* true if icon and name were loaded successfully.\n\n# Arguments\n\n* `path` - Path to FAP file.\n* `storage` - Storage instance.\n* `icon_ptr` - Icon pointer.\n* `item_name` - Application name.\n\n"]
+    pub fn flipper_application_load_name_and_icon(
+        path: *mut FuriString,
+        storage: *mut Storage,
+        icon_ptr: *mut *mut u8,
+        item_name: *mut FuriString,
+    ) -> bool;
+}
+pub type SubGhzBegin = ::core::option::Option<unsafe extern "C" fn() -> bool>;
+pub type SubGhzEnd = ::core::option::Option<unsafe extern "C" fn()>;
+pub type SubGhzIsConnect = ::core::option::Option<unsafe extern "C" fn() -> bool>;
+pub type SubGhzReset = ::core::option::Option<unsafe extern "C" fn()>;
+pub type SubGhzSleep = ::core::option::Option<unsafe extern "C" fn()>;
+pub type SubGhzIdle = ::core::option::Option<unsafe extern "C" fn()>;
+pub type SubGhzLoadPreset =
+    ::core::option::Option<unsafe extern "C" fn(preset: FuriHalSubGhzPreset, preset_data: *mut u8)>;
+pub type SubGhzSetFrequency = ::core::option::Option<unsafe extern "C" fn(frequency: u32) -> u32>;
+pub type SubGhzIsFrequencyValid =
+    ::core::option::Option<unsafe extern "C" fn(frequency: u32) -> bool>;
+pub type SubGhzSetAsyncMirrorPin =
+    ::core::option::Option<unsafe extern "C" fn(gpio: *const GpioPin)>;
+pub type SubGhzGetDataGpio = ::core::option::Option<unsafe extern "C" fn() -> *const GpioPin>;
+pub type SubGhzSetTx = ::core::option::Option<unsafe extern "C" fn() -> bool>;
+pub type SubGhzFlushTx = ::core::option::Option<unsafe extern "C" fn()>;
+pub type SubGhzStartAsyncTx = ::core::option::Option<
+    unsafe extern "C" fn(callback: *mut core::ffi::c_void, context: *mut core::ffi::c_void) -> bool,
+>;
+pub type SubGhzIsAsyncCompleteTx = ::core::option::Option<unsafe extern "C" fn() -> bool>;
+pub type SubGhzStopAsyncTx = ::core::option::Option<unsafe extern "C" fn()>;
+pub type SubGhzSetRx = ::core::option::Option<unsafe extern "C" fn()>;
+pub type SubGhzFlushRx = ::core::option::Option<unsafe extern "C" fn()>;
+pub type SubGhzStartAsyncRx = ::core::option::Option<
+    unsafe extern "C" fn(callback: *mut core::ffi::c_void, context: *mut core::ffi::c_void),
+>;
+pub type SubGhzStopAsyncRx = ::core::option::Option<unsafe extern "C" fn()>;
+pub type SubGhzGetRSSI = ::core::option::Option<unsafe extern "C" fn() -> f32>;
+pub type SubGhzGetLQI = ::core::option::Option<unsafe extern "C" fn() -> u8>;
+pub type SubGhzRxPipeNotEmpty = ::core::option::Option<unsafe extern "C" fn() -> bool>;
+pub type SubGhzRxIsDataCrcValid = ::core::option::Option<unsafe extern "C" fn() -> bool>;
+pub type SubGhzReadPacket =
+    ::core::option::Option<unsafe extern "C" fn(data: *mut u8, size: *mut u8)>;
+pub type SubGhzWritePacket =
+    ::core::option::Option<unsafe extern "C" fn(data: *const u8, size: u8)>;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct SubGhzDeviceInterconnect {
+    pub begin: SubGhzBegin,
+    pub end: SubGhzEnd,
+    pub is_connect: SubGhzIsConnect,
+    pub reset: SubGhzReset,
+    pub sleep: SubGhzSleep,
+    pub idle: SubGhzIdle,
+    pub load_preset: SubGhzLoadPreset,
+    pub set_frequency: SubGhzSetFrequency,
+    pub is_frequency_valid: SubGhzIsFrequencyValid,
+    pub set_async_mirror_pin: SubGhzSetAsyncMirrorPin,
+    pub get_data_gpio: SubGhzGetDataGpio,
+    pub set_tx: SubGhzSetTx,
+    pub flush_tx: SubGhzFlushTx,
+    pub start_async_tx: SubGhzStartAsyncTx,
+    pub is_async_complete_tx: SubGhzIsAsyncCompleteTx,
+    pub stop_async_tx: SubGhzStopAsyncTx,
+    pub set_rx: SubGhzSetRx,
+    pub flush_rx: SubGhzFlushRx,
+    pub start_async_rx: SubGhzStartAsyncRx,
+    pub stop_async_rx: SubGhzStopAsyncRx,
+    pub get_rssi: SubGhzGetRSSI,
+    pub get_lqi: SubGhzGetLQI,
+    pub rx_pipe_not_empty: SubGhzRxPipeNotEmpty,
+    pub is_rx_data_crc_valid: SubGhzRxIsDataCrcValid,
+    pub read_packet: SubGhzReadPacket,
+    pub write_packet: SubGhzWritePacket,
+}
+#[test]
+fn bindgen_test_layout_SubGhzDeviceInterconnect() {
+    const UNINIT: ::core::mem::MaybeUninit<SubGhzDeviceInterconnect> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<SubGhzDeviceInterconnect>(),
+        104usize,
+        concat!("Size of: ", stringify!(SubGhzDeviceInterconnect))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<SubGhzDeviceInterconnect>(),
+        4usize,
+        concat!("Alignment of ", stringify!(SubGhzDeviceInterconnect))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).begin) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(begin)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).end) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(end)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).is_connect) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(is_connect)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).reset) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(reset)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).sleep) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(sleep)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).idle) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(idle)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).load_preset) as usize - ptr as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(load_preset)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).set_frequency) as usize - ptr as usize },
+        28usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(set_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).is_frequency_valid) as usize - ptr as usize },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(is_frequency_valid)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).set_async_mirror_pin) as usize - ptr as usize },
+        36usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(set_async_mirror_pin)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).get_data_gpio) as usize - ptr as usize },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(get_data_gpio)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).set_tx) as usize - ptr as usize },
+        44usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(set_tx)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).flush_tx) as usize - ptr as usize },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(flush_tx)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).start_async_tx) as usize - ptr as usize },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(start_async_tx)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).is_async_complete_tx) as usize - ptr as usize },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(is_async_complete_tx)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).stop_async_tx) as usize - ptr as usize },
+        60usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(stop_async_tx)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).set_rx) as usize - ptr as usize },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(set_rx)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).flush_rx) as usize - ptr as usize },
+        68usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(flush_rx)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).start_async_rx) as usize - ptr as usize },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(start_async_rx)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).stop_async_rx) as usize - ptr as usize },
+        76usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(stop_async_rx)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).get_rssi) as usize - ptr as usize },
+        80usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(get_rssi)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).get_lqi) as usize - ptr as usize },
+        84usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(get_lqi)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).rx_pipe_not_empty) as usize - ptr as usize },
+        88usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(rx_pipe_not_empty)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).is_rx_data_crc_valid) as usize - ptr as usize },
+        92usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(is_rx_data_crc_valid)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).read_packet) as usize - ptr as usize },
+        96usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(read_packet)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).write_packet) as usize - ptr as usize },
+        100usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDeviceInterconnect),
+            "::",
+            stringify!(write_packet)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct SubGhzDevice {
+    pub name: *const core::ffi::c_char,
+    pub interconnect: *const SubGhzDeviceInterconnect,
+}
+#[test]
+fn bindgen_test_layout_SubGhzDevice() {
+    const UNINIT: ::core::mem::MaybeUninit<SubGhzDevice> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<SubGhzDevice>(),
+        8usize,
+        concat!("Size of: ", stringify!(SubGhzDevice))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<SubGhzDevice>(),
+        4usize,
+        concat!("Alignment of ", stringify!(SubGhzDevice))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDevice),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).interconnect) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(SubGhzDevice),
+            "::",
+            stringify!(interconnect)
+        )
+    );
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Bt {
@@ -5212,292 +11969,6 @@ extern "C" {
 extern "C" {
     #[doc = "Draw rounded-corner box of width, height at x,y, with round value raduis\n\n# Arguments\n\n* `canvas` - Canvas instance\n* `x` - x coordinate\n* `y` - y coordinate\n* `width` - box width\n* `height` - box height\n* `radius` - box corner radius\n\n"]
     pub fn canvas_draw_rbox(canvas: *mut Canvas, x: u8, y: u8, width: u8, height: u8, radius: u8);
-}
-pub const InputKey_InputKeyUp: InputKey = 0;
-pub const InputKey_InputKeyDown: InputKey = 1;
-pub const InputKey_InputKeyRight: InputKey = 2;
-pub const InputKey_InputKeyLeft: InputKey = 3;
-pub const InputKey_InputKeyOk: InputKey = 4;
-pub const InputKey_InputKeyBack: InputKey = 5;
-#[doc = "Special value\n\n"]
-pub const InputKey_InputKeyMAX: InputKey = 6;
-pub type InputKey = core::ffi::c_uchar;
-pub const Light_LightRed: Light = 1;
-pub const Light_LightGreen: Light = 2;
-pub const Light_LightBlue: Light = 4;
-pub const Light_LightBacklight: Light = 8;
-pub type Light = core::ffi::c_uchar;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct InputPin {
-    pub gpio: *const GpioPin,
-    pub key: InputKey,
-    pub inverted: bool,
-    pub name: *const core::ffi::c_char,
-}
-#[test]
-fn bindgen_test_layout_InputPin() {
-    const UNINIT: ::core::mem::MaybeUninit<InputPin> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<InputPin>(),
-        12usize,
-        concat!("Size of: ", stringify!(InputPin))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<InputPin>(),
-        4usize,
-        concat!("Alignment of ", stringify!(InputPin))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).gpio) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputPin),
-            "::",
-            stringify!(gpio)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).key) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputPin),
-            "::",
-            stringify!(key)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).inverted) as usize - ptr as usize },
-        5usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputPin),
-            "::",
-            stringify!(inverted)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputPin),
-            "::",
-            stringify!(name)
-        )
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct GpioPinRecord {
-    pub pin: *const GpioPin,
-    pub name: *const core::ffi::c_char,
-    pub debug: bool,
-}
-#[test]
-fn bindgen_test_layout_GpioPinRecord() {
-    const UNINIT: ::core::mem::MaybeUninit<GpioPinRecord> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<GpioPinRecord>(),
-        12usize,
-        concat!("Size of: ", stringify!(GpioPinRecord))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<GpioPinRecord>(),
-        4usize,
-        concat!("Alignment of ", stringify!(GpioPinRecord))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).pin) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(GpioPinRecord),
-            "::",
-            stringify!(pin)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(GpioPinRecord),
-            "::",
-            stringify!(name)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).debug) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(GpioPinRecord),
-            "::",
-            stringify!(debug)
-        )
-    );
-}
-extern "C" {
-    pub static input_pins: [InputPin; 0usize];
-}
-extern "C" {
-    pub static input_pins_count: usize;
-}
-extern "C" {
-    pub static gpio_pins: [GpioPinRecord; 0usize];
-}
-extern "C" {
-    pub static gpio_pins_count: usize;
-}
-extern "C" {
-    pub static gpio_swdio: GpioPin;
-}
-extern "C" {
-    pub static gpio_swclk: GpioPin;
-}
-extern "C" {
-    pub static gpio_vibro: GpioPin;
-}
-extern "C" {
-    pub static gpio_ibutton: GpioPin;
-}
-extern "C" {
-    pub static gpio_cc1101_g0: GpioPin;
-}
-extern "C" {
-    pub static gpio_rf_sw_0: GpioPin;
-}
-extern "C" {
-    pub static gpio_subghz_cs: GpioPin;
-}
-extern "C" {
-    pub static gpio_display_cs: GpioPin;
-}
-extern "C" {
-    pub static gpio_display_rst_n: GpioPin;
-}
-extern "C" {
-    pub static gpio_display_di: GpioPin;
-}
-extern "C" {
-    pub static gpio_sdcard_cs: GpioPin;
-}
-extern "C" {
-    pub static gpio_sdcard_cd: GpioPin;
-}
-extern "C" {
-    pub static gpio_nfc_cs: GpioPin;
-}
-extern "C" {
-    pub static gpio_button_up: GpioPin;
-}
-extern "C" {
-    pub static gpio_button_down: GpioPin;
-}
-extern "C" {
-    pub static gpio_button_right: GpioPin;
-}
-extern "C" {
-    pub static gpio_button_left: GpioPin;
-}
-extern "C" {
-    pub static gpio_button_ok: GpioPin;
-}
-extern "C" {
-    pub static gpio_button_back: GpioPin;
-}
-extern "C" {
-    pub static gpio_spi_d_miso: GpioPin;
-}
-extern "C" {
-    pub static gpio_spi_d_mosi: GpioPin;
-}
-extern "C" {
-    pub static gpio_spi_d_sck: GpioPin;
-}
-extern "C" {
-    pub static gpio_spi_r_miso: GpioPin;
-}
-extern "C" {
-    pub static gpio_spi_r_mosi: GpioPin;
-}
-extern "C" {
-    pub static gpio_spi_r_sck: GpioPin;
-}
-extern "C" {
-    pub static gpio_ext_pc0: GpioPin;
-}
-extern "C" {
-    pub static gpio_ext_pc1: GpioPin;
-}
-extern "C" {
-    pub static gpio_ext_pc3: GpioPin;
-}
-extern "C" {
-    pub static gpio_ext_pb2: GpioPin;
-}
-extern "C" {
-    pub static gpio_ext_pb3: GpioPin;
-}
-extern "C" {
-    pub static gpio_ext_pa4: GpioPin;
-}
-extern "C" {
-    pub static gpio_ext_pa6: GpioPin;
-}
-extern "C" {
-    pub static gpio_ext_pa7: GpioPin;
-}
-extern "C" {
-    pub static gpio_nfc_irq_rfid_pull: GpioPin;
-}
-extern "C" {
-    pub static gpio_rfid_carrier_out: GpioPin;
-}
-extern "C" {
-    pub static gpio_rfid_data_in: GpioPin;
-}
-extern "C" {
-    pub static gpio_rfid_carrier: GpioPin;
-}
-extern "C" {
-    pub static gpio_infrared_rx: GpioPin;
-}
-extern "C" {
-    pub static gpio_infrared_tx: GpioPin;
-}
-extern "C" {
-    pub static gpio_usart_tx: GpioPin;
-}
-extern "C" {
-    pub static gpio_usart_rx: GpioPin;
-}
-extern "C" {
-    pub static gpio_i2c_power_sda: GpioPin;
-}
-extern "C" {
-    pub static gpio_i2c_power_scl: GpioPin;
-}
-extern "C" {
-    pub static gpio_speaker: GpioPin;
-}
-extern "C" {
-    pub static gpio_periph_power: GpioPin;
-}
-extern "C" {
-    pub static gpio_usb_dm: GpioPin;
-}
-extern "C" {
-    pub static gpio_usb_dp: GpioPin;
-}
-extern "C" {
-    #[doc = "Get a corresponding external connector pin number for a gpio\n\nReturns:\n\n* pin number or -1 if gpio is not on the external connector\n\n# Arguments\n\n* `gpio` - GpioPin\n\n"]
-    pub fn furi_hal_resources_get_ext_pin_number(gpio: *const GpioPin) -> i32;
 }
 #[doc = "Press event, emitted after debounce\n\n"]
 pub const InputType_InputTypePress: InputType = 0;
@@ -7703,66 +14174,6 @@ extern "C" {
     #[doc = "Remove any View in ViewStack. If no View to remove found - ignore.\n\n# Arguments\n\n* `view_stack` - instance\n\n"]
     pub fn view_stack_remove_view(view_stack: *mut ViewStack, view: *mut View);
 }
-pub type Elf32_Addr = u32;
-#[doc = "Interface for ELF loader to resolve symbols\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ElfApiInterface {
-    pub api_version_major: u16,
-    pub api_version_minor: u16,
-    pub resolver_callback: ::core::option::Option<
-        unsafe extern "C" fn(
-            interface: *const ElfApiInterface,
-            hash: u32,
-            address: *mut Elf32_Addr,
-        ) -> bool,
-    >,
-}
-#[test]
-fn bindgen_test_layout_ElfApiInterface() {
-    const UNINIT: ::core::mem::MaybeUninit<ElfApiInterface> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<ElfApiInterface>(),
-        8usize,
-        concat!("Size of: ", stringify!(ElfApiInterface))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<ElfApiInterface>(),
-        4usize,
-        concat!("Alignment of ", stringify!(ElfApiInterface))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).api_version_major) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(ElfApiInterface),
-            "::",
-            stringify!(api_version_major)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).api_version_minor) as usize - ptr as usize },
-        2usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(ElfApiInterface),
-            "::",
-            stringify!(api_version_minor)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).resolver_callback) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(ElfApiInterface),
-            "::",
-            stringify!(resolver_callback)
-        )
-    );
-}
 extern "C" {
     pub static firmware_api_interface: *const ElfApiInterface;
 }
@@ -7812,5041 +14223,6 @@ extern "C" {
 extern "C" {
     #[doc = "Get loader pubsub\n\nReturns:\n\n* FuriPubSub*\n\n# Arguments\n\n* `instance` - [Direction: In] loader instance\n\n"]
     pub fn loader_get_pubsub(instance: *mut Loader) -> *mut FuriPubSub;
-}
-#[doc = "Cortex timer provides high precision low level expiring timer\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FuriHalCortexTimer {
-    pub start: u32,
-    pub value: u32,
-}
-#[test]
-fn bindgen_test_layout_FuriHalCortexTimer() {
-    const UNINIT: ::core::mem::MaybeUninit<FuriHalCortexTimer> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FuriHalCortexTimer>(),
-        8usize,
-        concat!("Size of: ", stringify!(FuriHalCortexTimer))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FuriHalCortexTimer>(),
-        4usize,
-        concat!("Alignment of ", stringify!(FuriHalCortexTimer))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).start) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalCortexTimer),
-            "::",
-            stringify!(start)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).value) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalCortexTimer),
-            "::",
-            stringify!(value)
-        )
-    );
-}
-extern "C" {
-    #[doc = "Microseconds delay\n\n# Arguments\n\n* `microseconds` - [Direction: In] The microseconds to wait\n\n"]
-    pub fn furi_hal_cortex_delay_us(microseconds: u32);
-}
-extern "C" {
-    #[doc = "Get instructions per microsecond count\n\nReturns:\n\n* instructions per microsecond count\n\n"]
-    pub fn furi_hal_cortex_instructions_per_microsecond() -> u32;
-}
-extern "C" {
-    #[doc = "Get Timer\n\nReturns:\n\n* The FuriHalCortexTimer\n\n# Arguments\n\n* `timeout_us` - [Direction: In] The expire timeout in us\n\n"]
-    pub fn furi_hal_cortex_timer_get(timeout_us: u32) -> FuriHalCortexTimer;
-}
-extern "C" {
-    #[doc = "Check if timer expired\n\nReturns:\n\n* true if expired\n\n# Arguments\n\n* `cortex_timer` - [Direction: In] The FuriHalCortexTimer\n\n"]
-    pub fn furi_hal_cortex_timer_is_expired(cortex_timer: FuriHalCortexTimer) -> bool;
-}
-extern "C" {
-    #[doc = "Wait for timer expire\n\n# Arguments\n\n* `cortex_timer` - [Direction: In] The FuriHalCortexTimer\n\n"]
-    pub fn furi_hal_cortex_timer_wait(cortex_timer: FuriHalCortexTimer);
-}
-pub const FuriHalCortexComp_FuriHalCortexComp0: FuriHalCortexComp = 0;
-pub const FuriHalCortexComp_FuriHalCortexComp1: FuriHalCortexComp = 1;
-pub const FuriHalCortexComp_FuriHalCortexComp2: FuriHalCortexComp = 2;
-pub const FuriHalCortexComp_FuriHalCortexComp3: FuriHalCortexComp = 3;
-pub type FuriHalCortexComp = core::ffi::c_uchar;
-pub const FuriHalCortexCompSize_FuriHalCortexCompSizeWord: FuriHalCortexCompSize = 2;
-pub const FuriHalCortexCompSize_FuriHalCortexCompSizeHalfWord: FuriHalCortexCompSize = 1;
-pub const FuriHalCortexCompSize_FuriHalCortexCompSizeByte: FuriHalCortexCompSize = 0;
-pub type FuriHalCortexCompSize = core::ffi::c_uchar;
-pub const FuriHalCortexCompFunction_FuriHalCortexCompFunctionPC: FuriHalCortexCompFunction = 4;
-pub const FuriHalCortexCompFunction_FuriHalCortexCompFunctionRead: FuriHalCortexCompFunction = 5;
-pub const FuriHalCortexCompFunction_FuriHalCortexCompFunctionWrite: FuriHalCortexCompFunction = 6;
-pub const FuriHalCortexCompFunction_FuriHalCortexCompFunctionReadWrite: FuriHalCortexCompFunction =
-    6;
-pub type FuriHalCortexCompFunction = core::ffi::c_uchar;
-extern "C" {
-    #[doc = "Enable DWT comparator\nAllows to programmatically set instruction/data breakpoints.\nMore details on how it works can be found in armv7m official documentation: <https://developer.arm.com/documentation/ddi0403/d/Debug-Architecture/ARMv7-M-Debug/The-Data-Watchpoint-and-Trace-unit/The-DWT-comparators> <https://developer.arm.com/documentation/ddi0403/d/Debug-Architecture/ARMv7-M-Debug/The-Data-Watchpoint-and-Trace-unit/Comparator-Function-registers--DWT-FUNCTIONn>\n\n# Arguments\n\n* `comp` - [Direction: In] The Comparator\n* `function` - [Direction: In] The Comparator Function to use\n* `value` - [Direction: In] The value\n* `mask` - [Direction: In] The mask\n* `size` - [Direction: In] The size\n\n"]
-    pub fn furi_hal_cortex_comp_enable(
-        comp: FuriHalCortexComp,
-        function: FuriHalCortexCompFunction,
-        value: u32,
-        mask: u32,
-        size: FuriHalCortexCompSize,
-    );
-}
-extern "C" {
-    #[doc = "Reset DWT comparator\n\n# Arguments\n\n* `comp` - [Direction: In] The Comparator\n\n"]
-    pub fn furi_hal_cortex_comp_reset(comp: FuriHalCortexComp);
-}
-extern "C" {
-    pub fn LL_RCC_GetUSARTClockFreq(USARTxSource: u32) -> u32;
-}
-extern "C" {
-    pub fn LL_RCC_GetLPUARTClockFreq(LPUARTxSource: u32) -> u32;
-}
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoLse: FuriHalClockMcoSourceId = 0;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoSysclk: FuriHalClockMcoSourceId = 1;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi100k: FuriHalClockMcoSourceId = 2;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi200k: FuriHalClockMcoSourceId = 3;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi400k: FuriHalClockMcoSourceId = 4;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi800k: FuriHalClockMcoSourceId = 5;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi1m: FuriHalClockMcoSourceId = 6;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi2m: FuriHalClockMcoSourceId = 7;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi4m: FuriHalClockMcoSourceId = 8;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi8m: FuriHalClockMcoSourceId = 9;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi16m: FuriHalClockMcoSourceId = 10;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi24m: FuriHalClockMcoSourceId = 11;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi32m: FuriHalClockMcoSourceId = 12;
-pub const FuriHalClockMcoSourceId_FuriHalClockMcoMsi48m: FuriHalClockMcoSourceId = 13;
-pub type FuriHalClockMcoSourceId = core::ffi::c_uchar;
-pub const FuriHalClockMcoDivisorId_FuriHalClockMcoDiv1: FuriHalClockMcoDivisorId = 0;
-pub const FuriHalClockMcoDivisorId_FuriHalClockMcoDiv2: FuriHalClockMcoDivisorId = 268435456;
-pub const FuriHalClockMcoDivisorId_FuriHalClockMcoDiv4: FuriHalClockMcoDivisorId = 536870912;
-pub const FuriHalClockMcoDivisorId_FuriHalClockMcoDiv8: FuriHalClockMcoDivisorId = 805306368;
-pub const FuriHalClockMcoDivisorId_FuriHalClockMcoDiv16: FuriHalClockMcoDivisorId = 1073741824;
-pub type FuriHalClockMcoDivisorId = core::ffi::c_uint;
-extern "C" {
-    #[doc = "Enable clock output on MCO pin\n\n# Arguments\n\n* `source` - MCO clock source\n* `div` - MCO clock division\n\n"]
-    pub fn furi_hal_clock_mco_enable(
-        source: FuriHalClockMcoSourceId,
-        div: FuriHalClockMcoDivisorId,
-    );
-}
-extern "C" {
-    #[doc = "Disable clock output on MCO pin\n\n"]
-    pub fn furi_hal_clock_mco_disable();
-}
-pub const FuriHalBus_FuriHalBusAHB1_GRP1: FuriHalBus = 0;
-pub const FuriHalBus_FuriHalBusDMA1: FuriHalBus = 1;
-pub const FuriHalBus_FuriHalBusDMA2: FuriHalBus = 2;
-pub const FuriHalBus_FuriHalBusDMAMUX1: FuriHalBus = 3;
-pub const FuriHalBus_FuriHalBusCRC: FuriHalBus = 4;
-pub const FuriHalBus_FuriHalBusTSC: FuriHalBus = 5;
-pub const FuriHalBus_FuriHalBusAHB2_GRP1: FuriHalBus = 6;
-pub const FuriHalBus_FuriHalBusGPIOA: FuriHalBus = 7;
-pub const FuriHalBus_FuriHalBusGPIOB: FuriHalBus = 8;
-pub const FuriHalBus_FuriHalBusGPIOC: FuriHalBus = 9;
-pub const FuriHalBus_FuriHalBusGPIOD: FuriHalBus = 10;
-pub const FuriHalBus_FuriHalBusGPIOE: FuriHalBus = 11;
-pub const FuriHalBus_FuriHalBusGPIOH: FuriHalBus = 12;
-pub const FuriHalBus_FuriHalBusADC: FuriHalBus = 13;
-pub const FuriHalBus_FuriHalBusAES1: FuriHalBus = 14;
-pub const FuriHalBus_FuriHalBusAHB3_GRP1: FuriHalBus = 15;
-pub const FuriHalBus_FuriHalBusQUADSPI: FuriHalBus = 16;
-pub const FuriHalBus_FuriHalBusPKA: FuriHalBus = 17;
-pub const FuriHalBus_FuriHalBusAES2: FuriHalBus = 18;
-pub const FuriHalBus_FuriHalBusRNG: FuriHalBus = 19;
-pub const FuriHalBus_FuriHalBusHSEM: FuriHalBus = 20;
-pub const FuriHalBus_FuriHalBusIPCC: FuriHalBus = 21;
-pub const FuriHalBus_FuriHalBusFLASH: FuriHalBus = 22;
-pub const FuriHalBus_FuriHalBusAPB1_GRP1: FuriHalBus = 23;
-pub const FuriHalBus_FuriHalBusTIM2: FuriHalBus = 24;
-pub const FuriHalBus_FuriHalBusLCD: FuriHalBus = 25;
-pub const FuriHalBus_FuriHalBusSPI2: FuriHalBus = 26;
-pub const FuriHalBus_FuriHalBusI2C1: FuriHalBus = 27;
-pub const FuriHalBus_FuriHalBusI2C3: FuriHalBus = 28;
-pub const FuriHalBus_FuriHalBusCRS: FuriHalBus = 29;
-pub const FuriHalBus_FuriHalBusUSB: FuriHalBus = 30;
-pub const FuriHalBus_FuriHalBusLPTIM1: FuriHalBus = 31;
-pub const FuriHalBus_FuriHalBusAPB1_GRP2: FuriHalBus = 32;
-pub const FuriHalBus_FuriHalBusLPUART1: FuriHalBus = 33;
-pub const FuriHalBus_FuriHalBusLPTIM2: FuriHalBus = 34;
-pub const FuriHalBus_FuriHalBusAPB2_GRP1: FuriHalBus = 35;
-pub const FuriHalBus_FuriHalBusTIM1: FuriHalBus = 36;
-pub const FuriHalBus_FuriHalBusSPI1: FuriHalBus = 37;
-pub const FuriHalBus_FuriHalBusUSART1: FuriHalBus = 38;
-pub const FuriHalBus_FuriHalBusTIM16: FuriHalBus = 39;
-pub const FuriHalBus_FuriHalBusTIM17: FuriHalBus = 40;
-pub const FuriHalBus_FuriHalBusSAI1: FuriHalBus = 41;
-pub const FuriHalBus_FuriHalBusAPB3_GRP1: FuriHalBus = 42;
-pub const FuriHalBus_FuriHalBusRF: FuriHalBus = 43;
-pub const FuriHalBus_FuriHalBusMAX: FuriHalBus = 44;
-pub type FuriHalBus = core::ffi::c_uchar;
-extern "C" {
-    #[doc = "Early initialization\n\n"]
-    pub fn furi_hal_bus_init_early();
-}
-extern "C" {
-    #[doc = "Early de-initialization\n\n"]
-    pub fn furi_hal_bus_deinit_early();
-}
-extern "C" {
-    #[doc = "Enable a peripheral by turning the clocking on and deasserting the reset.\n\n**Warning!**\n\n* Peripheral must be in disabled state in order to be enabled.\n\n# Arguments\n\n* `[in]` - bus Peripheral to be enabled.\n\n"]
-    pub fn furi_hal_bus_enable(bus: FuriHalBus);
-}
-extern "C" {
-    #[doc = "Reset a peripheral by sequentially asserting and deasserting the reset.\n\n**Warning!**\n\n* Peripheral must be in enabled state in order to be reset.\n\n# Arguments\n\n* `[in]` - bus Peripheral to be reset.\n\n"]
-    pub fn furi_hal_bus_reset(bus: FuriHalBus);
-}
-extern "C" {
-    #[doc = "Disable a peripheral by turning the clocking off and asserting the reset.\n\n**Warning!**\n\n* Peripheral must be in enabled state in order to be disabled.\n\n# Arguments\n\n* `[in]` - bus Peripheral to be disabled.\n\n"]
-    pub fn furi_hal_bus_disable(bus: FuriHalBus);
-}
-extern "C" {
-    #[doc = "Check if peripheral is enabled\n\n**Warning!**\n\n* FuriHalBusAPB3_GRP1 is a special group of shared peripherals, for core1 its clock is always on and the only status we can report is peripheral reset status. Check code and Reference Manual for details.\n\nReturns:\n\n* true if enabled or always enabled, false otherwise\n\n# Arguments\n\n* `bus` - [Direction: In] The peripheral to check\n\n"]
-    pub fn furi_hal_bus_is_enabled(bus: FuriHalBus) -> bool;
-}
-#[doc = "Master key\n\n"]
-pub const FuriHalCryptoKeyType_FuriHalCryptoKeyTypeMaster: FuriHalCryptoKeyType = 0;
-#[doc = "Simple enencrypted key\n\n"]
-pub const FuriHalCryptoKeyType_FuriHalCryptoKeyTypeSimple: FuriHalCryptoKeyType = 1;
-#[doc = "Encrypted with Master key\n\n"]
-pub const FuriHalCryptoKeyType_FuriHalCryptoKeyTypeEncrypted: FuriHalCryptoKeyType = 2;
-#[doc = "FuriHalCryptoKey Type\n\n"]
-pub type FuriHalCryptoKeyType = core::ffi::c_uchar;
-pub const FuriHalCryptoKeySize_FuriHalCryptoKeySize128: FuriHalCryptoKeySize = 0;
-pub const FuriHalCryptoKeySize_FuriHalCryptoKeySize256: FuriHalCryptoKeySize = 1;
-#[doc = "FuriHalCryptoKey Size in bits\n\n"]
-pub type FuriHalCryptoKeySize = core::ffi::c_uchar;
-#[doc = "FuriHalCryptoKey\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FuriHalCryptoKey {
-    pub type_: FuriHalCryptoKeyType,
-    pub size: FuriHalCryptoKeySize,
-    pub data: *mut u8,
-}
-#[test]
-fn bindgen_test_layout_FuriHalCryptoKey() {
-    const UNINIT: ::core::mem::MaybeUninit<FuriHalCryptoKey> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FuriHalCryptoKey>(),
-        8usize,
-        concat!("Size of: ", stringify!(FuriHalCryptoKey))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FuriHalCryptoKey>(),
-        4usize,
-        concat!("Alignment of ", stringify!(FuriHalCryptoKey))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalCryptoKey),
-            "::",
-            stringify!(type_)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
-        1usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalCryptoKey),
-            "::",
-            stringify!(size)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalCryptoKey),
-            "::",
-            stringify!(data)
-        )
-    );
-}
-extern "C" {
-    pub fn furi_hal_crypto_verify_enclave(keys_nb: *mut u8, valid_keys_nb: *mut u8) -> bool;
-}
-extern "C" {
-    pub fn furi_hal_crypto_verify_key(key_slot: u8) -> bool;
-}
-extern "C" {
-    #[doc = "Store key in crypto storage\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `key` - FuriHalCryptoKey to store. Only Master, Simple or Encrypted\n* `slot` - pinter to int where store slot number will be saved\n\n"]
-    pub fn furi_hal_crypto_store_add_key(key: *mut FuriHalCryptoKey, slot: *mut u8) -> bool;
-}
-extern "C" {
-    #[doc = "Init AES engine and load key from crypto store\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `slot` - store slot number\n* `iv` - [Direction: In] pointer to 16 bytes Initialization Vector data\n\n"]
-    pub fn furi_hal_crypto_store_load_key(slot: u8, iv: *const u8) -> bool;
-}
-extern "C" {
-    #[doc = "Unload key engine and deinit AES engine\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `slot` - store slot number\n\n"]
-    pub fn furi_hal_crypto_store_unload_key(slot: u8) -> bool;
-}
-extern "C" {
-    #[doc = "Encrypt data\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `input` - pointer to input data\n* `output` - pointer to output data\n* `size` - input/output buffer size in bytes\n\n"]
-    pub fn furi_hal_crypto_encrypt(input: *const u8, output: *mut u8, size: usize) -> bool;
-}
-extern "C" {
-    #[doc = "Decrypt data\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `input` - pointer to input data\n* `output` - pointer to output data\n* `size` - input/output buffer size in bytes\n\n"]
-    pub fn furi_hal_crypto_decrypt(input: *const u8, output: *mut u8, size: usize) -> bool;
-}
-pub type FuriHalConsoleTxCallback = ::core::option::Option<
-    unsafe extern "C" fn(buffer: *const u8, size: usize, context: *mut core::ffi::c_void),
->;
-extern "C" {
-    pub fn furi_hal_console_init();
-}
-extern "C" {
-    pub fn furi_hal_console_enable();
-}
-extern "C" {
-    pub fn furi_hal_console_disable();
-}
-extern "C" {
-    pub fn furi_hal_console_set_tx_callback(
-        callback: FuriHalConsoleTxCallback,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    pub fn furi_hal_console_tx(buffer: *const u8, buffer_size: usize);
-}
-extern "C" {
-    pub fn furi_hal_console_tx_with_new_line(buffer: *const u8, buffer_size: usize);
-}
-extern "C" {
-    #[doc = "Printf-like plain uart interface\n\n**Warning!**\n\n* Will not work in ISR context\n\n# Arguments\n\n* `format` - \n* `...` - \n\n"]
-    pub fn furi_hal_console_printf(format: *const core::ffi::c_char, ...);
-}
-extern "C" {
-    pub fn furi_hal_console_puts(data: *const core::ffi::c_char);
-}
-extern "C" {
-    #[doc = "Enable MCU debug\n\n"]
-    pub fn furi_hal_debug_enable();
-}
-extern "C" {
-    #[doc = "Disable MCU debug\n\n"]
-    pub fn furi_hal_debug_disable();
-}
-extern "C" {
-    #[doc = "Check if GDB debug session is active\n\n"]
-    pub fn furi_hal_debug_is_gdb_session_active() -> bool;
-}
-extern "C" {
-    #[doc = "Early initialization\n\n"]
-    pub fn furi_hal_dma_init_early();
-}
-extern "C" {
-    #[doc = "Early de-initialization\n\n"]
-    pub fn furi_hal_dma_deinit_early();
-}
-extern "C" {
-    pub fn furi_hal_os_tick();
-}
-#[doc = "SPI Init structures definition\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct LL_SPI_InitTypeDef {
-    #[doc = "Specifies the SPI unidirectional or bidirectional data mode.\nThis parameter can be a value of  [`SPI_LL_EC_TRANSFER_MODE`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetTransferDirection()`]\n\n"]
-    pub TransferDirection: u32,
-    #[doc = "Specifies the SPI mode (Master/Slave).\nThis parameter can be a value of  [`SPI_LL_EC_MODE`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetMode()`]\n\n"]
-    pub Mode: u32,
-    #[doc = "Specifies the SPI data width.\nThis parameter can be a value of  [`SPI_LL_EC_DATAWIDTH`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetDataWidth()`]\n\n"]
-    pub DataWidth: u32,
-    #[doc = "Specifies the serial clock steady state.\nThis parameter can be a value of  [`SPI_LL_EC_POLARITY`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetClockPolarity()`]\n\n"]
-    pub ClockPolarity: u32,
-    #[doc = "Specifies the clock active edge for the bit capture.\nThis parameter can be a value of  [`SPI_LL_EC_PHASE`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetClockPhase()`]\n\n"]
-    pub ClockPhase: u32,
-    #[doc = "Specifies whether the NSS signal is managed by hardware (NSS pin) or by software using the SSI bit.\nThis parameter can be a value of  [`SPI_LL_EC_NSS_MODE`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetNSSMode()`]\n\n"]
-    pub NSS: u32,
-    #[doc = "Specifies the BaudRate prescaler value which will be used to configure the transmit and receive SCK clock.\nThis parameter can be a value of  [`SPI_LL_EC_BAUDRATEPRESCALER`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetBaudRatePrescaler()`]\n\n# Notes\n\n* The communication clock is derived from the master clock. The slave clock does not need to be set.\n\n"]
-    pub BaudRate: u32,
-    #[doc = "Specifies whether data transfers start from MSB or LSB bit.\nThis parameter can be a value of  [`SPI_LL_EC_BIT_ORDER`]\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetTransferBitOrder()`]\n\n"]
-    pub BitOrder: u32,
-    #[doc = "Specifies if the CRC calculation is enabled or not.\nThis parameter can be a value of  [`SPI_LL_EC_CRC_CALCULATION`]\nThis feature can be modified afterwards using unitary functions  [`LL_SPI_EnableCRC()`] and  [`LL_SPI_DisableCRC()`]\n\n"]
-    pub CRCCalculation: u32,
-    #[doc = "Specifies the polynomial used for the CRC calculation.\nThis parameter must be a number between Min_Data = 0x00 and Max_Data = 0xFFFF.\nThis feature can be modified afterwards using unitary function  [`LL_SPI_SetCRCPolynomial()`]\n\n"]
-    pub CRCPoly: u32,
-}
-#[test]
-fn bindgen_test_layout_LL_SPI_InitTypeDef() {
-    const UNINIT: ::core::mem::MaybeUninit<LL_SPI_InitTypeDef> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<LL_SPI_InitTypeDef>(),
-        40usize,
-        concat!("Size of: ", stringify!(LL_SPI_InitTypeDef))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<LL_SPI_InitTypeDef>(),
-        4usize,
-        concat!("Alignment of ", stringify!(LL_SPI_InitTypeDef))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).TransferDirection) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_SPI_InitTypeDef),
-            "::",
-            stringify!(TransferDirection)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).Mode) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_SPI_InitTypeDef),
-            "::",
-            stringify!(Mode)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).DataWidth) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_SPI_InitTypeDef),
-            "::",
-            stringify!(DataWidth)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).ClockPolarity) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_SPI_InitTypeDef),
-            "::",
-            stringify!(ClockPolarity)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).ClockPhase) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_SPI_InitTypeDef),
-            "::",
-            stringify!(ClockPhase)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).NSS) as usize - ptr as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_SPI_InitTypeDef),
-            "::",
-            stringify!(NSS)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).BaudRate) as usize - ptr as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_SPI_InitTypeDef),
-            "::",
-            stringify!(BaudRate)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).BitOrder) as usize - ptr as usize },
-        28usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_SPI_InitTypeDef),
-            "::",
-            stringify!(BitOrder)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).CRCCalculation) as usize - ptr as usize },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_SPI_InitTypeDef),
-            "::",
-            stringify!(CRCCalculation)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).CRCPoly) as usize - ptr as usize },
-        36usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_SPI_InitTypeDef),
-            "::",
-            stringify!(CRCPoly)
-        )
-    );
-}
-extern "C" {
-    pub fn LL_SPI_Init(
-        SPIx: *mut SPI_TypeDef,
-        SPI_InitStruct: *mut LL_SPI_InitTypeDef,
-    ) -> ErrorStatus;
-}
-#[doc = "Bus initialization event, called on system start\n\n"]
-pub const FuriHalSpiBusEvent_FuriHalSpiBusEventInit: FuriHalSpiBusEvent = 0;
-#[doc = "Bus deinitialization event, called on system stop\n\n"]
-pub const FuriHalSpiBusEvent_FuriHalSpiBusEventDeinit: FuriHalSpiBusEvent = 1;
-#[doc = "Bus lock event, called before activation\n\n"]
-pub const FuriHalSpiBusEvent_FuriHalSpiBusEventLock: FuriHalSpiBusEvent = 2;
-#[doc = "Bus unlock event, called after deactivation\n\n"]
-pub const FuriHalSpiBusEvent_FuriHalSpiBusEventUnlock: FuriHalSpiBusEvent = 3;
-#[doc = "Bus activation event, called before handle activation\n\n"]
-pub const FuriHalSpiBusEvent_FuriHalSpiBusEventActivate: FuriHalSpiBusEvent = 4;
-#[doc = "Bus deactivation event, called after handle deactivation\n\n"]
-pub const FuriHalSpiBusEvent_FuriHalSpiBusEventDeactivate: FuriHalSpiBusEvent = 5;
-#[doc = "FuriHal spi bus states\n\n"]
-pub type FuriHalSpiBusEvent = core::ffi::c_uchar;
-#[doc = "FuriHal spi bus event callback\n\n"]
-pub type FuriHalSpiBusEventCallback = ::core::option::Option<
-    unsafe extern "C" fn(bus: *mut FuriHalSpiBus, event: FuriHalSpiBusEvent),
->;
-#[doc = "FuriHal spi bus\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FuriHalSpiBus {
-    pub spi: *mut SPI_TypeDef,
-    pub callback: FuriHalSpiBusEventCallback,
-    pub current_handle: *mut FuriHalSpiBusHandle,
-}
-#[test]
-fn bindgen_test_layout_FuriHalSpiBus() {
-    const UNINIT: ::core::mem::MaybeUninit<FuriHalSpiBus> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FuriHalSpiBus>(),
-        12usize,
-        concat!("Size of: ", stringify!(FuriHalSpiBus))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FuriHalSpiBus>(),
-        4usize,
-        concat!("Alignment of ", stringify!(FuriHalSpiBus))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).spi) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalSpiBus),
-            "::",
-            stringify!(spi)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).callback) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalSpiBus),
-            "::",
-            stringify!(callback)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).current_handle) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalSpiBus),
-            "::",
-            stringify!(current_handle)
-        )
-    );
-}
-#[doc = "Handle init, called on system start, initialize gpio for idle state\n\n"]
-pub const FuriHalSpiBusHandleEvent_FuriHalSpiBusHandleEventInit: FuriHalSpiBusHandleEvent = 0;
-#[doc = "Handle deinit, called on system stop, deinitialize gpio for default state\n\n"]
-pub const FuriHalSpiBusHandleEvent_FuriHalSpiBusHandleEventDeinit: FuriHalSpiBusHandleEvent = 1;
-#[doc = "Handle activate: connect gpio and apply bus config\n\n"]
-pub const FuriHalSpiBusHandleEvent_FuriHalSpiBusHandleEventActivate: FuriHalSpiBusHandleEvent = 2;
-#[doc = "Handle deactivate: disconnect gpio and reset bus config\n\n"]
-pub const FuriHalSpiBusHandleEvent_FuriHalSpiBusHandleEventDeactivate: FuriHalSpiBusHandleEvent = 3;
-#[doc = "FuriHal spi handle states\n\n"]
-pub type FuriHalSpiBusHandleEvent = core::ffi::c_uchar;
-#[doc = "FuriHal spi handle event callback\n\n"]
-pub type FuriHalSpiBusHandleEventCallback = ::core::option::Option<
-    unsafe extern "C" fn(handle: *mut FuriHalSpiBusHandle, event: FuriHalSpiBusHandleEvent),
->;
-#[doc = "FuriHal spi handle\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FuriHalSpiBusHandle {
-    pub bus: *mut FuriHalSpiBus,
-    pub callback: FuriHalSpiBusHandleEventCallback,
-    pub miso: *const GpioPin,
-    pub mosi: *const GpioPin,
-    pub sck: *const GpioPin,
-    pub cs: *const GpioPin,
-}
-#[test]
-fn bindgen_test_layout_FuriHalSpiBusHandle() {
-    const UNINIT: ::core::mem::MaybeUninit<FuriHalSpiBusHandle> =
-        ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FuriHalSpiBusHandle>(),
-        24usize,
-        concat!("Size of: ", stringify!(FuriHalSpiBusHandle))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FuriHalSpiBusHandle>(),
-        4usize,
-        concat!("Alignment of ", stringify!(FuriHalSpiBusHandle))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bus) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalSpiBusHandle),
-            "::",
-            stringify!(bus)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).callback) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalSpiBusHandle),
-            "::",
-            stringify!(callback)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).miso) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalSpiBusHandle),
-            "::",
-            stringify!(miso)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).mosi) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalSpiBusHandle),
-            "::",
-            stringify!(mosi)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).sck) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalSpiBusHandle),
-            "::",
-            stringify!(sck)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).cs) as usize - ptr as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalSpiBusHandle),
-            "::",
-            stringify!(cs)
-        )
-    );
-}
-extern "C" {
-    #[doc = "Init SD card detect\n\n"]
-    pub fn hal_sd_detect_init();
-}
-extern "C" {
-    #[doc = "Set SD card detect pin to low\n\n"]
-    pub fn hal_sd_detect_set_low();
-}
-extern "C" {
-    #[doc = "Get SD card status\n\nReturns:\n\n* true if SD card present, false if SD card not present\n\n"]
-    pub fn hal_sd_detect() -> bool;
-}
-extern "C" {
-    #[doc = "Pointer to currently used SPI Handle\n\n"]
-    pub static mut furi_hal_sd_spi_handle: *mut FuriHalSpiBusHandle;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct LL_I2C_InitTypeDef {
-    #[doc = "Specifies the peripheral mode.\nThis parameter can be a value of  [`I2C_LL_EC_PERIPHERAL_MODE`]\nThis feature can be modified afterwards using unitary function [`LL_I2C_SetMode()`]\n\n"]
-    pub PeripheralMode: u32,
-    #[doc = "Specifies the SDA setup, hold time and the SCL high, low period values.\nThis parameter must be set by referring to the STM32CubeMX Tool and\nthe helper macro  [`__LL_I2C_CONVERT_TIMINGS()`]\nThis feature can be modified afterwards using unitary function [`LL_I2C_SetTiming()`]\n\n"]
-    pub Timing: u32,
-    #[doc = "Enables or disables analog noise filter.\nThis parameter can be a value of  [`I2C_LL_EC_ANALOGFILTER_SELECTION`]\nThis feature can be modified afterwards using unitary functions [`LL_I2C_EnableAnalogFilter()`] or LL_I2C_DisableAnalogFilter().\n\n"]
-    pub AnalogFilter: u32,
-    #[doc = "Configures the digital noise filter.\nThis parameter can be a number between Min_Data = 0x00 and Max_Data = 0x0F.\nThis feature can be modified afterwards using unitary function [`LL_I2C_SetDigitalFilter()`]\n\n"]
-    pub DigitalFilter: u32,
-    #[doc = "Specifies the device own address 1.\nThis parameter must be a value between Min_Data = 0x00 and Max_Data = 0x3FF.\nThis feature can be modified afterwards using unitary function [`LL_I2C_SetOwnAddress1()`]\n\n"]
-    pub OwnAddress1: u32,
-    #[doc = "Specifies the ACKnowledge or Non ACKnowledge condition after the address receive\nmatch code or next received byte.\nThis parameter can be a value of  [`I2C_LL_EC_I2C_ACKNOWLEDGE`]\nThis feature can be modified afterwards using unitary function [`LL_I2C_AcknowledgeNextData()`]\n\n"]
-    pub TypeAcknowledge: u32,
-    #[doc = "Specifies the device own address 1 size (7-bit or 10-bit).\nThis parameter can be a value of  [`I2C_LL_EC_OWNADDRESS1`]\nThis feature can be modified afterwards using unitary function [`LL_I2C_SetOwnAddress1()`]\n\n"]
-    pub OwnAddrSize: u32,
-}
-#[test]
-fn bindgen_test_layout_LL_I2C_InitTypeDef() {
-    const UNINIT: ::core::mem::MaybeUninit<LL_I2C_InitTypeDef> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<LL_I2C_InitTypeDef>(),
-        28usize,
-        concat!("Size of: ", stringify!(LL_I2C_InitTypeDef))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<LL_I2C_InitTypeDef>(),
-        4usize,
-        concat!("Alignment of ", stringify!(LL_I2C_InitTypeDef))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).PeripheralMode) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_I2C_InitTypeDef),
-            "::",
-            stringify!(PeripheralMode)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).Timing) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_I2C_InitTypeDef),
-            "::",
-            stringify!(Timing)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).AnalogFilter) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_I2C_InitTypeDef),
-            "::",
-            stringify!(AnalogFilter)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).DigitalFilter) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_I2C_InitTypeDef),
-            "::",
-            stringify!(DigitalFilter)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).OwnAddress1) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_I2C_InitTypeDef),
-            "::",
-            stringify!(OwnAddress1)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).TypeAcknowledge) as usize - ptr as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_I2C_InitTypeDef),
-            "::",
-            stringify!(TypeAcknowledge)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).OwnAddrSize) as usize - ptr as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_I2C_InitTypeDef),
-            "::",
-            stringify!(OwnAddrSize)
-        )
-    );
-}
-extern "C" {
-    pub fn LL_I2C_Init(
-        I2Cx: *mut I2C_TypeDef,
-        I2C_InitStruct: *const LL_I2C_InitTypeDef,
-    ) -> ErrorStatus;
-}
-#[doc = "Bus initialization event, called on system start\n\n"]
-pub const FuriHalI2cBusEvent_FuriHalI2cBusEventInit: FuriHalI2cBusEvent = 0;
-#[doc = "Bus deinitialization event, called on system stop\n\n"]
-pub const FuriHalI2cBusEvent_FuriHalI2cBusEventDeinit: FuriHalI2cBusEvent = 1;
-#[doc = "Bus lock event, called before activation\n\n"]
-pub const FuriHalI2cBusEvent_FuriHalI2cBusEventLock: FuriHalI2cBusEvent = 2;
-#[doc = "Bus unlock event, called after deactivation\n\n"]
-pub const FuriHalI2cBusEvent_FuriHalI2cBusEventUnlock: FuriHalI2cBusEvent = 3;
-#[doc = "Bus activation event, called before handle activation\n\n"]
-pub const FuriHalI2cBusEvent_FuriHalI2cBusEventActivate: FuriHalI2cBusEvent = 4;
-#[doc = "Bus deactivation event, called after handle deactivation\n\n"]
-pub const FuriHalI2cBusEvent_FuriHalI2cBusEventDeactivate: FuriHalI2cBusEvent = 5;
-#[doc = "FuriHal i2c bus states\n\n"]
-pub type FuriHalI2cBusEvent = core::ffi::c_uchar;
-#[doc = "FuriHal i2c bus event callback\n\n"]
-pub type FuriHalI2cBusEventCallback = ::core::option::Option<
-    unsafe extern "C" fn(bus: *mut FuriHalI2cBus, event: FuriHalI2cBusEvent),
->;
-#[doc = "FuriHal i2c bus\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FuriHalI2cBus {
-    pub i2c: *mut I2C_TypeDef,
-    pub current_handle: *mut FuriHalI2cBusHandle,
-    pub callback: FuriHalI2cBusEventCallback,
-}
-#[test]
-fn bindgen_test_layout_FuriHalI2cBus() {
-    const UNINIT: ::core::mem::MaybeUninit<FuriHalI2cBus> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FuriHalI2cBus>(),
-        12usize,
-        concat!("Size of: ", stringify!(FuriHalI2cBus))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FuriHalI2cBus>(),
-        4usize,
-        concat!("Alignment of ", stringify!(FuriHalI2cBus))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).i2c) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalI2cBus),
-            "::",
-            stringify!(i2c)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).current_handle) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalI2cBus),
-            "::",
-            stringify!(current_handle)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).callback) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalI2cBus),
-            "::",
-            stringify!(callback)
-        )
-    );
-}
-#[doc = "Handle activate: connect gpio and apply bus config\n\n"]
-pub const FuriHalI2cBusHandleEvent_FuriHalI2cBusHandleEventActivate: FuriHalI2cBusHandleEvent = 0;
-#[doc = "Handle deactivate: disconnect gpio and reset bus config\n\n"]
-pub const FuriHalI2cBusHandleEvent_FuriHalI2cBusHandleEventDeactivate: FuriHalI2cBusHandleEvent = 1;
-#[doc = "FuriHal i2c handle states\n\n"]
-pub type FuriHalI2cBusHandleEvent = core::ffi::c_uchar;
-#[doc = "FuriHal i2c handle event callback\n\n"]
-pub type FuriHalI2cBusHandleEventCallback = ::core::option::Option<
-    unsafe extern "C" fn(handle: *mut FuriHalI2cBusHandle, event: FuriHalI2cBusHandleEvent),
->;
-#[doc = "FuriHal i2c handle\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FuriHalI2cBusHandle {
-    pub bus: *mut FuriHalI2cBus,
-    pub callback: FuriHalI2cBusHandleEventCallback,
-}
-#[test]
-fn bindgen_test_layout_FuriHalI2cBusHandle() {
-    const UNINIT: ::core::mem::MaybeUninit<FuriHalI2cBusHandle> =
-        ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FuriHalI2cBusHandle>(),
-        8usize,
-        concat!("Size of: ", stringify!(FuriHalI2cBusHandle))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FuriHalI2cBusHandle>(),
-        4usize,
-        concat!("Alignment of ", stringify!(FuriHalI2cBusHandle))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bus) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalI2cBusHandle),
-            "::",
-            stringify!(bus)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).callback) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalI2cBusHandle),
-            "::",
-            stringify!(callback)
-        )
-    );
-}
-extern "C" {
-    #[doc = "Internal(power) i2c bus, I2C1, under reset when not used\n\n"]
-    pub static mut furi_hal_i2c_bus_power: FuriHalI2cBus;
-}
-extern "C" {
-    #[doc = "External i2c bus, I2C3, under reset when not used\n\n"]
-    pub static mut furi_hal_i2c_bus_external: FuriHalI2cBus;
-}
-extern "C" {
-    #[doc = "Handle for internal(power) i2c bus Bus: furi_hal_i2c_bus_external Pins: PA9(SCL) / PA10(SDA), float on release Params: 400khz\n\n"]
-    pub static mut furi_hal_i2c_handle_power: FuriHalI2cBusHandle;
-}
-extern "C" {
-    #[doc = "Handle for external i2c bus Bus: furi_hal_i2c_bus_external Pins: PC0(SCL) / PC1(SDA), float on release Params: 100khz\n\n"]
-    pub static mut furi_hal_i2c_handle_external: FuriHalI2cBusHandle;
-}
-extern "C" {
-    #[doc = "Acquire i2c bus handle\n\nReturns:\n\n* Instance of FuriHalI2cBus\n\n"]
-    pub fn furi_hal_i2c_acquire(handle: *mut FuriHalI2cBusHandle);
-}
-extern "C" {
-    #[doc = "Release i2c bus handle\n\n# Arguments\n\n* `bus` - instance of FuriHalI2cBus aquired in `furi_hal_i2c_acquire`\n\n"]
-    pub fn furi_hal_i2c_release(handle: *mut FuriHalI2cBusHandle);
-}
-extern "C" {
-    #[doc = "Perform I2C tx transfer\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `address` - I2C slave address\n* `data` - pointer to data buffer\n* `size` - size of data buffer\n* `timeout` - timeout in ticks\n\n"]
-    pub fn furi_hal_i2c_tx(
-        handle: *mut FuriHalI2cBusHandle,
-        address: u8,
-        data: *const u8,
-        size: u8,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Perform I2C rx transfer\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `address` - I2C slave address\n* `data` - pointer to data buffer\n* `size` - size of data buffer\n* `timeout` - timeout in ticks\n\n"]
-    pub fn furi_hal_i2c_rx(
-        handle: *mut FuriHalI2cBusHandle,
-        address: u8,
-        data: *mut u8,
-        size: u8,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Perform I2C tx and rx transfers\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `address` - I2C slave address\n* `tx_data` - pointer to tx data buffer\n* `tx_size` - size of tx data buffer\n* `rx_data` - pointer to rx data buffer\n* `rx_size` - size of rx data buffer\n* `timeout` - timeout in ticks\n\n"]
-    pub fn furi_hal_i2c_trx(
-        handle: *mut FuriHalI2cBusHandle,
-        address: u8,
-        tx_data: *const u8,
-        tx_size: u8,
-        rx_data: *mut u8,
-        rx_size: u8,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Check if I2C device presents on bus\n\nReturns:\n\n* true if device present and is ready, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `timeout` - timeout in ticks\n\n"]
-    pub fn furi_hal_i2c_is_device_ready(
-        handle: *mut FuriHalI2cBusHandle,
-        i2c_addr: u8,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Perform I2C device register read (8-bit)\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `reg_addr` - register address\n* `data` - pointer to register value\n* `timeout` - timeout in ticks\n\n"]
-    pub fn furi_hal_i2c_read_reg_8(
-        handle: *mut FuriHalI2cBusHandle,
-        i2c_addr: u8,
-        reg_addr: u8,
-        data: *mut u8,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Perform I2C device register read (16-bit)\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `reg_addr` - register address\n* `data` - pointer to register value\n* `timeout` - timeout in ticks\n\n"]
-    pub fn furi_hal_i2c_read_reg_16(
-        handle: *mut FuriHalI2cBusHandle,
-        i2c_addr: u8,
-        reg_addr: u8,
-        data: *mut u16,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Perform I2C device memory read\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `mem_addr` - memory start address\n* `data` - pointer to data buffer\n* `len` - size of data buffer\n* `timeout` - timeout in ticks\n\n"]
-    pub fn furi_hal_i2c_read_mem(
-        handle: *mut FuriHalI2cBusHandle,
-        i2c_addr: u8,
-        mem_addr: u8,
-        data: *mut u8,
-        len: u8,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Perform I2C device register write (8-bit)\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `reg_addr` - register address\n* `data` - register value\n* `timeout` - timeout in ticks\n\n"]
-    pub fn furi_hal_i2c_write_reg_8(
-        handle: *mut FuriHalI2cBusHandle,
-        i2c_addr: u8,
-        reg_addr: u8,
-        data: u8,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Perform I2C device register write (16-bit)\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `reg_addr` - register address\n* `data` - register value\n* `timeout` - timeout in ticks\n\n"]
-    pub fn furi_hal_i2c_write_reg_16(
-        handle: *mut FuriHalI2cBusHandle,
-        i2c_addr: u8,
-        reg_addr: u8,
-        data: u16,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Perform I2C device memory\n\nReturns:\n\n* true on successful transfer, false otherwise\n\n# Arguments\n\n* `handle` - pointer to FuriHalI2cBusHandle instance\n* `i2c_addr` - I2C slave address\n* `mem_addr` - memory start address\n* `data` - pointer to data buffer\n* `len` - size of data buffer\n* `timeout` - timeout in ticks\n\n"]
-    pub fn furi_hal_i2c_write_mem(
-        handle: *mut FuriHalI2cBusHandle,
-        i2c_addr: u8,
-        mem_addr: u8,
-        data: *mut u8,
-        len: u8,
-        timeout: u32,
-    ) -> bool;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FuriHalRegionBand {
-    pub start: u32,
-    pub end: u32,
-    pub power_limit: i8,
-    pub duty_cycle: u8,
-}
-#[test]
-fn bindgen_test_layout_FuriHalRegionBand() {
-    const UNINIT: ::core::mem::MaybeUninit<FuriHalRegionBand> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FuriHalRegionBand>(),
-        12usize,
-        concat!("Size of: ", stringify!(FuriHalRegionBand))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FuriHalRegionBand>(),
-        4usize,
-        concat!("Alignment of ", stringify!(FuriHalRegionBand))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).start) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRegionBand),
-            "::",
-            stringify!(start)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).end) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRegionBand),
-            "::",
-            stringify!(end)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).power_limit) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRegionBand),
-            "::",
-            stringify!(power_limit)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).duty_cycle) as usize - ptr as usize },
-        9usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRegionBand),
-            "::",
-            stringify!(duty_cycle)
-        )
-    );
-}
-#[repr(C)]
-#[derive(Debug)]
-pub struct FuriHalRegion {
-    pub country_code: [core::ffi::c_char; 4usize],
-    pub bands_count: u16,
-    pub bands: __IncompleteArrayField<FuriHalRegionBand>,
-}
-#[test]
-fn bindgen_test_layout_FuriHalRegion() {
-    const UNINIT: ::core::mem::MaybeUninit<FuriHalRegion> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FuriHalRegion>(),
-        8usize,
-        concat!("Size of: ", stringify!(FuriHalRegion))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FuriHalRegion>(),
-        4usize,
-        concat!("Alignment of ", stringify!(FuriHalRegion))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).country_code) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRegion),
-            "::",
-            stringify!(country_code)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bands_count) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRegion),
-            "::",
-            stringify!(bands_count)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bands) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRegion),
-            "::",
-            stringify!(bands)
-        )
-    );
-}
-extern "C" {
-    #[doc = "Get Region Data.\nRegion data may be allocated in Flash or in RAM. Keep in mind that we don't do memory management on our side.\n\nReturns:\n\n* pointer to FuriHalRegion instance (in RAM or Flash, check before freeing on region update)\n\n"]
-    pub fn furi_hal_region_get() -> *const FuriHalRegion;
-}
-extern "C" {
-    #[doc = "Set device region data\n\n# Arguments\n\n* `region` - pointer to the FuriHalRegion\n\n"]
-    pub fn furi_hal_region_set(region: *mut FuriHalRegion);
-}
-extern "C" {
-    #[doc = "Check if region data provisioned\n\nReturns:\n\n* true if provisioned, false otherwise\n\n"]
-    pub fn furi_hal_region_is_provisioned() -> bool;
-}
-extern "C" {
-    #[doc = "Get region name\n2 letter Region code according to iso 3166 standard There are 2 extra values that we use in special cases:\n* \"00\" - developer edition, unlocked\n* \"WW\" - world wide, region provisioned by default\n* \"--\" - no provisioned region\n\nReturns:\n\n* Pointer to string\n\n"]
-    pub fn furi_hal_region_get_name() -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Сheck if transmission is allowed on this frequency for your flipper region\n\nReturns:\n\n* true if allowed\n\n# Arguments\n\n* `frequency` - [Direction: In] The frequency\n* `value` - frequency in Hz\n\n"]
-    pub fn furi_hal_region_is_frequency_allowed(frequency: u32) -> bool;
-}
-extern "C" {
-    #[doc = "Get band data for frequency\n\nReturns:\n\n* { description_of_the_return_value }\n\n# Arguments\n\n* `frequency` - [Direction: In] The frequency\n\n"]
-    pub fn furi_hal_region_get_band(frequency: u32) -> *const FuriHalRegionBand;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FuriHalRtcDateTime {
-    #[doc = "Hour in 24H format: 0-23\n\n"]
-    pub hour: u8,
-    #[doc = "Minute: 0-59\n\n"]
-    pub minute: u8,
-    #[doc = "Second: 0-59\n\n"]
-    pub second: u8,
-    #[doc = "Current day: 1-31\n\n"]
-    pub day: u8,
-    #[doc = "Current month: 1-12\n\n"]
-    pub month: u8,
-    #[doc = "Current year: 2000-2099\n\n"]
-    pub year: u16,
-    #[doc = "Current weekday: 1-7\n\n"]
-    pub weekday: u8,
-}
-#[test]
-fn bindgen_test_layout_FuriHalRtcDateTime() {
-    const UNINIT: ::core::mem::MaybeUninit<FuriHalRtcDateTime> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FuriHalRtcDateTime>(),
-        10usize,
-        concat!("Size of: ", stringify!(FuriHalRtcDateTime))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FuriHalRtcDateTime>(),
-        2usize,
-        concat!("Alignment of ", stringify!(FuriHalRtcDateTime))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).hour) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRtcDateTime),
-            "::",
-            stringify!(hour)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).minute) as usize - ptr as usize },
-        1usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRtcDateTime),
-            "::",
-            stringify!(minute)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).second) as usize - ptr as usize },
-        2usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRtcDateTime),
-            "::",
-            stringify!(second)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).day) as usize - ptr as usize },
-        3usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRtcDateTime),
-            "::",
-            stringify!(day)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).month) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRtcDateTime),
-            "::",
-            stringify!(month)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).year) as usize - ptr as usize },
-        6usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRtcDateTime),
-            "::",
-            stringify!(year)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).weekday) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalRtcDateTime),
-            "::",
-            stringify!(weekday)
-        )
-    );
-}
-pub const FuriHalRtcFlag_FuriHalRtcFlagDebug: FuriHalRtcFlag = 1;
-pub const FuriHalRtcFlag_FuriHalRtcFlagFactoryReset: FuriHalRtcFlag = 2;
-pub const FuriHalRtcFlag_FuriHalRtcFlagLock: FuriHalRtcFlag = 4;
-pub const FuriHalRtcFlag_FuriHalRtcFlagC2Update: FuriHalRtcFlag = 8;
-pub const FuriHalRtcFlag_FuriHalRtcFlagHandOrient: FuriHalRtcFlag = 16;
-pub const FuriHalRtcFlag_FuriHalRtcFlagLegacySleep: FuriHalRtcFlag = 32;
-pub const FuriHalRtcFlag_FuriHalRtcFlagStealthMode: FuriHalRtcFlag = 64;
-pub type FuriHalRtcFlag = core::ffi::c_uchar;
-#[doc = "Normal boot mode, default value\n\n"]
-pub const FuriHalRtcBootMode_FuriHalRtcBootModeNormal: FuriHalRtcBootMode = 0;
-#[doc = "Boot to DFU (MCU bootloader by ST)\n\n"]
-pub const FuriHalRtcBootMode_FuriHalRtcBootModeDfu: FuriHalRtcBootMode = 1;
-#[doc = "Boot to Update, pre update\n\n"]
-pub const FuriHalRtcBootMode_FuriHalRtcBootModePreUpdate: FuriHalRtcBootMode = 2;
-#[doc = "Boot to Update, main\n\n"]
-pub const FuriHalRtcBootMode_FuriHalRtcBootModeUpdate: FuriHalRtcBootMode = 3;
-#[doc = "Boot to Update, post update\n\n"]
-pub const FuriHalRtcBootMode_FuriHalRtcBootModePostUpdate: FuriHalRtcBootMode = 4;
-pub type FuriHalRtcBootMode = core::ffi::c_uchar;
-#[doc = "Disable allocation tracking\n\n"]
-pub const FuriHalRtcHeapTrackMode_FuriHalRtcHeapTrackModeNone: FuriHalRtcHeapTrackMode = 0;
-#[doc = "Enable allocation tracking for main application thread\n\n"]
-pub const FuriHalRtcHeapTrackMode_FuriHalRtcHeapTrackModeMain: FuriHalRtcHeapTrackMode = 1;
-#[doc = "Enable allocation tracking for main and children application threads\n\n"]
-pub const FuriHalRtcHeapTrackMode_FuriHalRtcHeapTrackModeTree: FuriHalRtcHeapTrackMode = 2;
-#[doc = "Enable allocation tracking for all threads\n\n"]
-pub const FuriHalRtcHeapTrackMode_FuriHalRtcHeapTrackModeAll: FuriHalRtcHeapTrackMode = 3;
-pub type FuriHalRtcHeapTrackMode = core::ffi::c_uchar;
-#[doc = "RTC structure header\n\n"]
-pub const FuriHalRtcRegister_FuriHalRtcRegisterHeader: FuriHalRtcRegister = 0;
-#[doc = "Various system bits\n\n"]
-pub const FuriHalRtcRegister_FuriHalRtcRegisterSystem: FuriHalRtcRegister = 1;
-#[doc = "Pointer to Version\n\n"]
-pub const FuriHalRtcRegister_FuriHalRtcRegisterVersion: FuriHalRtcRegister = 2;
-#[doc = "LFS geometry fingerprint\n\n"]
-pub const FuriHalRtcRegister_FuriHalRtcRegisterLfsFingerprint: FuriHalRtcRegister = 3;
-#[doc = "Pointer to last fault message\n\n"]
-pub const FuriHalRtcRegister_FuriHalRtcRegisterFaultData: FuriHalRtcRegister = 4;
-#[doc = "Failed pins count\n\n"]
-pub const FuriHalRtcRegister_FuriHalRtcRegisterPinFails: FuriHalRtcRegister = 5;
-pub const FuriHalRtcRegister_FuriHalRtcRegisterUpdateFolderFSIndex: FuriHalRtcRegister = 6;
-#[doc = "Service value, do not use\n\n"]
-pub const FuriHalRtcRegister_FuriHalRtcRegisterMAX: FuriHalRtcRegister = 7;
-pub type FuriHalRtcRegister = core::ffi::c_uchar;
-#[doc = "Metric measurement units\n\n"]
-pub const FuriHalRtcLocaleUnits_FuriHalRtcLocaleUnitsMetric: FuriHalRtcLocaleUnits = 0;
-#[doc = "Imperial measurement units\n\n"]
-pub const FuriHalRtcLocaleUnits_FuriHalRtcLocaleUnitsImperial: FuriHalRtcLocaleUnits = 1;
-pub type FuriHalRtcLocaleUnits = core::ffi::c_uchar;
-#[doc = "24-hour format\n\n"]
-pub const FuriHalRtcLocaleTimeFormat_FuriHalRtcLocaleTimeFormat24h: FuriHalRtcLocaleTimeFormat = 0;
-#[doc = "12-hour format\n\n"]
-pub const FuriHalRtcLocaleTimeFormat_FuriHalRtcLocaleTimeFormat12h: FuriHalRtcLocaleTimeFormat = 1;
-pub type FuriHalRtcLocaleTimeFormat = core::ffi::c_uchar;
-#[doc = "Day/Month/Year\n\n"]
-pub const FuriHalRtcLocaleDateFormat_FuriHalRtcLocaleDateFormatDMY: FuriHalRtcLocaleDateFormat = 0;
-#[doc = "Month/Day/Year\n\n"]
-pub const FuriHalRtcLocaleDateFormat_FuriHalRtcLocaleDateFormatMDY: FuriHalRtcLocaleDateFormat = 1;
-#[doc = "Year/Month/Day\n\n"]
-pub const FuriHalRtcLocaleDateFormat_FuriHalRtcLocaleDateFormatYMD: FuriHalRtcLocaleDateFormat = 2;
-pub type FuriHalRtcLocaleDateFormat = core::ffi::c_uchar;
-extern "C" {
-    #[doc = "Force sync shadow registers\n\n"]
-    pub fn furi_hal_rtc_sync_shadow();
-}
-extern "C" {
-    #[doc = "Get RTC register content\n\nReturns:\n\n* content of the register\n\n# Arguments\n\n* `reg` - [Direction: In] The register identifier\n\n"]
-    pub fn furi_hal_rtc_get_register(reg: FuriHalRtcRegister) -> u32;
-}
-extern "C" {
-    #[doc = "Set register content\n\n# Arguments\n\n* `reg` - [Direction: In] The register identifier\n* `value` - [Direction: In] The value to store into register\n\n"]
-    pub fn furi_hal_rtc_set_register(reg: FuriHalRtcRegister, value: u32);
-}
-extern "C" {
-    #[doc = "Set Log Level value\n\n# Arguments\n\n* `level` - [Direction: In] The level to store\n\n"]
-    pub fn furi_hal_rtc_set_log_level(level: u8);
-}
-extern "C" {
-    #[doc = "Get Log Level value\n\nReturns:\n\n* The Log Level value\n\n"]
-    pub fn furi_hal_rtc_get_log_level() -> u8;
-}
-extern "C" {
-    #[doc = "Set RTC Flag\n\n# Arguments\n\n* `flag` - [Direction: In] The flag to set\n\n"]
-    pub fn furi_hal_rtc_set_flag(flag: FuriHalRtcFlag);
-}
-extern "C" {
-    #[doc = "Reset RTC Flag\n\n# Arguments\n\n* `flag` - [Direction: In] The flag to reset\n\n"]
-    pub fn furi_hal_rtc_reset_flag(flag: FuriHalRtcFlag);
-}
-extern "C" {
-    #[doc = "Check if RTC Flag is set\n\nReturns:\n\n* true if set\n\n# Arguments\n\n* `flag` - [Direction: In] The flag to check\n\n"]
-    pub fn furi_hal_rtc_is_flag_set(flag: FuriHalRtcFlag) -> bool;
-}
-extern "C" {
-    #[doc = "Set RTC boot mode\n\n# Arguments\n\n* `mode` - [Direction: In] The mode to set\n\n"]
-    pub fn furi_hal_rtc_set_boot_mode(mode: FuriHalRtcBootMode);
-}
-extern "C" {
-    #[doc = "Get RTC boot mode\n\nReturns:\n\n* The RTC boot mode.\n\n"]
-    pub fn furi_hal_rtc_get_boot_mode() -> FuriHalRtcBootMode;
-}
-extern "C" {
-    #[doc = "Set Heap Track mode\n\n# Arguments\n\n* `mode` - [Direction: In] The mode to set\n\n"]
-    pub fn furi_hal_rtc_set_heap_track_mode(mode: FuriHalRtcHeapTrackMode);
-}
-extern "C" {
-    #[doc = "Get RTC Heap Track mode\n\nReturns:\n\n* The RTC heap track mode.\n\n"]
-    pub fn furi_hal_rtc_get_heap_track_mode() -> FuriHalRtcHeapTrackMode;
-}
-extern "C" {
-    #[doc = "Set locale units\n\n# Arguments\n\n* `mode` - [Direction: In] The RTC Locale Units\n\n"]
-    pub fn furi_hal_rtc_set_locale_units(value: FuriHalRtcLocaleUnits);
-}
-extern "C" {
-    #[doc = "Get RTC Locale Units\n\nReturns:\n\n* The RTC Locale Units.\n\n"]
-    pub fn furi_hal_rtc_get_locale_units() -> FuriHalRtcLocaleUnits;
-}
-extern "C" {
-    #[doc = "Set RTC Locale Time Format\n\n# Arguments\n\n* `value` - [Direction: In] The RTC Locale Time Format\n\n"]
-    pub fn furi_hal_rtc_set_locale_timeformat(value: FuriHalRtcLocaleTimeFormat);
-}
-extern "C" {
-    #[doc = "Get RTC Locale Time Format\n\nReturns:\n\n* The RTC Locale Time Format.\n\n"]
-    pub fn furi_hal_rtc_get_locale_timeformat() -> FuriHalRtcLocaleTimeFormat;
-}
-extern "C" {
-    #[doc = "Set RTC Locale Date Format\n\n# Arguments\n\n* `value` - [Direction: In] The RTC Locale Date Format\n\n"]
-    pub fn furi_hal_rtc_set_locale_dateformat(value: FuriHalRtcLocaleDateFormat);
-}
-extern "C" {
-    #[doc = "Get RTC Locale Date Format\n\nReturns:\n\n* The RTC Locale Date Format\n\n"]
-    pub fn furi_hal_rtc_get_locale_dateformat() -> FuriHalRtcLocaleDateFormat;
-}
-extern "C" {
-    #[doc = "Set RTC Date Time\n\n# Arguments\n\n* `datetime` - The date time to set\n\n"]
-    pub fn furi_hal_rtc_set_datetime(datetime: *mut FuriHalRtcDateTime);
-}
-extern "C" {
-    #[doc = "Get RTC Date Time\n\n# Arguments\n\n* `datetime` - The datetime\n\n"]
-    pub fn furi_hal_rtc_get_datetime(datetime: *mut FuriHalRtcDateTime);
-}
-extern "C" {
-    #[doc = "Validate Date Time\n\nReturns:\n\n* { description_of_the_return_value }\n\n# Arguments\n\n* `datetime` - The datetime to validate\n\n"]
-    pub fn furi_hal_rtc_validate_datetime(datetime: *mut FuriHalRtcDateTime) -> bool;
-}
-extern "C" {
-    #[doc = "Set RTC Fault Data\n\n# Arguments\n\n* `value` - [Direction: In] The value\n\n"]
-    pub fn furi_hal_rtc_set_fault_data(value: u32);
-}
-extern "C" {
-    #[doc = "Get RTC Fault Data\n\nReturns:\n\n* RTC Fault Data value\n\n"]
-    pub fn furi_hal_rtc_get_fault_data() -> u32;
-}
-extern "C" {
-    #[doc = "Set Pin Fails count\n\n# Arguments\n\n* `value` - [Direction: In] The Pin Fails count\n\n"]
-    pub fn furi_hal_rtc_set_pin_fails(value: u32);
-}
-extern "C" {
-    #[doc = "Get Pin Fails count\n\nReturns:\n\n* Pin Fails Count\n\n"]
-    pub fn furi_hal_rtc_get_pin_fails() -> u32;
-}
-extern "C" {
-    #[doc = "Get UNIX Timestamp\n\nReturns:\n\n* Unix Timestamp in seconds from UNIX epoch start\n\n"]
-    pub fn furi_hal_rtc_get_timestamp() -> u32;
-}
-extern "C" {
-    #[doc = "Convert DateTime to UNIX timestamp\n\nReturns:\n\n* UNIX Timestamp in seconds from UNIX epoch start\n\n# Arguments\n\n* `datetime` - The datetime\n\n"]
-    pub fn furi_hal_rtc_datetime_to_timestamp(datetime: *mut FuriHalRtcDateTime) -> u32;
-}
-extern "C" {
-    #[doc = "Gets the number of days in the year according to the Gregorian calendar.\n\nReturns:\n\n* number of days in `year`.\n\n# Arguments\n\n* `year` - Input year.\n\n"]
-    pub fn furi_hal_rtc_get_days_per_year(year: u16) -> u16;
-}
-extern "C" {
-    #[doc = "Check if a year a leap year in the Gregorian calendar.\n\nReturns:\n\n* true if `year` is a leap year.\n\n# Arguments\n\n* `year` - Input year.\n\n"]
-    pub fn furi_hal_rtc_is_leap_year(year: u16) -> bool;
-}
-extern "C" {
-    #[doc = "Get the number of days in the month.\n\nReturns:\n\n* the number of days in the month\n\n# Arguments\n\n* `leap_year` - true to calculate based on leap years\n* `month` - month to check, where 1 = January\n\n"]
-    pub fn furi_hal_rtc_get_days_per_month(leap_year: bool, month: u8) -> u8;
-}
-extern "C" {
-    #[doc = "Acquire speaker ownership\n\n**Warning!**\n\n* You must acquire speaker ownership before use\n\nReturns:\n\n* bool returns true on success\n\n# Arguments\n\n* `timeout` - Timeout during which speaker ownership must be acquired\n\n"]
-    pub fn furi_hal_speaker_acquire(timeout: u32) -> bool;
-}
-extern "C" {
-    #[doc = "Release speaker ownership\n\n**Warning!**\n\n* You must release speaker ownership after use\n\n"]
-    pub fn furi_hal_speaker_release();
-}
-extern "C" {
-    #[doc = "Check current process speaker ownership\n\n**Warning!**\n\n* always returns true if called from ISR\n\nReturns:\n\n* bool returns true if process owns speaker\n\n"]
-    pub fn furi_hal_speaker_is_mine() -> bool;
-}
-extern "C" {
-    #[doc = "Play a note\n\n**Warning!**\n\n* no ownership check if called from ISR\n\n# Arguments\n\n* `frequency` - The frequency\n* `volume` - The volume\n\n"]
-    pub fn furi_hal_speaker_start(frequency: f32, volume: f32);
-}
-extern "C" {
-    #[doc = "Set volume\n\n**Warning!**\n\n* no ownership check if called from ISR\n\n# Arguments\n\n* `volume` - The volume\n\n"]
-    pub fn furi_hal_speaker_set_volume(volume: f32);
-}
-extern "C" {
-    #[doc = "Stop playback\n\n**Warning!**\n\n* no ownership check if called from ISR\n\n"]
-    pub fn furi_hal_speaker_stop();
-}
-extern "C" {
-    #[doc = "Set light value\n\n# Arguments\n\n* `light` - Light\n* `value` - light brightness [0-255]\n\n"]
-    pub fn furi_hal_light_set(light: Light, value: u8);
-}
-extern "C" {
-    #[doc = "Start hardware LED blinking mode\n\n# Arguments\n\n* `light` - Light\n* `brightness` - light brightness [0-255]\n* `on_time` - LED on time in ms\n* `period` - LED blink period in ms\n\n"]
-    pub fn furi_hal_light_blink_start(light: Light, brightness: u8, on_time: u16, period: u16);
-}
-extern "C" {
-    #[doc = "Stop hardware LED blinking mode\n\n"]
-    pub fn furi_hal_light_blink_stop();
-}
-extern "C" {
-    #[doc = "Set color in hardware LED blinking mode\n\n# Arguments\n\n* `light` - Light\n\n"]
-    pub fn furi_hal_light_blink_set_color(light: Light);
-}
-extern "C" {
-    #[doc = "Execute sequence\n\n# Arguments\n\n* `sequence` - Sequence to execute\n\n"]
-    pub fn furi_hal_light_sequence(sequence: *const core::ffi::c_char);
-}
-#[doc = "Callback type called every time another key-value pair of device information is ready\n\n# Arguments\n\n* `key[in]` - device information type identifier\n* `value[in]` - device information value\n* `last[in]` - whether the passed key-value pair is the last one\n* `context[in]` - to pass to callback\n\n"]
-pub type PropertyValueCallback = ::core::option::Option<
-    unsafe extern "C" fn(
-        key: *const core::ffi::c_char,
-        value: *const core::ffi::c_char,
-        last: bool,
-        context: *mut core::ffi::c_void,
-    ),
->;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct PropertyValueContext {
-    #[doc = "key string buffer, must be initialised before use\n\n"]
-    pub key: *mut FuriString,
-    #[doc = "value string buffer, must be initialised before use\n\n"]
-    pub value: *mut FuriString,
-    #[doc = "output callback function\n\n"]
-    pub out: PropertyValueCallback,
-    #[doc = "separator character between key parts\n\n"]
-    pub sep: core::ffi::c_char,
-    #[doc = "flag to indicate last element\n\n"]
-    pub last: bool,
-    #[doc = "user-defined context, passed through to out callback\n\n"]
-    pub context: *mut core::ffi::c_void,
-}
-#[test]
-fn bindgen_test_layout_PropertyValueContext() {
-    const UNINIT: ::core::mem::MaybeUninit<PropertyValueContext> =
-        ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<PropertyValueContext>(),
-        20usize,
-        concat!("Size of: ", stringify!(PropertyValueContext))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<PropertyValueContext>(),
-        4usize,
-        concat!("Alignment of ", stringify!(PropertyValueContext))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).key) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PropertyValueContext),
-            "::",
-            stringify!(key)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).value) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PropertyValueContext),
-            "::",
-            stringify!(value)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).out) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PropertyValueContext),
-            "::",
-            stringify!(out)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).sep) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PropertyValueContext),
-            "::",
-            stringify!(sep)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).last) as usize - ptr as usize },
-        13usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PropertyValueContext),
-            "::",
-            stringify!(last)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(PropertyValueContext),
-            "::",
-            stringify!(context)
-        )
-    );
-}
-extern "C" {
-    #[doc = "Builds key and value strings and outputs them via a callback function\n\n# Arguments\n\n* `ctx[in]` - local property context\n* `fmt[in]` - value format, set to NULL to bypass formatting\n* `nparts[in]` - number of key parts (separated by character)\n* `...[in]` - list of key parts followed by value\n\n"]
-    pub fn property_value_out(
-        ctx: *mut PropertyValueContext,
-        fmt: *const core::ffi::c_char,
-        nparts: core::ffi::c_uint,
-        ...
-    );
-}
-pub const FuriHalPowerIC_FuriHalPowerICCharger: FuriHalPowerIC = 0;
-pub const FuriHalPowerIC_FuriHalPowerICFuelGauge: FuriHalPowerIC = 1;
-#[doc = "Power IC type\n\n"]
-pub type FuriHalPowerIC = core::ffi::c_uchar;
-extern "C" {
-    #[doc = "Check if gauge is ok\nVerifies that:\n* gauge is alive\n* correct profile loaded\n* self diagnostic status is good\n\nReturns:\n\n* true if gauge is ok\n\n"]
-    pub fn furi_hal_power_gauge_is_ok() -> bool;
-}
-extern "C" {
-    #[doc = "Enter insomnia mode Prevents device from going to sleep\n\n**Warning!**\n\n* Internally increases insomnia level Must be paired with furi_hal_power_insomnia_exit\n\n"]
-    pub fn furi_hal_power_insomnia_enter();
-}
-extern "C" {
-    #[doc = "Exit insomnia mode Allow device to go to sleep\n\n**Warning!**\n\n* Internally decreases insomnia level. Must be paired with furi_hal_power_insomnia_enter\n\n"]
-    pub fn furi_hal_power_insomnia_exit();
-}
-extern "C" {
-    #[doc = "Check if sleep availble\n\nReturns:\n\n* true if available\n\n"]
-    pub fn furi_hal_power_sleep_available() -> bool;
-}
-extern "C" {
-    #[doc = "Go to sleep\n\n"]
-    pub fn furi_hal_power_sleep();
-}
-extern "C" {
-    #[doc = "Get predicted remaining battery capacity in percents\n\nReturns:\n\n* remaining battery capacity in percents\n\n"]
-    pub fn furi_hal_power_get_pct() -> u8;
-}
-extern "C" {
-    #[doc = "Get battery health state in percents\n\nReturns:\n\n* health in percents\n\n"]
-    pub fn furi_hal_power_get_bat_health_pct() -> u8;
-}
-extern "C" {
-    #[doc = "Get charging status\n\nReturns:\n\n* true if charging\n\n"]
-    pub fn furi_hal_power_is_charging() -> bool;
-}
-extern "C" {
-    #[doc = "Get charge complete status\n\nReturns:\n\n* true if done charging and connected to charger\n\n"]
-    pub fn furi_hal_power_is_charging_done() -> bool;
-}
-extern "C" {
-    #[doc = "Switch MCU to SHUTDOWN\n\n"]
-    pub fn furi_hal_power_shutdown();
-}
-extern "C" {
-    #[doc = "Poweroff device\n\n"]
-    pub fn furi_hal_power_off();
-}
-extern "C" {
-    #[doc = "Reset device\n\n"]
-    pub fn furi_hal_power_reset();
-}
-extern "C" {
-    #[doc = "OTG enable\n\n"]
-    pub fn furi_hal_power_enable_otg() -> bool;
-}
-extern "C" {
-    #[doc = "OTG disable\n\n"]
-    pub fn furi_hal_power_disable_otg();
-}
-extern "C" {
-    #[doc = "Check OTG status fault\n\n"]
-    pub fn furi_hal_power_check_otg_fault() -> bool;
-}
-extern "C" {
-    #[doc = "Check OTG status and disable it if falt happened\n\n"]
-    pub fn furi_hal_power_check_otg_status();
-}
-extern "C" {
-    #[doc = "Get OTG status\n\nReturns:\n\n* true if enabled\n\n"]
-    pub fn furi_hal_power_is_otg_enabled() -> bool;
-}
-extern "C" {
-    #[doc = "Get battery charge voltage limit in V\n\nReturns:\n\n* voltage in V\n\n"]
-    pub fn furi_hal_power_get_battery_charge_voltage_limit() -> f32;
-}
-extern "C" {
-    #[doc = "Set battery charge voltage limit in V\nInvalid values will be clamped downward to the nearest valid value.\n\nReturns:\n\n* voltage in V\n\n# Arguments\n\n* `voltage[in]` - voltage in V\n\n"]
-    pub fn furi_hal_power_set_battery_charge_voltage_limit(voltage: f32);
-}
-extern "C" {
-    #[doc = "Get remaining battery battery capacity in mAh\n\nReturns:\n\n* capacity in mAh\n\n"]
-    pub fn furi_hal_power_get_battery_remaining_capacity() -> u32;
-}
-extern "C" {
-    #[doc = "Get full charge battery capacity in mAh\n\nReturns:\n\n* capacity in mAh\n\n"]
-    pub fn furi_hal_power_get_battery_full_capacity() -> u32;
-}
-extern "C" {
-    #[doc = "Get battery capacity in mAh from battery profile\n\nReturns:\n\n* capacity in mAh\n\n"]
-    pub fn furi_hal_power_get_battery_design_capacity() -> u32;
-}
-extern "C" {
-    #[doc = "Get battery voltage in V\n\nReturns:\n\n* voltage in V\n\n# Arguments\n\n* `ic` - FuriHalPowerIc to get measurment\n\n"]
-    pub fn furi_hal_power_get_battery_voltage(ic: FuriHalPowerIC) -> f32;
-}
-extern "C" {
-    #[doc = "Get battery current in A\n\nReturns:\n\n* current in A\n\n# Arguments\n\n* `ic` - FuriHalPowerIc to get measurment\n\n"]
-    pub fn furi_hal_power_get_battery_current(ic: FuriHalPowerIC) -> f32;
-}
-extern "C" {
-    #[doc = "Get temperature in C\n\nReturns:\n\n* temperature in C\n\n# Arguments\n\n* `ic` - FuriHalPowerIc to get measurment\n\n"]
-    pub fn furi_hal_power_get_battery_temperature(ic: FuriHalPowerIC) -> f32;
-}
-extern "C" {
-    #[doc = "Get USB voltage in V\n\nReturns:\n\n* voltage in V\n\n"]
-    pub fn furi_hal_power_get_usb_voltage() -> f32;
-}
-extern "C" {
-    #[doc = "Enable 3.3v on external gpio and sd card\n\n"]
-    pub fn furi_hal_power_enable_external_3_3v();
-}
-extern "C" {
-    #[doc = "Disable 3.3v on external gpio and sd card\n\n"]
-    pub fn furi_hal_power_disable_external_3_3v();
-}
-extern "C" {
-    #[doc = "Enter supress charge mode.\nUse this function when your application need clean power supply.\n\n"]
-    pub fn furi_hal_power_suppress_charge_enter();
-}
-extern "C" {
-    #[doc = "Exit supress charge mode\n\n"]
-    pub fn furi_hal_power_suppress_charge_exit();
-}
-extern "C" {
-    #[doc = "Get power information\n\n# Arguments\n\n* `callback` - [Direction: In] callback to provide with new data\n* `sep` - [Direction: In] category separator character\n* `context` - [Direction: In] context to pass to callback\n\n"]
-    pub fn furi_hal_power_info_get(
-        callback: PropertyValueCallback,
-        sep: core::ffi::c_char,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    #[doc = "Get power debug information\n\n# Arguments\n\n* `callback` - [Direction: In] callback to provide with new data\n* `context` - [Direction: In] context to pass to callback\n\n"]
-    pub fn furi_hal_power_debug_get(
-        callback: PropertyValueCallback,
-        context: *mut core::ffi::c_void,
-    );
-}
-#[doc = "TIM Time Base configuration structure definition.\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct LL_TIM_InitTypeDef {
-    #[doc = "Specifies the prescaler value used to divide the TIM clock.\nThis parameter can be a number between Min_Data=0x0000 and Max_Data=0xFFFF.\nThis feature can be modified afterwards using unitary function [`LL_TIM_SetPrescaler()`]\n\n"]
-    pub Prescaler: u16,
-    #[doc = "Specifies the counter mode.\nThis parameter can be a value of  [`TIM_LL_EC_COUNTERMODE`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_SetCounterMode()`]\n\n"]
-    pub CounterMode: u32,
-    #[doc = "Specifies the auto reload value to be loaded into the active\nAuto-Reload Register at the next update event.\nThis parameter must be a number between Min_Data=0x0000 and Max_Data=0xFFFF.\nSome timer instances may support 32 bits counters. In that case this parameter must\nbe a number between 0x0000 and 0xFFFFFFFF.\nThis feature can be modified afterwards using unitary function [`LL_TIM_SetAutoReload()`]\n\n"]
-    pub Autoreload: u32,
-    #[doc = "Specifies the clock division.\nThis parameter can be a value of  [`TIM_LL_EC_CLOCKDIVISION`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_SetClockDivision()`]\n\n"]
-    pub ClockDivision: u32,
-    #[doc = "Specifies the repetition counter value. Each time the RCR downcounter\nreaches zero, an update event is generated and counting restarts\nfrom the RCR value (N).\nThis means in PWM mode that (N+1) corresponds to:\nthe number of PWM periods in edge-aligned mode\nthe number of half PWM period in center-aligned mode\nGP timers: this parameter must be a number between Min_Data = 0x00 and\nMax_Data = 0xFF.\nAdvanced timers: this parameter must be a number between Min_Data = 0x0000 and\nMax_Data = 0xFFFF.\nThis feature can be modified afterwards using unitary function [`LL_TIM_SetRepetitionCounter()`]\n\n"]
-    pub RepetitionCounter: u32,
-}
-#[test]
-fn bindgen_test_layout_LL_TIM_InitTypeDef() {
-    const UNINIT: ::core::mem::MaybeUninit<LL_TIM_InitTypeDef> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<LL_TIM_InitTypeDef>(),
-        20usize,
-        concat!("Size of: ", stringify!(LL_TIM_InitTypeDef))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<LL_TIM_InitTypeDef>(),
-        4usize,
-        concat!("Alignment of ", stringify!(LL_TIM_InitTypeDef))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).Prescaler) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_InitTypeDef),
-            "::",
-            stringify!(Prescaler)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).CounterMode) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_InitTypeDef),
-            "::",
-            stringify!(CounterMode)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).Autoreload) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_InitTypeDef),
-            "::",
-            stringify!(Autoreload)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).ClockDivision) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_InitTypeDef),
-            "::",
-            stringify!(ClockDivision)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).RepetitionCounter) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_InitTypeDef),
-            "::",
-            stringify!(RepetitionCounter)
-        )
-    );
-}
-#[doc = "TIM Output Compare configuration structure definition.\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct LL_TIM_OC_InitTypeDef {
-    #[doc = "Specifies the output mode.\nThis parameter can be a value of  [`TIM_LL_EC_OCMODE`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_OC_SetMode()`]\n\n"]
-    pub OCMode: u32,
-    #[doc = "Specifies the TIM Output Compare state.\nThis parameter can be a value of  [`TIM_LL_EC_OCSTATE`]\nThis feature can be modified afterwards using unitary functions [`LL_TIM_CC_EnableChannel()`] or  [`LL_TIM_CC_DisableChannel()`]\n\n"]
-    pub OCState: u32,
-    #[doc = "Specifies the TIM complementary Output Compare state.\nThis parameter can be a value of  [`TIM_LL_EC_OCSTATE`]\nThis feature can be modified afterwards using unitary functions [`LL_TIM_CC_EnableChannel()`] or  [`LL_TIM_CC_DisableChannel()`]\n\n"]
-    pub OCNState: u32,
-    #[doc = "Specifies the Compare value to be loaded into the Capture Compare Register.\nThis parameter can be a number between Min_Data=0x0000 and Max_Data=0xFFFF.\nThis feature can be modified afterwards using unitary function\nLL_TIM_OC_SetCompareCHx (x=1..6).\n\n"]
-    pub CompareValue: u32,
-    #[doc = "Specifies the output polarity.\nThis parameter can be a value of  [`TIM_LL_EC_OCPOLARITY`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_OC_SetPolarity()`]\n\n"]
-    pub OCPolarity: u32,
-    #[doc = "Specifies the complementary output polarity.\nThis parameter can be a value of  [`TIM_LL_EC_OCPOLARITY`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_OC_SetPolarity()`]\n\n"]
-    pub OCNPolarity: u32,
-    #[doc = "Specifies the TIM Output Compare pin state during Idle state.\nThis parameter can be a value of  [`TIM_LL_EC_OCIDLESTATE`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_OC_SetIdleState()`]\n\n"]
-    pub OCIdleState: u32,
-    #[doc = "Specifies the TIM Output Compare pin state during Idle state.\nThis parameter can be a value of  [`TIM_LL_EC_OCIDLESTATE`]\nThis feature can be modified afterwards using unitary function [`LL_TIM_OC_SetIdleState()`]\n\n"]
-    pub OCNIdleState: u32,
-}
-#[test]
-fn bindgen_test_layout_LL_TIM_OC_InitTypeDef() {
-    const UNINIT: ::core::mem::MaybeUninit<LL_TIM_OC_InitTypeDef> =
-        ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<LL_TIM_OC_InitTypeDef>(),
-        32usize,
-        concat!("Size of: ", stringify!(LL_TIM_OC_InitTypeDef))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<LL_TIM_OC_InitTypeDef>(),
-        4usize,
-        concat!("Alignment of ", stringify!(LL_TIM_OC_InitTypeDef))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).OCMode) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_OC_InitTypeDef),
-            "::",
-            stringify!(OCMode)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).OCState) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_OC_InitTypeDef),
-            "::",
-            stringify!(OCState)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).OCNState) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_OC_InitTypeDef),
-            "::",
-            stringify!(OCNState)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).CompareValue) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_OC_InitTypeDef),
-            "::",
-            stringify!(CompareValue)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).OCPolarity) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_OC_InitTypeDef),
-            "::",
-            stringify!(OCPolarity)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).OCNPolarity) as usize - ptr as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_OC_InitTypeDef),
-            "::",
-            stringify!(OCNPolarity)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).OCIdleState) as usize - ptr as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_OC_InitTypeDef),
-            "::",
-            stringify!(OCIdleState)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).OCNIdleState) as usize - ptr as usize },
-        28usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(LL_TIM_OC_InitTypeDef),
-            "::",
-            stringify!(OCNIdleState)
-        )
-    );
-}
-extern "C" {
-    pub fn LL_TIM_DeInit(TIMx: *mut TIM_TypeDef) -> ErrorStatus;
-}
-extern "C" {
-    pub fn LL_TIM_Init(
-        TIMx: *mut TIM_TypeDef,
-        TIM_InitStruct: *const LL_TIM_InitTypeDef,
-    ) -> ErrorStatus;
-}
-extern "C" {
-    pub fn LL_TIM_OC_Init(
-        TIMx: *mut TIM_TypeDef,
-        Channel: u32,
-        TIM_OC_InitStruct: *const LL_TIM_OC_InitTypeDef,
-    ) -> ErrorStatus;
-}
-#[doc = "Timer ISR\n\n"]
-pub type FuriHalInterruptISR =
-    ::core::option::Option<unsafe extern "C" fn(context: *mut core::ffi::c_void)>;
-pub const FuriHalInterruptId_FuriHalInterruptIdTim1TrgComTim17: FuriHalInterruptId = 0;
-pub const FuriHalInterruptId_FuriHalInterruptIdTim1Cc: FuriHalInterruptId = 1;
-pub const FuriHalInterruptId_FuriHalInterruptIdTim1UpTim16: FuriHalInterruptId = 2;
-pub const FuriHalInterruptId_FuriHalInterruptIdTIM2: FuriHalInterruptId = 3;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch1: FuriHalInterruptId = 4;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch2: FuriHalInterruptId = 5;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch3: FuriHalInterruptId = 6;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch4: FuriHalInterruptId = 7;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch5: FuriHalInterruptId = 8;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch6: FuriHalInterruptId = 9;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma1Ch7: FuriHalInterruptId = 10;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch1: FuriHalInterruptId = 11;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch2: FuriHalInterruptId = 12;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch3: FuriHalInterruptId = 13;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch4: FuriHalInterruptId = 14;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch5: FuriHalInterruptId = 15;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch6: FuriHalInterruptId = 16;
-pub const FuriHalInterruptId_FuriHalInterruptIdDma2Ch7: FuriHalInterruptId = 17;
-pub const FuriHalInterruptId_FuriHalInterruptIdRcc: FuriHalInterruptId = 18;
-pub const FuriHalInterruptId_FuriHalInterruptIdCOMP: FuriHalInterruptId = 19;
-pub const FuriHalInterruptId_FuriHalInterruptIdHsem: FuriHalInterruptId = 20;
-pub const FuriHalInterruptId_FuriHalInterruptIdLpTim1: FuriHalInterruptId = 21;
-pub const FuriHalInterruptId_FuriHalInterruptIdLpTim2: FuriHalInterruptId = 22;
-pub const FuriHalInterruptId_FuriHalInterruptIdMax: FuriHalInterruptId = 23;
-pub type FuriHalInterruptId = core::ffi::c_uchar;
-extern "C" {
-    #[doc = "Set ISR and enable interrupt with default priority We don't clear interrupt flags for you, do it by your self.\n\n# Arguments\n\n* `index` - - interrupt ID\n* `isr` - - your interrupt service routine or use NULL to clear\n* `context` - - isr context\n\n"]
-    pub fn furi_hal_interrupt_set_isr(
-        index: FuriHalInterruptId,
-        isr: FuriHalInterruptISR,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    #[doc = "Set ISR and enable interrupt with custom priority We don't clear interrupt flags for you, do it by your self.\n\n# Arguments\n\n* `index` - - interrupt ID\n* `priority` - - 0 to 15, 0 highest\n* `isr` - - your interrupt service routine or use NULL to clear\n* `context` - - isr context\n\n"]
-    pub fn furi_hal_interrupt_set_isr_ex(
-        index: FuriHalInterruptId,
-        priority: u16,
-        isr: FuriHalInterruptISR,
-        context: *mut core::ffi::c_void,
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct Version {
-    _unused: [u8; 0],
-}
-extern "C" {
-    #[doc = "Get current running firmware version handle.\nYou can store it somewhere. But if you want to retrieve data, you have to use 'version_*_get()' set of functions. Also, 'version_*_get()' imply to use this handle if no handle (NULL_PTR) provided.\n\nReturns:\n\n* pointer to Version data.\n\n"]
-    pub fn version_get() -> *const Version;
-}
-extern "C" {
-    #[doc = "Get git commit hash.\n\nReturns:\n\n* git hash\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
-    pub fn version_get_githash(v: *const Version) -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get git branch.\n\nReturns:\n\n* git branch\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
-    pub fn version_get_gitbranch(v: *const Version) -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get number of commit in git branch.\n\nReturns:\n\n* number of commit\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
-    pub fn version_get_gitbranchnum(v: *const Version) -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get build date.\n\nReturns:\n\n* build date\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
-    pub fn version_get_builddate(v: *const Version) -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get build version. Build version is last tag in git history.\n\nReturns:\n\n* build date\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
-    pub fn version_get_version(v: *const Version) -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get hardware target this firmware was built for\n\nReturns:\n\n* build date\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
-    pub fn version_get_target(v: *const Version) -> u8;
-}
-extern "C" {
-    #[doc = "Get flag indicating if this build is \"dirty\" (source code had uncommited changes)\n\nReturns:\n\n* build date\n\n# Arguments\n\n* `v` - pointer to Version data. NULL for currently running software.\n\n"]
-    pub fn version_get_dirty_flag(v: *const Version) -> bool;
-}
-extern "C" {
-    #[doc = "Get firmware origin. \"Official\" for mainline firmware, fork name for forks. Set by FIRMWARE_ORIGIN fbt argument.\n\n"]
-    pub fn version_get_firmware_origin(v: *const Version) -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get git repo origin\n\n"]
-    pub fn version_get_git_origin(v: *const Version) -> *const core::ffi::c_char;
-}
-pub const FuriHalVersionOtpVersion_FuriHalVersionOtpVersion0: FuriHalVersionOtpVersion = 0;
-pub const FuriHalVersionOtpVersion_FuriHalVersionOtpVersion1: FuriHalVersionOtpVersion = 1;
-pub const FuriHalVersionOtpVersion_FuriHalVersionOtpVersion2: FuriHalVersionOtpVersion = 2;
-pub const FuriHalVersionOtpVersion_FuriHalVersionOtpVersionEmpty: FuriHalVersionOtpVersion =
-    4294967294;
-pub const FuriHalVersionOtpVersion_FuriHalVersionOtpVersionUnknown: FuriHalVersionOtpVersion =
-    4294967295;
-#[doc = "OTP Versions enum\n\n"]
-pub type FuriHalVersionOtpVersion = core::ffi::c_uint;
-pub const FuriHalVersionColor_FuriHalVersionColorUnknown: FuriHalVersionColor = 0;
-pub const FuriHalVersionColor_FuriHalVersionColorBlack: FuriHalVersionColor = 1;
-pub const FuriHalVersionColor_FuriHalVersionColorWhite: FuriHalVersionColor = 2;
-#[doc = "Device Colors\n\n"]
-pub type FuriHalVersionColor = core::ffi::c_uchar;
-pub const FuriHalVersionRegion_FuriHalVersionRegionUnknown: FuriHalVersionRegion = 0;
-pub const FuriHalVersionRegion_FuriHalVersionRegionEuRu: FuriHalVersionRegion = 1;
-pub const FuriHalVersionRegion_FuriHalVersionRegionUsCaAu: FuriHalVersionRegion = 2;
-pub const FuriHalVersionRegion_FuriHalVersionRegionJp: FuriHalVersionRegion = 3;
-pub const FuriHalVersionRegion_FuriHalVersionRegionWorld: FuriHalVersionRegion = 4;
-#[doc = "Device Regions\n\n"]
-pub type FuriHalVersionRegion = core::ffi::c_uchar;
-pub const FuriHalVersionDisplay_FuriHalVersionDisplayUnknown: FuriHalVersionDisplay = 0;
-pub const FuriHalVersionDisplay_FuriHalVersionDisplayErc: FuriHalVersionDisplay = 1;
-pub const FuriHalVersionDisplay_FuriHalVersionDisplayMgg: FuriHalVersionDisplay = 2;
-#[doc = "Device Display\n\n"]
-pub type FuriHalVersionDisplay = core::ffi::c_uchar;
-extern "C" {
-    #[doc = "Check target firmware version\n\nReturns:\n\n* true if target and real matches\n\n"]
-    pub fn furi_hal_version_do_i_belong_here() -> bool;
-}
-extern "C" {
-    #[doc = "Get model name\n\nReturns:\n\n* model name C-string\n\n"]
-    pub fn furi_hal_version_get_model_name() -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get model name\n\nReturns:\n\n* model code C-string\n\n"]
-    pub fn furi_hal_version_get_model_code() -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get FCC ID\n\nReturns:\n\n* FCC id as C-string\n\n"]
-    pub fn furi_hal_version_get_fcc_id() -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get IC id\n\nReturns:\n\n* IC id as C-string\n\n"]
-    pub fn furi_hal_version_get_ic_id() -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get OTP version\n\nReturns:\n\n* OTP Version\n\n"]
-    pub fn furi_hal_version_get_otp_version() -> FuriHalVersionOtpVersion;
-}
-extern "C" {
-    #[doc = "Get hardware version\n\nReturns:\n\n* Hardware Version\n\n"]
-    pub fn furi_hal_version_get_hw_version() -> u8;
-}
-extern "C" {
-    #[doc = "Get hardware target\n\nReturns:\n\n* Hardware Target\n\n"]
-    pub fn furi_hal_version_get_hw_target() -> u8;
-}
-extern "C" {
-    #[doc = "Get hardware body\n\nReturns:\n\n* Hardware Body\n\n"]
-    pub fn furi_hal_version_get_hw_body() -> u8;
-}
-extern "C" {
-    #[doc = "Get hardware body color\n\nReturns:\n\n* Hardware Color\n\n"]
-    pub fn furi_hal_version_get_hw_color() -> FuriHalVersionColor;
-}
-extern "C" {
-    #[doc = "Get hardware connect\n\nReturns:\n\n* Hardware Interconnect\n\n"]
-    pub fn furi_hal_version_get_hw_connect() -> u8;
-}
-extern "C" {
-    #[doc = "Get hardware region\n\nReturns:\n\n* Hardware Region\n\n"]
-    pub fn furi_hal_version_get_hw_region() -> FuriHalVersionRegion;
-}
-extern "C" {
-    #[doc = "Get hardware region name\n\nReturns:\n\n* Hardware Region name\n\n"]
-    pub fn furi_hal_version_get_hw_region_name() -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get hardware display id\n\nReturns:\n\n* Display id\n\n"]
-    pub fn furi_hal_version_get_hw_display() -> FuriHalVersionDisplay;
-}
-extern "C" {
-    #[doc = "Get hardware timestamp\n\nReturns:\n\n* Hardware Manufacture timestamp\n\n"]
-    pub fn furi_hal_version_get_hw_timestamp() -> u32;
-}
-extern "C" {
-    #[doc = "Get pointer to target name\n\nReturns:\n\n* Hardware Name C-string\n\n"]
-    pub fn furi_hal_version_get_name_ptr() -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get pointer to target device name\n\nReturns:\n\n* Hardware Device Name C-string\n\n"]
-    pub fn furi_hal_version_get_device_name_ptr() -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get pointer to target ble local device name\n\nReturns:\n\n* Ble Device Name C-string\n\n"]
-    pub fn furi_hal_version_get_ble_local_device_name_ptr() -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get BLE MAC address\n\nReturns:\n\n* pointer to BLE MAC address\n\n"]
-    pub fn furi_hal_version_get_ble_mac() -> *const u8;
-}
-extern "C" {
-    #[doc = "Get address of version structure of firmware.\n\nReturns:\n\n* Address of firmware version structure.\n\n"]
-    pub fn furi_hal_version_get_firmware_version() -> *const Version;
-}
-extern "C" {
-    #[doc = "Get platform UID size in bytes\n\nReturns:\n\n* UID size in bytes\n\n"]
-    pub fn furi_hal_version_uid_size() -> usize;
-}
-extern "C" {
-    #[doc = "Get const pointer to UID\n\nReturns:\n\n* pointer to UID\n\n"]
-    pub fn furi_hal_version_uid() -> *const u8;
-}
-pub const GapEventType_GapEventTypeConnected: GapEventType = 0;
-pub const GapEventType_GapEventTypeDisconnected: GapEventType = 1;
-pub const GapEventType_GapEventTypeStartAdvertising: GapEventType = 2;
-pub const GapEventType_GapEventTypeStopAdvertising: GapEventType = 3;
-pub const GapEventType_GapEventTypePinCodeShow: GapEventType = 4;
-pub const GapEventType_GapEventTypePinCodeVerify: GapEventType = 5;
-pub const GapEventType_GapEventTypeUpdateMTU: GapEventType = 6;
-pub type GapEventType = core::ffi::c_uchar;
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union GapEventData {
-    pub pin_code: u32,
-    pub max_packet_size: u16,
-}
-#[test]
-fn bindgen_test_layout_GapEventData() {
-    const UNINIT: ::core::mem::MaybeUninit<GapEventData> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<GapEventData>(),
-        4usize,
-        concat!("Size of: ", stringify!(GapEventData))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<GapEventData>(),
-        4usize,
-        concat!("Alignment of ", stringify!(GapEventData))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).pin_code) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(GapEventData),
-            "::",
-            stringify!(pin_code)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).max_packet_size) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(GapEventData),
-            "::",
-            stringify!(max_packet_size)
-        )
-    );
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct GapEvent {
-    pub type_: GapEventType,
-    pub data: GapEventData,
-}
-#[test]
-fn bindgen_test_layout_GapEvent() {
-    const UNINIT: ::core::mem::MaybeUninit<GapEvent> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<GapEvent>(),
-        8usize,
-        concat!("Size of: ", stringify!(GapEvent))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<GapEvent>(),
-        4usize,
-        concat!("Alignment of ", stringify!(GapEvent))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(GapEvent),
-            "::",
-            stringify!(type_)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(GapEvent),
-            "::",
-            stringify!(data)
-        )
-    );
-}
-pub type GapEventCallback = ::core::option::Option<
-    unsafe extern "C" fn(event: GapEvent, context: *mut core::ffi::c_void) -> bool,
->;
-pub const SerialServiceEventType_SerialServiceEventTypeDataReceived: SerialServiceEventType = 0;
-pub const SerialServiceEventType_SerialServiceEventTypeDataSent: SerialServiceEventType = 1;
-pub const SerialServiceEventType_SerialServiceEventTypesBleResetRequest: SerialServiceEventType = 2;
-pub type SerialServiceEventType = core::ffi::c_uchar;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct SerialServiceData {
-    pub buffer: *mut u8,
-    pub size: u16,
-}
-#[test]
-fn bindgen_test_layout_SerialServiceData() {
-    const UNINIT: ::core::mem::MaybeUninit<SerialServiceData> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<SerialServiceData>(),
-        8usize,
-        concat!("Size of: ", stringify!(SerialServiceData))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<SerialServiceData>(),
-        4usize,
-        concat!("Alignment of ", stringify!(SerialServiceData))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).buffer) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SerialServiceData),
-            "::",
-            stringify!(buffer)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SerialServiceData),
-            "::",
-            stringify!(size)
-        )
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct SerialServiceEvent {
-    pub event: SerialServiceEventType,
-    pub data: SerialServiceData,
-}
-#[test]
-fn bindgen_test_layout_SerialServiceEvent() {
-    const UNINIT: ::core::mem::MaybeUninit<SerialServiceEvent> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<SerialServiceEvent>(),
-        12usize,
-        concat!("Size of: ", stringify!(SerialServiceEvent))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<SerialServiceEvent>(),
-        4usize,
-        concat!("Alignment of ", stringify!(SerialServiceEvent))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).event) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SerialServiceEvent),
-            "::",
-            stringify!(event)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SerialServiceEvent),
-            "::",
-            stringify!(data)
-        )
-    );
-}
-pub type SerialServiceEventCallback = ::core::option::Option<
-    unsafe extern "C" fn(event: SerialServiceEvent, context: *mut core::ffi::c_void) -> u16,
->;
-pub const BleGlueC2Mode_BleGlueC2ModeUnknown: BleGlueC2Mode = 0;
-pub const BleGlueC2Mode_BleGlueC2ModeFUS: BleGlueC2Mode = 1;
-pub const BleGlueC2Mode_BleGlueC2ModeStack: BleGlueC2Mode = 2;
-pub type BleGlueC2Mode = core::ffi::c_uchar;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct BleGlueC2Info {
-    pub mode: BleGlueC2Mode,
-    #[doc = "Wireless Info\n\n"]
-    pub VersionMajor: u8,
-    pub VersionMinor: u8,
-    pub VersionSub: u8,
-    pub VersionBranch: u8,
-    pub VersionReleaseType: u8,
-    pub MemorySizeSram2B: u8,
-    pub MemorySizeSram2A: u8,
-    pub MemorySizeSram1: u8,
-    pub MemorySizeFlash: u8,
-    pub StackType: u8,
-    pub StackTypeString: [core::ffi::c_char; 20usize],
-    #[doc = "Fus Info\n\n"]
-    pub FusVersionMajor: u8,
-    pub FusVersionMinor: u8,
-    pub FusVersionSub: u8,
-    pub FusMemorySizeSram2B: u8,
-    pub FusMemorySizeSram2A: u8,
-    pub FusMemorySizeFlash: u8,
-}
-#[test]
-fn bindgen_test_layout_BleGlueC2Info() {
-    const UNINIT: ::core::mem::MaybeUninit<BleGlueC2Info> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<BleGlueC2Info>(),
-        37usize,
-        concat!("Size of: ", stringify!(BleGlueC2Info))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<BleGlueC2Info>(),
-        1usize,
-        concat!("Alignment of ", stringify!(BleGlueC2Info))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).mode) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(mode)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).VersionMajor) as usize - ptr as usize },
-        1usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(VersionMajor)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).VersionMinor) as usize - ptr as usize },
-        2usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(VersionMinor)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).VersionSub) as usize - ptr as usize },
-        3usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(VersionSub)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).VersionBranch) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(VersionBranch)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).VersionReleaseType) as usize - ptr as usize },
-        5usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(VersionReleaseType)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).MemorySizeSram2B) as usize - ptr as usize },
-        6usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(MemorySizeSram2B)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).MemorySizeSram2A) as usize - ptr as usize },
-        7usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(MemorySizeSram2A)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).MemorySizeSram1) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(MemorySizeSram1)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).MemorySizeFlash) as usize - ptr as usize },
-        9usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(MemorySizeFlash)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).StackType) as usize - ptr as usize },
-        10usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(StackType)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).StackTypeString) as usize - ptr as usize },
-        11usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(StackTypeString)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).FusVersionMajor) as usize - ptr as usize },
-        31usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(FusVersionMajor)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).FusVersionMinor) as usize - ptr as usize },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(FusVersionMinor)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).FusVersionSub) as usize - ptr as usize },
-        33usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(FusVersionSub)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).FusMemorySizeSram2B) as usize - ptr as usize },
-        34usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(FusMemorySizeSram2B)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).FusMemorySizeSram2A) as usize - ptr as usize },
-        35usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(FusMemorySizeSram2A)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).FusMemorySizeFlash) as usize - ptr as usize },
-        36usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(BleGlueC2Info),
-            "::",
-            stringify!(FusMemorySizeFlash)
-        )
-    );
-}
-pub type BleGlueKeyStorageChangedCallback = ::core::option::Option<
-    unsafe extern "C" fn(change_addr_start: *mut u8, size: u16, context: *mut core::ffi::c_void),
->;
-extern "C" {
-    #[doc = "Initialize start core2 and initialize transport\n\n"]
-    pub fn ble_glue_init();
-}
-extern "C" {
-    #[doc = "Start Core2 Radio stack\n\nReturns:\n\n* true on success\n\n"]
-    pub fn ble_glue_start() -> bool;
-}
-extern "C" {
-    #[doc = "Is core2 alive and at least FUS is running\n\nReturns:\n\n* true if core2 is alive\n\n"]
-    pub fn ble_glue_is_alive() -> bool;
-}
-extern "C" {
-    #[doc = "Waits for C2 to reports its mode to callback\n\nReturns:\n\n* true if it reported before reaching timeout\n\n"]
-    pub fn ble_glue_wait_for_c2_start(timeout: i32) -> bool;
-}
-extern "C" {
-    pub fn ble_glue_get_c2_info() -> *const BleGlueC2Info;
-}
-extern "C" {
-    #[doc = "Is core2 radio stack present and ready\n\nReturns:\n\n* true if present and ready\n\n"]
-    pub fn ble_glue_is_radio_stack_ready() -> bool;
-}
-extern "C" {
-    #[doc = "Set callback for NVM in RAM changes\n\n# Arguments\n\n* `callback` - [Direction: In] The callback to call on NVM change\n* `context` - The context for callback\n\n"]
-    pub fn ble_glue_set_key_storage_changed_callback(
-        callback: BleGlueKeyStorageChangedCallback,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    #[doc = "Stop SHCI thread\n\n"]
-    pub fn ble_glue_thread_stop();
-}
-extern "C" {
-    pub fn ble_glue_reinit_c2() -> bool;
-}
-pub const BleGlueCommandResult_BleGlueCommandResultUnknown: BleGlueCommandResult = 0;
-pub const BleGlueCommandResult_BleGlueCommandResultOK: BleGlueCommandResult = 1;
-pub const BleGlueCommandResult_BleGlueCommandResultError: BleGlueCommandResult = 2;
-pub const BleGlueCommandResult_BleGlueCommandResultRestartPending: BleGlueCommandResult = 3;
-pub const BleGlueCommandResult_BleGlueCommandResultOperationOngoing: BleGlueCommandResult = 4;
-pub type BleGlueCommandResult = core::ffi::c_uchar;
-extern "C" {
-    #[doc = "Restart MCU to launch radio stack firmware if necessary\n\nReturns:\n\n* true on radio stack start command\n\n"]
-    pub fn ble_glue_force_c2_mode(mode: BleGlueC2Mode) -> BleGlueCommandResult;
-}
-extern "C" {
-    pub fn ble_app_init() -> bool;
-}
-extern "C" {
-    pub fn ble_app_get_key_storage_buff(addr: *mut *mut u8, size: *mut u16);
-}
-extern "C" {
-    pub fn ble_app_thread_stop();
-}
-pub const FuriHalBtSerialRpcStatus_FuriHalBtSerialRpcStatusNotActive: FuriHalBtSerialRpcStatus = 0;
-pub const FuriHalBtSerialRpcStatus_FuriHalBtSerialRpcStatusActive: FuriHalBtSerialRpcStatus = 1;
-pub type FuriHalBtSerialRpcStatus = core::ffi::c_uchar;
-#[doc = "Serial service callback type\n\n"]
-pub type FuriHalBtSerialCallback = SerialServiceEventCallback;
-extern "C" {
-    #[doc = "Start Serial Profile\n\n"]
-    pub fn furi_hal_bt_serial_start();
-}
-extern "C" {
-    #[doc = "Stop Serial Profile\n\n"]
-    pub fn furi_hal_bt_serial_stop();
-}
-extern "C" {
-    #[doc = "Set Serial service events callback\n\n# Arguments\n\n* `buffer_size` - Applicaition buffer size\n* `calback` - FuriHalBtSerialCallback instance\n* `context` - pointer to context\n\n"]
-    pub fn furi_hal_bt_serial_set_event_callback(
-        buff_size: u16,
-        callback: FuriHalBtSerialCallback,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    #[doc = "Set BLE RPC status\n\n# Arguments\n\n* `status` - FuriHalBtSerialRpcStatus instance\n\n"]
-    pub fn furi_hal_bt_serial_set_rpc_status(status: FuriHalBtSerialRpcStatus);
-}
-extern "C" {
-    #[doc = "Notify that application buffer is empty\n\n"]
-    pub fn furi_hal_bt_serial_notify_buffer_is_empty();
-}
-extern "C" {
-    #[doc = "Send data through BLE\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `data` - data buffer\n* `size` - data buffer size\n\n"]
-    pub fn furi_hal_bt_serial_tx(data: *mut u8, size: u16) -> bool;
-}
-pub const FuriHalBtStack_FuriHalBtStackUnknown: FuriHalBtStack = 0;
-pub const FuriHalBtStack_FuriHalBtStackLight: FuriHalBtStack = 1;
-pub const FuriHalBtStack_FuriHalBtStackFull: FuriHalBtStack = 2;
-pub type FuriHalBtStack = core::ffi::c_uchar;
-pub const FuriHalBtProfile_FuriHalBtProfileSerial: FuriHalBtProfile = 0;
-pub const FuriHalBtProfile_FuriHalBtProfileHidKeyboard: FuriHalBtProfile = 1;
-pub const FuriHalBtProfile_FuriHalBtProfileNumber: FuriHalBtProfile = 2;
-pub type FuriHalBtProfile = core::ffi::c_uchar;
-extern "C" {
-    #[doc = "Lock core2 state transition\n\n"]
-    pub fn furi_hal_bt_lock_core2();
-}
-extern "C" {
-    #[doc = "Lock core2 state transition\n\n"]
-    pub fn furi_hal_bt_unlock_core2();
-}
-extern "C" {
-    #[doc = "Start radio stack\n\nReturns:\n\n* true on successfull radio stack start\n\n"]
-    pub fn furi_hal_bt_start_radio_stack() -> bool;
-}
-extern "C" {
-    #[doc = "Get radio stack type\n\nReturns:\n\n* FuriHalBtStack instance\n\n"]
-    pub fn furi_hal_bt_get_radio_stack() -> FuriHalBtStack;
-}
-extern "C" {
-    #[doc = "Check if radio stack supports BLE GAT/GAP\n\nReturns:\n\n* true if supported\n\n"]
-    pub fn furi_hal_bt_is_ble_gatt_gap_supported() -> bool;
-}
-extern "C" {
-    #[doc = "Check if radio stack supports testing\n\nReturns:\n\n* true if supported\n\n"]
-    pub fn furi_hal_bt_is_testing_supported() -> bool;
-}
-extern "C" {
-    #[doc = "Start BLE app\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `profile` - FuriHalBtProfile instance\n* `event_cb` - GapEventCallback instance\n* `context` - pointer to context\n\n"]
-    pub fn furi_hal_bt_start_app(
-        profile: FuriHalBtProfile,
-        event_cb: GapEventCallback,
-        context: *mut core::ffi::c_void,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Reinitialize core2\nAlso can be used to prepare core2 for stop modes\n\n"]
-    pub fn furi_hal_bt_reinit();
-}
-extern "C" {
-    #[doc = "Change BLE app Restarts 2nd core\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `profile` - FuriHalBtProfile instance\n* `event_cb` - GapEventCallback instance\n* `context` - pointer to context\n\n"]
-    pub fn furi_hal_bt_change_app(
-        profile: FuriHalBtProfile,
-        event_cb: GapEventCallback,
-        context: *mut core::ffi::c_void,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Update battery level\n\n# Arguments\n\n* `battery_level` - battery level\n\n"]
-    pub fn furi_hal_bt_update_battery_level(battery_level: u8);
-}
-extern "C" {
-    #[doc = "Update battery power state\n\n"]
-    pub fn furi_hal_bt_update_power_state();
-}
-extern "C" {
-    #[doc = "Checks if BLE state is active\n\nReturns:\n\n* true if device is connected or advertising, false otherwise\n\n"]
-    pub fn furi_hal_bt_is_active() -> bool;
-}
-extern "C" {
-    #[doc = "Start advertising\n\n"]
-    pub fn furi_hal_bt_start_advertising();
-}
-extern "C" {
-    #[doc = "Stop advertising\n\n"]
-    pub fn furi_hal_bt_stop_advertising();
-}
-extern "C" {
-    #[doc = "Get BT/BLE system component state\n\n# Arguments\n\n* `buffer` - [Direction: In] FuriString* buffer to write to\n\n"]
-    pub fn furi_hal_bt_dump_state(buffer: *mut FuriString);
-}
-extern "C" {
-    #[doc = "Get BT/BLE system component state\n\nReturns:\n\n* true if core2 is alive\n\n"]
-    pub fn furi_hal_bt_is_alive() -> bool;
-}
-extern "C" {
-    #[doc = "Get key storage buffer address and size\n\n# Arguments\n\n* `key_buff_addr` - pointer to store buffer address\n* `key_buff_size` - pointer to store buffer size\n\n"]
-    pub fn furi_hal_bt_get_key_storage_buff(key_buff_addr: *mut *mut u8, key_buff_size: *mut u16);
-}
-extern "C" {
-    #[doc = "Get SRAM2 hardware semaphore\n\n# Notes\n\n* Must be called before SRAM2 read/write operations\n\n"]
-    pub fn furi_hal_bt_nvm_sram_sem_acquire();
-}
-extern "C" {
-    #[doc = "Release SRAM2 hardware semaphore\n\n# Notes\n\n* Must be called after SRAM2 read/write operations\n\n"]
-    pub fn furi_hal_bt_nvm_sram_sem_release();
-}
-extern "C" {
-    #[doc = "Clear key storage\n\nReturns:\n\n* true on success\n\n"]
-    pub fn furi_hal_bt_clear_white_list() -> bool;
-}
-extern "C" {
-    #[doc = "Set key storage change callback\n\n# Arguments\n\n* `callback` - BleGlueKeyStorageChangedCallback instance\n* `context` - pointer to context\n\n"]
-    pub fn furi_hal_bt_set_key_storage_change_callback(
-        callback: BleGlueKeyStorageChangedCallback,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    #[doc = "Start ble tone tx at given channel and power\n\n# Arguments\n\n* `channel` - [Direction: In] The channel\n* `power` - [Direction: In] The power\n\n"]
-    pub fn furi_hal_bt_start_tone_tx(channel: u8, power: u8);
-}
-extern "C" {
-    #[doc = "Stop ble tone tx\n\n"]
-    pub fn furi_hal_bt_stop_tone_tx();
-}
-extern "C" {
-    #[doc = "Start sending ble packets at a given frequency and datarate\n\n# Arguments\n\n* `channel` - [Direction: In] The channel\n* `pattern` - [Direction: In] The pattern\n* `datarate` - [Direction: In] The datarate\n\n"]
-    pub fn furi_hal_bt_start_packet_tx(channel: u8, pattern: u8, datarate: u8);
-}
-extern "C" {
-    #[doc = "Stop sending ble packets\n\nReturns:\n\n* sent packet count\n\n"]
-    pub fn furi_hal_bt_stop_packet_test() -> u16;
-}
-extern "C" {
-    #[doc = "Start receiving packets\n\n# Arguments\n\n* `channel` - [Direction: In] RX channel\n* `datarate` - [Direction: In] Datarate\n\n"]
-    pub fn furi_hal_bt_start_packet_rx(channel: u8, datarate: u8);
-}
-extern "C" {
-    #[doc = "Set up the RF to listen to a given RF channel\n\n# Arguments\n\n* `channel` - [Direction: In] RX channel\n\n"]
-    pub fn furi_hal_bt_start_rx(channel: u8);
-}
-extern "C" {
-    #[doc = "Stop RF listenning\n\n"]
-    pub fn furi_hal_bt_stop_rx();
-}
-extern "C" {
-    #[doc = "Get RSSI\n\nReturns:\n\n* RSSI in dBm\n\n"]
-    pub fn furi_hal_bt_get_rssi() -> f32;
-}
-extern "C" {
-    #[doc = "Get number of transmitted packets\n\nReturns:\n\n* packet count\n\n"]
-    pub fn furi_hal_bt_get_transmitted_packets() -> u32;
-}
-extern "C" {
-    #[doc = "Check & switch C2 to given mode\n\n# Arguments\n\n* `mode` - [Direction: In] mode to switch into\n\n"]
-    pub fn furi_hal_bt_ensure_c2_mode(mode: BleGlueC2Mode) -> bool;
-}
-extern "C" {
-    #[doc = "Preset for ST25R916\n\n"]
-    pub static furi_hal_spi_preset_2edge_low_8m: LL_SPI_InitTypeDef;
-}
-extern "C" {
-    #[doc = "Preset for CC1101\n\n"]
-    pub static furi_hal_spi_preset_1edge_low_8m: LL_SPI_InitTypeDef;
-}
-extern "C" {
-    #[doc = "Preset for ST7567 (Display)\n\n"]
-    pub static furi_hal_spi_preset_1edge_low_4m: LL_SPI_InitTypeDef;
-}
-extern "C" {
-    #[doc = "Preset for SdCard in fast mode\n\n"]
-    pub static furi_hal_spi_preset_1edge_low_16m: LL_SPI_InitTypeDef;
-}
-extern "C" {
-    #[doc = "Preset for SdCard in slow mode\n\n"]
-    pub static furi_hal_spi_preset_1edge_low_2m: LL_SPI_InitTypeDef;
-}
-extern "C" {
-    #[doc = "Furi Hal Spi Bus R (Radio: CC1101, Nfc, External)\n\n"]
-    pub static mut furi_hal_spi_bus_r: FuriHalSpiBus;
-}
-extern "C" {
-    #[doc = "Furi Hal Spi Bus D (Display, SdCard)\n\n"]
-    pub static mut furi_hal_spi_bus_d: FuriHalSpiBus;
-}
-extern "C" {
-    #[doc = "CC1101 on `furi_hal_spi_bus_r`\n\n"]
-    pub static mut furi_hal_spi_bus_handle_subghz: FuriHalSpiBusHandle;
-}
-extern "C" {
-    #[doc = "ST25R3916 on `furi_hal_spi_bus_r`\n\n"]
-    pub static mut furi_hal_spi_bus_handle_nfc: FuriHalSpiBusHandle;
-}
-extern "C" {
-    #[doc = "External on `furi_hal_spi_bus_r` Preset: `furi_hal_spi_preset_1edge_low_2m`\nmiso: pa6 mosi: pa7 sck: pb3 cs:  pa4 (software controlled)\n\n**Warning!**\n\n* not initialized by default, call `furi_hal_spi_bus_handle_init` to initialize Bus pins are floating on inactive state, CS high after initialization\n\n"]
-    pub static mut furi_hal_spi_bus_handle_external: FuriHalSpiBusHandle;
-}
-extern "C" {
-    #[doc = "ST7567(Display) on `furi_hal_spi_bus_d`\n\n"]
-    pub static mut furi_hal_spi_bus_handle_display: FuriHalSpiBusHandle;
-}
-extern "C" {
-    #[doc = "SdCard in fast mode on `furi_hal_spi_bus_d`\n\n"]
-    pub static mut furi_hal_spi_bus_handle_sd_fast: FuriHalSpiBusHandle;
-}
-extern "C" {
-    #[doc = "SdCard in slow mode on `furi_hal_spi_bus_d`\n\n"]
-    pub static mut furi_hal_spi_bus_handle_sd_slow: FuriHalSpiBusHandle;
-}
-extern "C" {
-    #[doc = "Initialize SPI Bus\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBus instance\n\n"]
-    pub fn furi_hal_spi_bus_init(bus: *mut FuriHalSpiBus);
-}
-extern "C" {
-    #[doc = "Deinitialize SPI Bus\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBus instance\n\n"]
-    pub fn furi_hal_spi_bus_deinit(bus: *mut FuriHalSpiBus);
-}
-extern "C" {
-    #[doc = "Initialize SPI Bus Handle\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n\n"]
-    pub fn furi_hal_spi_bus_handle_init(handle: *mut FuriHalSpiBusHandle);
-}
-extern "C" {
-    #[doc = "Deinitialize SPI Bus Handle\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n\n"]
-    pub fn furi_hal_spi_bus_handle_deinit(handle: *mut FuriHalSpiBusHandle);
-}
-extern "C" {
-    #[doc = "Acquire SPI bus\n\n**Warning!**\n\n* blocking, calls `furi_crash` on programming error, CS transition is up to handler event routine\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n\n"]
-    pub fn furi_hal_spi_acquire(handle: *mut FuriHalSpiBusHandle);
-}
-extern "C" {
-    #[doc = "Release SPI bus\n\n**Warning!**\n\n* calls `furi_crash` on programming error, CS transition is up to handler event routine\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n\n"]
-    pub fn furi_hal_spi_release(handle: *mut FuriHalSpiBusHandle);
-}
-extern "C" {
-    #[doc = "SPI Receive\n\nReturns:\n\n* true on sucess\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n* `buffer` - receive buffer\n* `size` - transaction size (buffer size)\n* `timeout` - operation timeout in ms\n\n"]
-    pub fn furi_hal_spi_bus_rx(
-        handle: *mut FuriHalSpiBusHandle,
-        buffer: *mut u8,
-        size: usize,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "SPI Transmit\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n* `buffer` - transmit buffer\n* `size` - transaction size (buffer size)\n* `timeout` - operation timeout in ms\n\n"]
-    pub fn furi_hal_spi_bus_tx(
-        handle: *mut FuriHalSpiBusHandle,
-        buffer: *const u8,
-        size: usize,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "SPI Transmit and Receive\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n* `tx_buffer` - pointer to tx buffer\n* `rx_buffer` - pointer to rx buffer\n* `size` - transaction size (buffer size)\n* `timeout` - operation timeout in ms\n\n"]
-    pub fn furi_hal_spi_bus_trx(
-        handle: *mut FuriHalSpiBusHandle,
-        tx_buffer: *const u8,
-        rx_buffer: *mut u8,
-        size: usize,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "SPI Transmit and Receive with DMA\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `handle` - pointer to FuriHalSpiBusHandle instance\n* `tx_buffer` - pointer to tx buffer\n* `rx_buffer` - pointer to rx buffer\n* `size` - transaction size (buffer size)\n* `timeout_ms` - operation timeout in ms\n\n"]
-    pub fn furi_hal_spi_bus_trx_dma(
-        handle: *mut FuriHalSpiBusHandle,
-        tx_buffer: *mut u8,
-        rx_buffer: *mut u8,
-        size: usize,
-        timeout_ms: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Turn on/off vibro\n\n# Arguments\n\n* `value` - [Direction: In] new state\n\n"]
-    pub fn furi_hal_vibro_on(value: bool);
-}
-#[doc = "<\\brief Function has an error, STALLPID will be issued.\n\n"]
-pub const _usbd_respond_usbd_fail: _usbd_respond = 0;
-#[doc = "<\\brief Function completes request accepted ZLP or data will be send.\n\n"]
-pub const _usbd_respond_usbd_ack: _usbd_respond = 1;
-#[doc = "<\\brief Function is busy. NAK handshake.\n\n"]
-pub const _usbd_respond_usbd_nak: _usbd_respond = 2;
-#[doc = "Reporting status results.\n\n"]
-pub type _usbd_respond = core::ffi::c_uchar;
-#[doc = "Reporting status results.\n\n"]
-pub use self::_usbd_respond as usbd_respond;
-#[doc = "Represents a USB device data.\n\n"]
-pub type usbd_device = _usbd_device;
-#[doc = "Represents generic USB control request.\n\n"]
-#[repr(C)]
-#[derive(Debug)]
-pub struct usbd_ctlreq {
-    #[doc = "<\\brief This bitmapped field identifies the characteristics of the specific request.\n\n"]
-    pub bmRequestType: u8,
-    #[doc = "<\\brief This field specifies the particular request.\n\n"]
-    pub bRequest: u8,
-    #[doc = "<\\brief It is used to pass a parameter to the device, specific to the request.\n\n"]
-    pub wValue: u16,
-    #[doc = "<\\brief It is used to pass a parameter to the device, specific to the request.\n\n"]
-    pub wIndex: u16,
-    #[doc = "<\\brief This field specifies the length of the data transferred during the second phase of the control transfer.\n\n"]
-    pub wLength: u16,
-    #[doc = "<\\brief Data payload.\n\n"]
-    pub data: __IncompleteArrayField<u8>,
-}
-#[test]
-fn bindgen_test_layout_usbd_ctlreq() {
-    const UNINIT: ::core::mem::MaybeUninit<usbd_ctlreq> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<usbd_ctlreq>(),
-        8usize,
-        concat!("Size of: ", stringify!(usbd_ctlreq))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<usbd_ctlreq>(),
-        2usize,
-        concat!("Alignment of ", stringify!(usbd_ctlreq))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bmRequestType) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_ctlreq),
-            "::",
-            stringify!(bmRequestType)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bRequest) as usize - ptr as usize },
-        1usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_ctlreq),
-            "::",
-            stringify!(bRequest)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).wValue) as usize - ptr as usize },
-        2usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_ctlreq),
-            "::",
-            stringify!(wValue)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).wIndex) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_ctlreq),
-            "::",
-            stringify!(wIndex)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).wLength) as usize - ptr as usize },
-        6usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_ctlreq),
-            "::",
-            stringify!(wLength)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_ctlreq),
-            "::",
-            stringify!(data)
-        )
-    );
-}
-#[doc = "USB device status data.\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct usbd_status {
-    #[doc = "<\\brief Pointer to data buffer used for control requests.\n\n"]
-    pub data_buf: *mut core::ffi::c_void,
-    #[doc = "<\\brief Pointer to current data for control request.\n\n"]
-    pub data_ptr: *mut core::ffi::c_void,
-    #[doc = "<\\brief Count remained data for control request.\n\n"]
-    pub data_count: u16,
-    #[doc = "<\\brief Size of the data buffer for control requests.\n\n"]
-    pub data_maxsize: u16,
-    #[doc = "<\\brief Size of the control endpoint.\n\n"]
-    pub ep0size: u8,
-    #[doc = "<\\brief Current device configuration number.\n\n"]
-    pub device_cfg: u8,
-    #[doc = "<\\brief Current  [`usbd_machine_state`]\n\n"]
-    pub device_state: u8,
-    #[doc = "<\\brief Current  [`usbd_ctl_state`]\n\n"]
-    pub control_state: u8,
-}
-#[test]
-fn bindgen_test_layout_usbd_status() {
-    const UNINIT: ::core::mem::MaybeUninit<usbd_status> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<usbd_status>(),
-        16usize,
-        concat!("Size of: ", stringify!(usbd_status))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<usbd_status>(),
-        4usize,
-        concat!("Alignment of ", stringify!(usbd_status))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).data_buf) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_status),
-            "::",
-            stringify!(data_buf)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).data_ptr) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_status),
-            "::",
-            stringify!(data_ptr)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).data_count) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_status),
-            "::",
-            stringify!(data_count)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).data_maxsize) as usize - ptr as usize },
-        10usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_status),
-            "::",
-            stringify!(data_maxsize)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).ep0size) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_status),
-            "::",
-            stringify!(ep0size)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).device_cfg) as usize - ptr as usize },
-        13usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_status),
-            "::",
-            stringify!(device_cfg)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).device_state) as usize - ptr as usize },
-        14usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_status),
-            "::",
-            stringify!(device_state)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).control_state) as usize - ptr as usize },
-        15usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_status),
-            "::",
-            stringify!(control_state)
-        )
-    );
-}
-#[doc = "Generic USB device event callback for events and endpoints processing\n\n# Arguments\n\n* `dev` - [Direction: In] pointer to USB device\n* `event` - [`USB_EVENTS`] \"USB event\"\n* `ep` - active endpoint number\n\n# Notes\n\n* endpoints with same indexes i.e. 0x01 and 0x81 shares same callback.\n\n"]
-pub type usbd_evt_callback =
-    ::core::option::Option<unsafe extern "C" fn(dev: *mut usbd_device, event: u8, ep: u8)>;
-#[doc = "USB control transfer completed callback function.\n\n# Arguments\n\n* `dev` - [Direction: In] pointer to USB device\n* `req` - [Direction: In] pointer to usb request structure\n\n# Notes\n\n* usbd_device->complete_callback will be set to NULL after this callback completion.\n\n"]
-pub type usbd_rqc_callback =
-    ::core::option::Option<unsafe extern "C" fn(dev: *mut usbd_device, req: *mut usbd_ctlreq)>;
-#[doc = "USB control callback function.\n\nUses for the control request processing. Some requests will be handled by core if callback don't process it (returns FALSE).\n*  If request was not processed STALL PID will be issued.\n* GET_CONFIGURATION\n* SET_CONFIGURATION (passes to  [`usbd_cfg_callback)`]\n* GET_DESCRIPTOR (passes to  [`usbd_dsc_callback)`]\n* GET_STATUS\n* SET_FEATURE, CLEAR_FEATURE (endpoints only)\n* SET_ADDRESS\n\nReturns:\n\n* usbd_respond status.\n\n# Arguments\n\n* `dev` - [Direction: In] points to USB device\n* `req` - [Direction: In] points to usb control request\n* `*callback` - [Direction: In, Out] USB control transfer completion callback, default is NULL (no callback)\n\n"]
-pub type usbd_ctl_callback = ::core::option::Option<
-    unsafe extern "C" fn(
-        dev: *mut usbd_device,
-        req: *mut usbd_ctlreq,
-        callback: *mut usbd_rqc_callback,
-    ) -> usbd_respond,
->;
-#[doc = "USB get descriptor callback function\n\nCalled when GET_DESCRIPTOR request issued\n\nReturns:\n\n* usbd_ack if you passed the correct descriptor, usbd_fail otherwise.\n\n# Arguments\n\n* `req` - [Direction: In] pointer to usb control request structure\n* `address` - [Direction: Out] pointer to the descriptor in memory. Points to req->data by default. You can use this buffer.\n* `dsize` - [Direction: Out] descriptor size. maximum buffer size by default.\n\n"]
-pub type usbd_dsc_callback = ::core::option::Option<
-    unsafe extern "C" fn(
-        req: *mut usbd_ctlreq,
-        address: *mut *mut core::ffi::c_void,
-        dsize: *mut u16,
-    ) -> usbd_respond,
->;
-#[doc = "USB set configuration callback function\n\ncalled when SET_CONFIGURATION request issued\n\nReturns:\n\n* TRUE if success\n\n# Arguments\n\n* `dev` - [Direction: In] pointer to USB device\n* `cfg` - [Direction: In] configuration number.\n\n# Notes\n\n* if config is 0 device endpoints should be de-configured\n\n"]
-pub type usbd_cfg_callback =
-    ::core::option::Option<unsafe extern "C" fn(dev: *mut usbd_device, cfg: u8) -> usbd_respond>;
-#[doc = "USBD_HW*\n/**\\brief Get USB device status and capabilities.\n\nReturns:\n\n* Hardware status and capabilities [`USBD_HW_CAPS`]\n\n"]
-pub type usbd_hw_getinfo = ::core::option::Option<unsafe extern "C" fn() -> u32>;
-#[doc = "Enables or disables USB hardware\n\n# Arguments\n\n* `enable` - Enables USB when TRUE disables otherwise.\n\n"]
-pub type usbd_hw_enable = ::core::option::Option<unsafe extern "C" fn(enable: bool)>;
-#[doc = "Connects or disconnects USB hardware to/from usb host\n\nReturns:\n\n* lanes connection status.\n\n# Arguments\n\n* `connect` - Connects USB to host if TRUE, disconnects otherwise\n\n"]
-pub type usbd_hw_connect = ::core::option::Option<unsafe extern "C" fn(connect: bool) -> u8>;
-#[doc = "Sets USB hardware address\n\n# Arguments\n\n* `address` - USB address\n\n"]
-pub type usbd_hw_setaddr = ::core::option::Option<unsafe extern "C" fn(address: u8)>;
-#[doc = "Configures endpoint\n\nReturns:\n\n* TRUE if success\n\n# Arguments\n\n* `ep` - endpoint address. Use USB_EPDIR_ macros to set endpoint direction\n* `eptype` - endpoint type. Use USB_EPTYPE_* macros.\n* `epsize` - endpoint size in bytes\n\n"]
-pub type usbd_hw_ep_config =
-    ::core::option::Option<unsafe extern "C" fn(ep: u8, eptype: u8, epsize: u16) -> bool>;
-#[doc = "De-configures, cleans and disables endpoint\n\n# Arguments\n\n* `ep` - endpoint index\n\n# Notes\n\n* if you have two one-direction single-buffered endpoints with same index (i.e. 0x02 and 0x82) both will be deconfigured.\n\n"]
-pub type usbd_hw_ep_deconfig = ::core::option::Option<unsafe extern "C" fn(ep: u8)>;
-#[doc = "Reads data from OUT or control endpoint\n\nReturns:\n\n* size of the actually received data, -1 on error.\n\n# Arguments\n\n* `ep` - endpoint index, should belong to OUT or CONTROL endpoint.\n* `buf` - pointer to read buffer\n* `blen` - size of the read buffer in bytes\n\n# Notes\n\n* if data does not fit buffer it will be truncated\n\n"]
-pub type usbd_hw_ep_read = ::core::option::Option<
-    unsafe extern "C" fn(ep: u8, buf: *mut core::ffi::c_void, blen: u16) -> i32,
->;
-#[doc = "Writes data to IN or control endpoint\n\nReturns:\n\n* number of written bytes\n\n# Arguments\n\n* `ep` - endpoint index, hould belong to IN or CONTROL endpoint\n* `buf` - pointer to data buffer\n* `blen` - size of data will be written\n\n"]
-pub type usbd_hw_ep_write = ::core::option::Option<
-    unsafe extern "C" fn(ep: u8, buf: *const core::ffi::c_void, blen: u16) -> i32,
->;
-#[doc = "Stalls and unstalls endpoint\n\n# Arguments\n\n* `ep` - endpoint address\n* `stall` - endpoint will be stalled if TRUE and unstalled otherwise.\n\n# Notes\n\n* Has no effect on inactive endpoints.\n\n"]
-pub type usbd_hw_ep_setstall = ::core::option::Option<unsafe extern "C" fn(ep: u8, stall: bool)>;
-#[doc = "Checks endpoint for stalled state\n\nReturns:\n\n* TRUE if endpoint is stalled\n\n# Arguments\n\n* `ep` - endpoint address\n\n"]
-pub type usbd_hw_ep_isstalled = ::core::option::Option<unsafe extern "C" fn(ep: u8) -> bool>;
-#[doc = "Polls USB hardware for the events\n\n# Arguments\n\n* `dev` - [Direction: In] pointer to usb device structure\n* `callback` - callback to event processing subroutine\n\n"]
-pub type usbd_hw_poll = ::core::option::Option<
-    unsafe extern "C" fn(dev: *mut usbd_device, callback: usbd_evt_callback),
->;
-#[doc = "Gets frame number from usb hardware.\n\n"]
-pub type usbd_hw_get_frameno = ::core::option::Option<unsafe extern "C" fn() -> u16>;
-#[doc = "Makes a string descriptor contains unique serial number from hardware ID's\n\nReturns:\n\n* of the descriptor in bytes\n\n# Arguments\n\n* `buffer` - [Direction: In] pointer to buffer for the descriptor\n\n"]
-pub type usbd_hw_get_serialno =
-    ::core::option::Option<unsafe extern "C" fn(buffer: *mut core::ffi::c_void) -> u16>;
-#[doc = "Represents a hardware USB driver call table.\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct usbd_driver {
-    #[doc = "<\\copybrief usbd_hw_getinfo\n\n"]
-    pub getinfo: usbd_hw_getinfo,
-    #[doc = "<\\copybrief usbd_hw_enable\n\n"]
-    pub enable: usbd_hw_enable,
-    #[doc = "<\\copybrief usbd_hw_connect\n\n"]
-    pub connect: usbd_hw_connect,
-    #[doc = "<\\copybrief usbd_hw_setaddr\n\n"]
-    pub setaddr: usbd_hw_setaddr,
-    #[doc = "<\\copybrief usbd_hw_ep_config\n\n"]
-    pub ep_config: usbd_hw_ep_config,
-    #[doc = "<\\copybrief usbd_hw_ep_deconfig\n\n"]
-    pub ep_deconfig: usbd_hw_ep_deconfig,
-    #[doc = "<\\copybrief usbd_hw_ep_read\n\n"]
-    pub ep_read: usbd_hw_ep_read,
-    #[doc = "<\\copybrief usbd_hw_ep_write\n\n"]
-    pub ep_write: usbd_hw_ep_write,
-    #[doc = "<\\copybrief usbd_hw_ep_setstall\n\n"]
-    pub ep_setstall: usbd_hw_ep_setstall,
-    #[doc = "<\\copybrief usbd_hw_ep_isstalled\n\n"]
-    pub ep_isstalled: usbd_hw_ep_isstalled,
-    #[doc = "<\\copybrief usbd_hw_poll\n\n"]
-    pub poll: usbd_hw_poll,
-    #[doc = "<\\copybrief usbd_hw_get_frameno\n\n"]
-    pub frame_no: usbd_hw_get_frameno,
-    #[doc = "<\\copybrief usbd_hw_get_serialno\n\n"]
-    pub get_serialno_desc: usbd_hw_get_serialno,
-}
-#[test]
-fn bindgen_test_layout_usbd_driver() {
-    const UNINIT: ::core::mem::MaybeUninit<usbd_driver> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<usbd_driver>(),
-        52usize,
-        concat!("Size of: ", stringify!(usbd_driver))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<usbd_driver>(),
-        4usize,
-        concat!("Alignment of ", stringify!(usbd_driver))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).getinfo) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(getinfo)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).enable) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(enable)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).connect) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(connect)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).setaddr) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(setaddr)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).ep_config) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(ep_config)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).ep_deconfig) as usize - ptr as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(ep_deconfig)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).ep_read) as usize - ptr as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(ep_read)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).ep_write) as usize - ptr as usize },
-        28usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(ep_write)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).ep_setstall) as usize - ptr as usize },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(ep_setstall)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).ep_isstalled) as usize - ptr as usize },
-        36usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(ep_isstalled)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).poll) as usize - ptr as usize },
-        40usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(poll)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).frame_no) as usize - ptr as usize },
-        44usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(frame_no)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).get_serialno_desc) as usize - ptr as usize },
-        48usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usbd_driver),
-            "::",
-            stringify!(get_serialno_desc)
-        )
-    );
-}
-#[doc = "Represents a USB device data.\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _usbd_device {
-    #[doc = "<\\copybrief usbd_driver\n\n"]
-    pub driver: *const usbd_driver,
-    #[doc = "<\\copybrief usbd_ctl_callback\n\n"]
-    pub control_callback: usbd_ctl_callback,
-    #[doc = "<\\copybrief usbd_rqc_callback\n\n"]
-    pub complete_callback: usbd_rqc_callback,
-    #[doc = "<\\copybrief usbd_cfg_callback\n\n"]
-    pub config_callback: usbd_cfg_callback,
-    #[doc = "<\\copybrief usbd_dsc_callback\n\n"]
-    pub descriptor_callback: usbd_dsc_callback,
-    #[doc = "<\\brief array of the event callbacks.\n\n"]
-    pub events: [usbd_evt_callback; 8usize],
-    #[doc = "<\\brief array of the endpoint callbacks.\n\n"]
-    pub endpoint: [usbd_evt_callback; 8usize],
-    #[doc = "<\\copybrief usbd_status\n\n"]
-    pub status: usbd_status,
-}
-#[test]
-fn bindgen_test_layout__usbd_device() {
-    const UNINIT: ::core::mem::MaybeUninit<_usbd_device> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<_usbd_device>(),
-        100usize,
-        concat!("Size of: ", stringify!(_usbd_device))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<_usbd_device>(),
-        4usize,
-        concat!("Alignment of ", stringify!(_usbd_device))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).driver) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_usbd_device),
-            "::",
-            stringify!(driver)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).control_callback) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_usbd_device),
-            "::",
-            stringify!(control_callback)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).complete_callback) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_usbd_device),
-            "::",
-            stringify!(complete_callback)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).config_callback) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_usbd_device),
-            "::",
-            stringify!(config_callback)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).descriptor_callback) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_usbd_device),
-            "::",
-            stringify!(descriptor_callback)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).events) as usize - ptr as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_usbd_device),
-            "::",
-            stringify!(events)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).endpoint) as usize - ptr as usize },
-        52usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_usbd_device),
-            "::",
-            stringify!(endpoint)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).status) as usize - ptr as usize },
-        84usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_usbd_device),
-            "::",
-            stringify!(status)
-        )
-    );
-}
-#[doc = "Represents a USB device descriptor\n\nA device descriptor describes general information about a USB device. It includes information that applies globally to the device and all of the device’s configurations. A USB device has only one device descriptor. A high-speed capable device that has different device information for full-speed and high-speed must also  have a  [`usb_qualifier_descriptor`]\n\n"]
-#[repr(C, packed)]
-#[derive(Debug, Copy, Clone)]
-pub struct usb_device_descriptor {
-    #[doc = "<\\brief Size of the descriptor, in bytes.\n\n"]
-    pub bLength: u8,
-    #[doc = "<\\brief  [`USB_DTYPE_DEVICE`] Device descriptor.\n\n"]
-    pub bDescriptorType: u8,
-    #[doc = "<\\brief BCD of the supported USB specification.\n\n"]
-    pub bcdUSB: u16,
-    #[doc = "<\\brief USB device class.\n\n"]
-    pub bDeviceClass: u8,
-    #[doc = "<\\brief USB device subclass.\n\n"]
-    pub bDeviceSubClass: u8,
-    #[doc = "<\\brief USB device protocol.\n\n"]
-    pub bDeviceProtocol: u8,
-    #[doc = "<\\brief Size of the control endpoint's bank in bytes.\n\n"]
-    pub bMaxPacketSize0: u8,
-    #[doc = "<\\brief Vendor ID for the USB product.\n\n"]
-    pub idVendor: u16,
-    #[doc = "<\\brief Unique product ID for the USB product.\n\n"]
-    pub idProduct: u16,
-    #[doc = "<\\brief Product release (version) number.\n\n"]
-    pub bcdDevice: u16,
-    #[doc = "<\\brief String index for the manufacturer's name.\n\n"]
-    pub iManufacturer: u8,
-    #[doc = "<\\brief String index for the product name/details.\n\n"]
-    pub iProduct: u8,
-    #[doc = "<\\brief String index for the product serial number.\n\n"]
-    pub iSerialNumber: u8,
-    #[doc = "<\\brief Total number of configurations supported by the device.\n\n"]
-    pub bNumConfigurations: u8,
-}
-#[test]
-fn bindgen_test_layout_usb_device_descriptor() {
-    const UNINIT: ::core::mem::MaybeUninit<usb_device_descriptor> =
-        ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<usb_device_descriptor>(),
-        18usize,
-        concat!("Size of: ", stringify!(usb_device_descriptor))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<usb_device_descriptor>(),
-        1usize,
-        concat!("Alignment of ", stringify!(usb_device_descriptor))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bLength) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(bLength)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bDescriptorType) as usize - ptr as usize },
-        1usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(bDescriptorType)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bcdUSB) as usize - ptr as usize },
-        2usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(bcdUSB)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bDeviceClass) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(bDeviceClass)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bDeviceSubClass) as usize - ptr as usize },
-        5usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(bDeviceSubClass)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bDeviceProtocol) as usize - ptr as usize },
-        6usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(bDeviceProtocol)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bMaxPacketSize0) as usize - ptr as usize },
-        7usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(bMaxPacketSize0)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).idVendor) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(idVendor)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).idProduct) as usize - ptr as usize },
-        10usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(idProduct)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bcdDevice) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(bcdDevice)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).iManufacturer) as usize - ptr as usize },
-        14usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(iManufacturer)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).iProduct) as usize - ptr as usize },
-        15usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(iProduct)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).iSerialNumber) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(iSerialNumber)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).bNumConfigurations) as usize - ptr as usize },
-        17usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(usb_device_descriptor),
-            "::",
-            stringify!(bNumConfigurations)
-        )
-    );
-}
-extern "C" {
-    pub static usbd_devfs: usbd_driver;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FuriHalUsbInterface {
-    pub init: ::core::option::Option<
-        unsafe extern "C" fn(
-            dev: *mut usbd_device,
-            intf: *mut FuriHalUsbInterface,
-            ctx: *mut core::ffi::c_void,
-        ),
-    >,
-    pub deinit: ::core::option::Option<unsafe extern "C" fn(dev: *mut usbd_device)>,
-    pub wakeup: ::core::option::Option<unsafe extern "C" fn(dev: *mut usbd_device)>,
-    pub suspend: ::core::option::Option<unsafe extern "C" fn(dev: *mut usbd_device)>,
-    pub dev_descr: *mut usb_device_descriptor,
-    pub str_manuf_descr: *mut core::ffi::c_void,
-    pub str_prod_descr: *mut core::ffi::c_void,
-    pub str_serial_descr: *mut core::ffi::c_void,
-    pub cfg_descr: *mut core::ffi::c_void,
-}
-#[test]
-fn bindgen_test_layout_FuriHalUsbInterface() {
-    const UNINIT: ::core::mem::MaybeUninit<FuriHalUsbInterface> =
-        ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FuriHalUsbInterface>(),
-        36usize,
-        concat!("Size of: ", stringify!(FuriHalUsbInterface))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FuriHalUsbInterface>(),
-        4usize,
-        concat!("Alignment of ", stringify!(FuriHalUsbInterface))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).init) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalUsbInterface),
-            "::",
-            stringify!(init)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).deinit) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalUsbInterface),
-            "::",
-            stringify!(deinit)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).wakeup) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalUsbInterface),
-            "::",
-            stringify!(wakeup)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).suspend) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalUsbInterface),
-            "::",
-            stringify!(suspend)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).dev_descr) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalUsbInterface),
-            "::",
-            stringify!(dev_descr)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).str_manuf_descr) as usize - ptr as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalUsbInterface),
-            "::",
-            stringify!(str_manuf_descr)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).str_prod_descr) as usize - ptr as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalUsbInterface),
-            "::",
-            stringify!(str_prod_descr)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).str_serial_descr) as usize - ptr as usize },
-        28usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalUsbInterface),
-            "::",
-            stringify!(str_serial_descr)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).cfg_descr) as usize - ptr as usize },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalUsbInterface),
-            "::",
-            stringify!(cfg_descr)
-        )
-    );
-}
-extern "C" {
-    #[doc = "USB device interface modes\n\n"]
-    pub static mut usb_cdc_single: FuriHalUsbInterface;
-}
-extern "C" {
-    pub static mut usb_cdc_dual: FuriHalUsbInterface;
-}
-extern "C" {
-    pub static mut usb_hid: FuriHalUsbInterface;
-}
-extern "C" {
-    pub static mut usb_hid_u2f: FuriHalUsbInterface;
-}
-extern "C" {
-    #[doc = "Set USB device configuration\n\nReturns:\n\n* true - mode switch started, false - mode switch is locked\n\n# Arguments\n\n* `mode` - new USB device mode\n* `ctx` - context passed to device mode init function\n\n"]
-    pub fn furi_hal_usb_set_config(
-        new_if: *mut FuriHalUsbInterface,
-        ctx: *mut core::ffi::c_void,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Get USB device configuration\n\nReturns:\n\n* current USB device mode\n\n"]
-    pub fn furi_hal_usb_get_config() -> *mut FuriHalUsbInterface;
-}
-extern "C" {
-    #[doc = "Lock USB device mode switch\n\n"]
-    pub fn furi_hal_usb_lock();
-}
-extern "C" {
-    #[doc = "Unlock USB device mode switch\n\n"]
-    pub fn furi_hal_usb_unlock();
-}
-extern "C" {
-    #[doc = "Check if USB device mode switch locked\n\nReturns:\n\n* lock state\n\n"]
-    pub fn furi_hal_usb_is_locked() -> bool;
-}
-extern "C" {
-    #[doc = "Disable USB device\n\n"]
-    pub fn furi_hal_usb_disable();
-}
-extern "C" {
-    #[doc = "Enable USB device\n\n"]
-    pub fn furi_hal_usb_enable();
-}
-extern "C" {
-    #[doc = "Restart USB device\n\n"]
-    pub fn furi_hal_usb_reinit();
-}
-pub type HidStateCallback =
-    ::core::option::Option<unsafe extern "C" fn(state: bool, context: *mut core::ffi::c_void)>;
-extern "C" {
-    #[doc = "Get USB HID connection state\n\nReturns:\n\n* true / false\n\n"]
-    pub fn furi_hal_hid_is_connected() -> bool;
-}
-extern "C" {
-    #[doc = "Get USB HID keyboard leds state\n\nReturns:\n\n* leds state\n\n"]
-    pub fn furi_hal_hid_get_led_state() -> u8;
-}
-extern "C" {
-    #[doc = "Set USB HID connect/disconnect callback\n\n# Arguments\n\n* `cb` - callback\n* `ctx` - callback context\n\n"]
-    pub fn furi_hal_hid_set_state_callback(cb: HidStateCallback, ctx: *mut core::ffi::c_void);
-}
-extern "C" {
-    #[doc = "Set the following key to pressed state and send HID report\n\n# Arguments\n\n* `button` - key code\n\n"]
-    pub fn furi_hal_hid_kb_press(button: u16) -> bool;
-}
-extern "C" {
-    #[doc = "Set the following key to released state and send HID report\n\n# Arguments\n\n* `button` - key code\n\n"]
-    pub fn furi_hal_hid_kb_release(button: u16) -> bool;
-}
-extern "C" {
-    #[doc = "Clear all pressed keys and send HID report\n\n"]
-    pub fn furi_hal_hid_kb_release_all() -> bool;
-}
-extern "C" {
-    #[doc = "Set mouse movement and send HID report\n\n# Arguments\n\n* `dx` - x coordinate delta\n* `dy` - y coordinate delta\n\n"]
-    pub fn furi_hal_hid_mouse_move(dx: i8, dy: i8) -> bool;
-}
-extern "C" {
-    #[doc = "Set mouse button to pressed state and send HID report\n\n# Arguments\n\n* `button` - key code\n\n"]
-    pub fn furi_hal_hid_mouse_press(button: u8) -> bool;
-}
-extern "C" {
-    #[doc = "Set mouse button to released state and send HID report\n\n# Arguments\n\n* `button` - key code\n\n"]
-    pub fn furi_hal_hid_mouse_release(button: u8) -> bool;
-}
-extern "C" {
-    #[doc = "Set mouse wheel position and send HID report\n\n# Arguments\n\n* `delta` - number of scroll steps\n\n"]
-    pub fn furi_hal_hid_mouse_scroll(delta: i8) -> bool;
-}
-extern "C" {
-    #[doc = "Set the following consumer key to pressed state and send HID report\n\n# Arguments\n\n* `button` - key code\n\n"]
-    pub fn furi_hal_hid_consumer_key_press(button: u16) -> bool;
-}
-extern "C" {
-    #[doc = "Set the following consumer key to released state and send HID report\n\n# Arguments\n\n* `button` - key code\n\n"]
-    pub fn furi_hal_hid_consumer_key_release(button: u16) -> bool;
-}
-pub const FuriHalUartId_FuriHalUartIdUSART1: FuriHalUartId = 0;
-pub const FuriHalUartId_FuriHalUartIdLPUART1: FuriHalUartId = 1;
-#[doc = "UART channels\n\n"]
-pub type FuriHalUartId = core::ffi::c_uchar;
-pub const UartIrqEvent_UartIrqEventRXNE: UartIrqEvent = 0;
-#[doc = "UART events\n\n"]
-pub type UartIrqEvent = core::ffi::c_uchar;
-extern "C" {
-    #[doc = "Init UART Configures GPIO to UART function, сonfigures UART hardware, enables UART hardware\n\n# Arguments\n\n* `channel` - UART channel\n* `baud` - baudrate\n\n"]
-    pub fn furi_hal_uart_init(channel: FuriHalUartId, baud: u32);
-}
-extern "C" {
-    #[doc = "Deinit UART Configures GPIO to analog, clears callback and callback context, disables UART hardware\n\n# Arguments\n\n* `channel` - UART channel\n\n"]
-    pub fn furi_hal_uart_deinit(channel: FuriHalUartId);
-}
-extern "C" {
-    #[doc = "Suspend UART operation Disables UART hardware, settings and callbacks are preserved\n\n# Arguments\n\n* `channel` - UART channel\n\n"]
-    pub fn furi_hal_uart_suspend(channel: FuriHalUartId);
-}
-extern "C" {
-    #[doc = "Resume UART operation Resumes UART hardware from suspended state\n\n# Arguments\n\n* `channel` - UART channel\n\n"]
-    pub fn furi_hal_uart_resume(channel: FuriHalUartId);
-}
-extern "C" {
-    #[doc = "Changes UART baudrate\n\n# Arguments\n\n* `channel` - UART channel\n* `baud` - baudrate\n\n"]
-    pub fn furi_hal_uart_set_br(channel: FuriHalUartId, baud: u32);
-}
-extern "C" {
-    #[doc = "Transmits data\n\n# Arguments\n\n* `channel` - UART channel\n* `buffer` - data\n* `buffer_size` - data size (in bytes)\n\n"]
-    pub fn furi_hal_uart_tx(channel: FuriHalUartId, buffer: *mut u8, buffer_size: usize);
-}
-extern "C" {
-    #[doc = "Sets UART event callback\n\n# Arguments\n\n* `channel` - UART channel\n* `callback` - callback pointer\n* `context` - callback context\n\n"]
-    pub fn furi_hal_uart_set_irq_cb(
-        channel: FuriHalUartId,
-        callback: ::core::option::Option<
-            unsafe extern "C" fn(event: UartIrqEvent, data: u8, context: *mut core::ffi::c_void),
-        >,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    pub fn furi_hal_info_get_api_version(major: *mut u16, minor: *mut u16);
-}
-extern "C" {
-    #[doc = "Get device information\n\n# Arguments\n\n* `callback` - [Direction: In] callback to provide with new data\n* `sep` - [Direction: In] category separator character\n* `context` - [Direction: In] context to pass to callback\n\n"]
-    pub fn furi_hal_info_get(
-        callback: PropertyValueCallback,
-        sep: core::ffi::c_char,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    #[doc = "Initialize random subsystem\n\n"]
-    pub fn furi_hal_random_init();
-}
-extern "C" {
-    #[doc = "Get random value\n\nReturns:\n\n* random value\n\n"]
-    pub fn furi_hal_random_get() -> u32;
-}
-extern "C" {
-    #[doc = "Fill buffer with random data\n\n# Arguments\n\n* `buf` - buffer pointer\n* `data` - buffer len\n\n"]
-    pub fn furi_hal_random_fill_buf(buf: *mut u8, len: u32);
-}
-#[doc = "default configuration\n\n"]
-pub const FuriHalSubGhzPreset_FuriHalSubGhzPresetIDLE: FuriHalSubGhzPreset = 0;
-#[doc = "OOK, bandwidth 270kHz, asynchronous\n\n"]
-pub const FuriHalSubGhzPreset_FuriHalSubGhzPresetOok270Async: FuriHalSubGhzPreset = 1;
-#[doc = "OOK, bandwidth 650kHz, asynchronous\n\n"]
-pub const FuriHalSubGhzPreset_FuriHalSubGhzPresetOok650Async: FuriHalSubGhzPreset = 2;
-#[doc = "FM, deviation 2.380371 kHz, asynchronous\n\n"]
-pub const FuriHalSubGhzPreset_FuriHalSubGhzPreset2FSKDev238Async: FuriHalSubGhzPreset = 3;
-#[doc = "FM, deviation 47.60742 kHz, asynchronous\n\n"]
-pub const FuriHalSubGhzPreset_FuriHalSubGhzPreset2FSKDev476Async: FuriHalSubGhzPreset = 4;
-#[doc = "MSK, deviation 47.60742 kHz, 99.97Kb/s, asynchronous\n\n"]
-pub const FuriHalSubGhzPreset_FuriHalSubGhzPresetMSK99_97KbAsync: FuriHalSubGhzPreset = 5;
-#[doc = "GFSK, deviation 19.042969 kHz, 9.996Kb/s, asynchronous\n\n"]
-pub const FuriHalSubGhzPreset_FuriHalSubGhzPresetGFSK9_99KbAsync: FuriHalSubGhzPreset = 6;
-pub const FuriHalSubGhzPreset_FuriHalSubGhzPresetCustom: FuriHalSubGhzPreset = 7;
-#[doc = "Radio Presets\n\n"]
-pub type FuriHalSubGhzPreset = core::ffi::c_uchar;
-#[repr(C)]
-#[repr(align(4))]
-#[derive(Debug, Copy, Clone)]
-pub struct LevelDuration {
-    pub _bitfield_align_1: [u32; 0],
-    pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
-}
-#[test]
-fn bindgen_test_layout_LevelDuration() {
-    assert_eq!(
-        ::core::mem::size_of::<LevelDuration>(),
-        4usize,
-        concat!("Size of: ", stringify!(LevelDuration))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<LevelDuration>(),
-        4usize,
-        concat!("Alignment of ", stringify!(LevelDuration))
-    );
-}
-impl LevelDuration {
-    #[inline]
-    pub fn duration(&self) -> u32 {
-        unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 30u8) as u32) }
-    }
-    #[inline]
-    pub fn set_duration(&mut self, val: u32) {
-        unsafe {
-            let val: u32 = ::core::mem::transmute(val);
-            self._bitfield_1.set(0usize, 30u8, val as u64)
-        }
-    }
-    #[inline]
-    pub fn level(&self) -> u8 {
-        unsafe { ::core::mem::transmute(self._bitfield_1.get(30usize, 2u8) as u8) }
-    }
-    #[inline]
-    pub fn set_level(&mut self, val: u8) {
-        unsafe {
-            let val: u8 = ::core::mem::transmute(val);
-            self._bitfield_1.set(30usize, 2u8, val as u64)
-        }
-    }
-    #[inline]
-    pub fn new_bitfield_1(duration: u32, level: u8) -> __BindgenBitfieldUnit<[u8; 4usize]> {
-        let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize]> = Default::default();
-        __bindgen_bitfield_unit.set(0usize, 30u8, {
-            let duration: u32 = unsafe { ::core::mem::transmute(duration) };
-            duration as u64
-        });
-        __bindgen_bitfield_unit.set(30usize, 2u8, {
-            let level: u8 = unsafe { ::core::mem::transmute(level) };
-            level as u64
-        });
-        __bindgen_bitfield_unit
-    }
-}
-extern "C" {
-    pub fn furi_hal_subghz_set_async_mirror_pin(pin: *const GpioPin);
-}
-extern "C" {
-    #[doc = "Get data GPIO\n\nReturns:\n\n* pointer to the gpio pin structure\n\n"]
-    pub fn furi_hal_subghz_get_data_gpio() -> *const GpioPin;
-}
-extern "C" {
-    #[doc = "Send device to sleep mode\n\n"]
-    pub fn furi_hal_subghz_sleep();
-}
-extern "C" {
-    #[doc = "Load custom registers from preset\n\n# Arguments\n\n* `preset_data` - registers to load\n\n"]
-    pub fn furi_hal_subghz_load_custom_preset(preset_data: *const u8);
-}
-extern "C" {
-    #[doc = "Load registers\n\n# Arguments\n\n* `data` - Registers data\n\n"]
-    pub fn furi_hal_subghz_load_registers(data: *const u8);
-}
-extern "C" {
-    #[doc = "Load PATABLE\n\n# Arguments\n\n* `data` - 8 uint8_t values\n\n"]
-    pub fn furi_hal_subghz_load_patable(data: *const u8);
-}
-extern "C" {
-    #[doc = "Write packet to FIFO\n\n# Arguments\n\n* `data` - bytes array\n* `size` - size\n\n"]
-    pub fn furi_hal_subghz_write_packet(data: *const u8, size: u8);
-}
-extern "C" {
-    #[doc = "Check if receive pipe is not empty\n\nReturns:\n\n* true if not empty\n\n"]
-    pub fn furi_hal_subghz_rx_pipe_not_empty() -> bool;
-}
-extern "C" {
-    #[doc = "Check if received data crc is valid\n\nReturns:\n\n* true if valid\n\n"]
-    pub fn furi_hal_subghz_is_rx_data_crc_valid() -> bool;
-}
-extern "C" {
-    #[doc = "Read packet from FIFO\n\n# Arguments\n\n* `data` - pointer\n* `size` - size\n\n"]
-    pub fn furi_hal_subghz_read_packet(data: *mut u8, size: *mut u8);
-}
-extern "C" {
-    #[doc = "Flush rx FIFO buffer\n\n"]
-    pub fn furi_hal_subghz_flush_rx();
-}
-extern "C" {
-    #[doc = "Flush tx FIFO buffer\n\n"]
-    pub fn furi_hal_subghz_flush_tx();
-}
-extern "C" {
-    #[doc = "Reset Issue reset command\n\n**Warning!**\n\n* registers content will be lost\n\n"]
-    pub fn furi_hal_subghz_reset();
-}
-extern "C" {
-    #[doc = "Switch to Idle\n\n"]
-    pub fn furi_hal_subghz_idle();
-}
-extern "C" {
-    #[doc = "Switch to Receive\n\n"]
-    pub fn furi_hal_subghz_rx();
-}
-extern "C" {
-    #[doc = "Switch to Transmit\n\nReturns:\n\n* true if the transfer is allowed by belonging to the region\n\n"]
-    pub fn furi_hal_subghz_tx() -> bool;
-}
-extern "C" {
-    #[doc = "Get RSSI value in dBm\n\nReturns:\n\n* RSSI value\n\n"]
-    pub fn furi_hal_subghz_get_rssi() -> f32;
-}
-extern "C" {
-    #[doc = "Get LQI\n\nReturns:\n\n* LQI value\n\n"]
-    pub fn furi_hal_subghz_get_lqi() -> u8;
-}
-extern "C" {
-    #[doc = "Check if frequency is in valid range\n\nReturns:\n\n* true if frequency is valid, otherwise false\n\n# Arguments\n\n* `value` - frequency in Hz\n\n"]
-    pub fn furi_hal_subghz_is_frequency_valid(value: u32) -> bool;
-}
-extern "C" {
-    #[doc = "Set frequency and path This function automatically selects antenna matching network\n\nReturns:\n\n* real frequency in Hz\n\n# Arguments\n\n* `value` - frequency in Hz\n\n"]
-    pub fn furi_hal_subghz_set_frequency_and_path(value: u32) -> u32;
-}
-extern "C" {
-    #[doc = "Set frequency\n\nReturns:\n\n* real frequency in Hz\n\n# Arguments\n\n* `value` - frequency in Hz\n\n"]
-    pub fn furi_hal_subghz_set_frequency(value: u32) -> u32;
-}
-#[doc = "Signal Timings Capture callback\n\n"]
-pub type FuriHalSubGhzCaptureCallback = ::core::option::Option<
-    unsafe extern "C" fn(level: bool, duration: u32, context: *mut core::ffi::c_void),
->;
-extern "C" {
-    #[doc = "Enable signal timings capture Initializes GPIO and TIM2 for timings capture\n\n# Arguments\n\n* `callback` - FuriHalSubGhzCaptureCallback\n* `context` - callback context\n\n"]
-    pub fn furi_hal_subghz_start_async_rx(
-        callback: FuriHalSubGhzCaptureCallback,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    #[doc = "Disable signal timings capture Resets GPIO and TIM2\n\n"]
-    pub fn furi_hal_subghz_stop_async_rx();
-}
-#[doc = "Async TX callback type\n\nReturns:\n\n* LevelDuration\n\n# Arguments\n\n* `context` - callback context\n\n"]
-pub type FuriHalSubGhzAsyncTxCallback =
-    ::core::option::Option<unsafe extern "C" fn(context: *mut core::ffi::c_void) -> LevelDuration>;
-extern "C" {
-    #[doc = "Start async TX Initializes GPIO, TIM2 and DMA1 for signal output\n\nReturns:\n\n* true if the transfer is allowed by belonging to the region\n\n# Arguments\n\n* `callback` - FuriHalSubGhzAsyncTxCallback\n* `context` - callback context\n\n"]
-    pub fn furi_hal_subghz_start_async_tx(
-        callback: FuriHalSubGhzAsyncTxCallback,
-        context: *mut core::ffi::c_void,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Wait for async transmission to complete\n\nReturns:\n\n* true if TX complete\n\n"]
-    pub fn furi_hal_subghz_is_async_tx_complete() -> bool;
-}
-extern "C" {
-    #[doc = "Stop async transmission and cleanup resources Resets GPIO, TIM2, and DMA1\n\n"]
-    pub fn furi_hal_subghz_stop_async_tx();
-}
-pub type FuriHalIbuttonEmulateCallback =
-    ::core::option::Option<unsafe extern "C" fn(context: *mut core::ffi::c_void)>;
-extern "C" {
-    #[doc = "Start emulation timer\n\n# Arguments\n\n* `period` - timer period\n* `callback` - timer callback\n* `context` - callback context\n\n"]
-    pub fn furi_hal_ibutton_emulate_start(
-        period: u32,
-        callback: FuriHalIbuttonEmulateCallback,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    #[doc = "Update emulation timer period\n\n# Arguments\n\n* `period` - new timer period\n\n"]
-    pub fn furi_hal_ibutton_emulate_set_next(period: u32);
-}
-extern "C" {
-    #[doc = "Stop emulation timer\n\n"]
-    pub fn furi_hal_ibutton_emulate_stop();
-}
-extern "C" {
-    #[doc = "Set the pin to normal mode (open collector), and sets it to float\n\n"]
-    pub fn furi_hal_ibutton_pin_configure();
-}
-extern "C" {
-    #[doc = "Sets the pin to analog mode, and sets it to float\n\n"]
-    pub fn furi_hal_ibutton_pin_reset();
-}
-extern "C" {
-    #[doc = "iButton write pin\n\n# Arguments\n\n* `state` - true / false\n\n"]
-    pub fn furi_hal_ibutton_pin_write(state: bool);
-}
-extern "C" {
-    #[doc = "Config rfid pins to reset state\n\n"]
-    pub fn furi_hal_rfid_pins_reset();
-}
-extern "C" {
-    #[doc = "Release rfid pull pin\n\n"]
-    pub fn furi_hal_rfid_pin_pull_release();
-}
-extern "C" {
-    #[doc = "Pulldown rfid pull pin\n\n"]
-    pub fn furi_hal_rfid_pin_pull_pulldown();
-}
-extern "C" {
-    #[doc = "Start read timer\n\n# Arguments\n\n* `freq` - timer frequency\n* `duty_cycle` - timer duty cycle, 0.0-1.0\n\n"]
-    pub fn furi_hal_rfid_tim_read_start(freq: f32, duty_cycle: f32);
-}
-extern "C" {
-    #[doc = "Pause read timer, to be able to continue later\n\n"]
-    pub fn furi_hal_rfid_tim_read_pause();
-}
-extern "C" {
-    #[doc = "Continue read timer\n\n"]
-    pub fn furi_hal_rfid_tim_read_continue();
-}
-extern "C" {
-    #[doc = "Stop read timer\n\n"]
-    pub fn furi_hal_rfid_tim_read_stop();
-}
-pub type FuriHalRfidReadCaptureCallback = ::core::option::Option<
-    unsafe extern "C" fn(level: bool, duration: u32, context: *mut core::ffi::c_void),
->;
-extern "C" {
-    pub fn furi_hal_rfid_tim_read_capture_start(
-        callback: FuriHalRfidReadCaptureCallback,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    pub fn furi_hal_rfid_tim_read_capture_stop();
-}
-pub type FuriHalRfidDMACallback =
-    ::core::option::Option<unsafe extern "C" fn(half: bool, context: *mut core::ffi::c_void)>;
-extern "C" {
-    pub fn furi_hal_rfid_tim_emulate_dma_start(
-        duration: *mut u32,
-        pulse: *mut u32,
-        length: usize,
-        callback: FuriHalRfidDMACallback,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    pub fn furi_hal_rfid_tim_emulate_dma_stop();
-}
-extern "C" {
-    #[doc = "Set read timer period\n\n# Arguments\n\n* `period` - overall duration\n\n"]
-    pub fn furi_hal_rfid_set_read_period(period: u32);
-}
-extern "C" {
-    #[doc = "Set read timer pulse\n\n# Arguments\n\n* `pulse` - duration of high level\n\n"]
-    pub fn furi_hal_rfid_set_read_pulse(pulse: u32);
-}
-extern "C" {
-    #[doc = "Start/Enable comparator\n\n"]
-    pub fn furi_hal_rfid_comp_start();
-}
-extern "C" {
-    #[doc = "Stop/Disable comparator\n\n"]
-    pub fn furi_hal_rfid_comp_stop();
-}
-pub type FuriHalRfidCompCallback =
-    ::core::option::Option<unsafe extern "C" fn(level: bool, context: *mut core::ffi::c_void)>;
-extern "C" {
-    #[doc = "Set comparator callback\n\n"]
-    pub fn furi_hal_rfid_comp_set_callback(
-        callback: FuriHalRfidCompCallback,
-        context: *mut core::ffi::c_void,
-    );
-}
-extern "C" {
-    #[doc = "Start/Enable Field Presence detect\n\n"]
-    pub fn furi_hal_rfid_field_detect_start();
-}
-extern "C" {
-    #[doc = "Stop/Disable Field Presence detect\n\n"]
-    pub fn furi_hal_rfid_field_detect_stop();
-}
-extern "C" {
-    #[doc = "Check Field Presence\n\nReturns:\n\n* true if field is present, false if not\n\n# Arguments\n\n* `frequency` - [Direction: In, Out] pointer to frequency value to be set if filed detected\n\n"]
-    pub fn furi_hal_rfid_field_is_present(frequency: *mut u32) -> bool;
-}
-pub type ReturnCode = u16;
-extern "C" {
-    #[doc = "Calculate Timer\n\nThis method calculates when the timer will be expired given the amount time in milliseconds /a tOut. Once the timer has been calculated it will then be used to check when it expires.\n[`timersIsExpired`]\n\nReturns:\n\n* u32 : The new timer calculated based on the given time\n\n# Arguments\n\n* `time` - [Direction: In] : time/duration in Milliseconds for the timer\n\n"]
-    pub fn timerCalculateTimer(time: u16) -> u32;
-}
-extern "C" {
-    #[doc = "Checks if a Timer is Expired\n\nThis method checks if a timer has already expired. Based on the given timer previously calculated it checks if this timer has already elapsed\n[`timersCalculateTimer`]\n\nReturns:\n\n* true : timer has already expired\n* false : timer is still running\n\n# Arguments\n\n* `timer` - [Direction: In] : the timer to check\n\n"]
-    pub fn timerIsExpired(timer: u32) -> bool;
-}
-extern "C" {
-    pub fn powf(arg1: f32, arg2: f32) -> f32;
-}
-extern "C" {
-    pub fn roundf(arg1: f32) -> f32;
-}
-extern "C" {
-    pub fn scalbnf(arg1: f32, arg2: core::ffi::c_int) -> f32;
-}
-extern "C" {
-    #[doc = "RFAL Turn Field On and Start GT\n\nTurns the Field On, performing Initial Collision Avoidance\nAfter Field On, if GT was set before, it starts the GT timer to be used on the following communications.\n\nReturns:\n\n* ERR_RF_COLLISION : External field detected\n* ERR_NONE : Field turned On\n\n"]
-    pub fn rfalFieldOnAndStartGT() -> ReturnCode;
-}
-extern "C" {
-    #[doc = "RFAL Worker\n\nThis runs RFAL layer, which drives the actual Transceive procedure It MUST be executed frequently in order to execute the RFAL internal states and perform the requested operations\n\n"]
-    pub fn rfalWorker();
-}
-extern "C" {
-    #[doc = "Low Power Mode Start\n\nSets the RF Chip in Low Power Mode. In this mode the RF Chip is placed in Low Power Mode, similar to Wake-up mode but no operation nor period measurement is performed. Mode must be terminated by rfalLowPowerModeStop()\n\nReturns:\n\n* ERR_WRONG_STATE : Not initialized properly\n* ERR_PARAM : Invalid parameter\n* ERR_NONE : Done with no error\n\n"]
-    pub fn rfalLowPowerModeStart() -> ReturnCode;
-}
-extern "C" {
-    #[doc = "Low Power Mode Stop\n\nStops the Low Power Mode re-enabling the device\n\nReturns:\n\n* ERR_WRONG_STATE : Not initialized properly\n* ERR_PARAM : Invalid parameter\n* ERR_NONE : Done with no error\n\n"]
-    pub fn rfalLowPowerModeStop() -> ReturnCode;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct DigitalSignalInternals {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct DigitalSignal {
-    pub start_level: bool,
-    pub edge_cnt: u32,
-    pub edges_max_cnt: u32,
-    pub edge_timings: *mut u32,
-    pub reload_reg_buff: *mut u32,
-    pub internals: *mut DigitalSignalInternals,
-}
-#[test]
-fn bindgen_test_layout_DigitalSignal() {
-    const UNINIT: ::core::mem::MaybeUninit<DigitalSignal> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<DigitalSignal>(),
-        24usize,
-        concat!("Size of: ", stringify!(DigitalSignal))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<DigitalSignal>(),
-        4usize,
-        concat!("Alignment of ", stringify!(DigitalSignal))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).start_level) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(DigitalSignal),
-            "::",
-            stringify!(start_level)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).edge_cnt) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(DigitalSignal),
-            "::",
-            stringify!(edge_cnt)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).edges_max_cnt) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(DigitalSignal),
-            "::",
-            stringify!(edges_max_cnt)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).edge_timings) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(DigitalSignal),
-            "::",
-            stringify!(edge_timings)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).reload_reg_buff) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(DigitalSignal),
-            "::",
-            stringify!(reload_reg_buff)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).internals) as usize - ptr as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(DigitalSignal),
-            "::",
-            stringify!(internals)
-        )
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct DigitalSequence {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct NfcaSignal {
-    pub one: *mut DigitalSignal,
-    pub zero: *mut DigitalSignal,
-    pub tx_signal: *mut DigitalSignal,
-}
-#[test]
-fn bindgen_test_layout_NfcaSignal() {
-    const UNINIT: ::core::mem::MaybeUninit<NfcaSignal> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<NfcaSignal>(),
-        12usize,
-        concat!("Size of: ", stringify!(NfcaSignal))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<NfcaSignal>(),
-        4usize,
-        concat!("Alignment of ", stringify!(NfcaSignal))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).one) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(NfcaSignal),
-            "::",
-            stringify!(one)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).zero) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(NfcaSignal),
-            "::",
-            stringify!(zero)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).tx_signal) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(NfcaSignal),
-            "::",
-            stringify!(tx_signal)
-        )
-    );
-}
-pub const FuriHalNfcTxRxType_FuriHalNfcTxRxTypeDefault: FuriHalNfcTxRxType = 0;
-pub const FuriHalNfcTxRxType_FuriHalNfcTxRxTypeRxNoCrc: FuriHalNfcTxRxType = 1;
-pub const FuriHalNfcTxRxType_FuriHalNfcTxRxTypeRxKeepPar: FuriHalNfcTxRxType = 2;
-pub const FuriHalNfcTxRxType_FuriHalNfcTxRxTypeRaw: FuriHalNfcTxRxType = 3;
-pub const FuriHalNfcTxRxType_FuriHalNfcTxRxTypeRxRaw: FuriHalNfcTxRxType = 4;
-pub const FuriHalNfcTxRxType_FuriHalNfcTxRxTransparent: FuriHalNfcTxRxType = 5;
-pub type FuriHalNfcTxRxType = core::ffi::c_uchar;
-pub type FuriHalNfcEmulateCallback = ::core::option::Option<
-    unsafe extern "C" fn(
-        buff_rx: *mut u8,
-        buff_rx_len: u16,
-        buff_tx: *mut u8,
-        buff_tx_len: *mut u16,
-        flags: *mut u32,
-        context: *mut core::ffi::c_void,
-    ) -> bool,
->;
-pub const FuriHalNfcType_FuriHalNfcTypeA: FuriHalNfcType = 0;
-pub const FuriHalNfcType_FuriHalNfcTypeB: FuriHalNfcType = 1;
-pub const FuriHalNfcType_FuriHalNfcTypeF: FuriHalNfcType = 2;
-pub const FuriHalNfcType_FuriHalNfcTypeV: FuriHalNfcType = 3;
-pub type FuriHalNfcType = core::ffi::c_uchar;
-pub const FuriHalNfcInterface_FuriHalNfcInterfaceRf: FuriHalNfcInterface = 0;
-pub const FuriHalNfcInterface_FuriHalNfcInterfaceIsoDep: FuriHalNfcInterface = 1;
-pub const FuriHalNfcInterface_FuriHalNfcInterfaceNfcDep: FuriHalNfcInterface = 2;
-pub type FuriHalNfcInterface = core::ffi::c_uchar;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FuriHalNfcDevData {
-    pub type_: FuriHalNfcType,
-    pub interface: FuriHalNfcInterface,
-    pub uid_len: u8,
-    pub uid: [u8; 10usize],
-    pub cuid: u32,
-    pub atqa: [u8; 2usize],
-    pub sak: u8,
-}
-#[test]
-fn bindgen_test_layout_FuriHalNfcDevData() {
-    const UNINIT: ::core::mem::MaybeUninit<FuriHalNfcDevData> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FuriHalNfcDevData>(),
-        24usize,
-        concat!("Size of: ", stringify!(FuriHalNfcDevData))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FuriHalNfcDevData>(),
-        4usize,
-        concat!("Alignment of ", stringify!(FuriHalNfcDevData))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcDevData),
-            "::",
-            stringify!(type_)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).interface) as usize - ptr as usize },
-        1usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcDevData),
-            "::",
-            stringify!(interface)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).uid_len) as usize - ptr as usize },
-        2usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcDevData),
-            "::",
-            stringify!(uid_len)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).uid) as usize - ptr as usize },
-        3usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcDevData),
-            "::",
-            stringify!(uid)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).cuid) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcDevData),
-            "::",
-            stringify!(cuid)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).atqa) as usize - ptr as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcDevData),
-            "::",
-            stringify!(atqa)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).sak) as usize - ptr as usize },
-        22usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcDevData),
-            "::",
-            stringify!(sak)
-        )
-    );
-}
-pub type FuriHalNfcTxRxSniffCallback = ::core::option::Option<
-    unsafe extern "C" fn(
-        data: *mut u8,
-        bits: u16,
-        crc_dropped: bool,
-        context: *mut core::ffi::c_void,
-    ),
->;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FuriHalNfcTxRxContext {
-    pub tx_data: [u8; 512usize],
-    pub tx_parity: [u8; 64usize],
-    pub tx_bits: u16,
-    pub rx_data: [u8; 512usize],
-    pub rx_parity: [u8; 64usize],
-    pub rx_bits: u16,
-    pub tx_rx_type: FuriHalNfcTxRxType,
-    pub nfca_signal: *mut NfcaSignal,
-    pub sniff_tx: FuriHalNfcTxRxSniffCallback,
-    pub sniff_rx: FuriHalNfcTxRxSniffCallback,
-    pub sniff_context: *mut core::ffi::c_void,
-}
-#[test]
-fn bindgen_test_layout_FuriHalNfcTxRxContext() {
-    const UNINIT: ::core::mem::MaybeUninit<FuriHalNfcTxRxContext> =
-        ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FuriHalNfcTxRxContext>(),
-        1176usize,
-        concat!("Size of: ", stringify!(FuriHalNfcTxRxContext))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FuriHalNfcTxRxContext>(),
-        4usize,
-        concat!("Alignment of ", stringify!(FuriHalNfcTxRxContext))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).tx_data) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcTxRxContext),
-            "::",
-            stringify!(tx_data)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).tx_parity) as usize - ptr as usize },
-        512usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcTxRxContext),
-            "::",
-            stringify!(tx_parity)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).tx_bits) as usize - ptr as usize },
-        576usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcTxRxContext),
-            "::",
-            stringify!(tx_bits)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).rx_data) as usize - ptr as usize },
-        578usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcTxRxContext),
-            "::",
-            stringify!(rx_data)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).rx_parity) as usize - ptr as usize },
-        1090usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcTxRxContext),
-            "::",
-            stringify!(rx_parity)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).rx_bits) as usize - ptr as usize },
-        1154usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcTxRxContext),
-            "::",
-            stringify!(rx_bits)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).tx_rx_type) as usize - ptr as usize },
-        1156usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcTxRxContext),
-            "::",
-            stringify!(tx_rx_type)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).nfca_signal) as usize - ptr as usize },
-        1160usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcTxRxContext),
-            "::",
-            stringify!(nfca_signal)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).sniff_tx) as usize - ptr as usize },
-        1164usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcTxRxContext),
-            "::",
-            stringify!(sniff_tx)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).sniff_rx) as usize - ptr as usize },
-        1168usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcTxRxContext),
-            "::",
-            stringify!(sniff_rx)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).sniff_context) as usize - ptr as usize },
-        1172usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FuriHalNfcTxRxContext),
-            "::",
-            stringify!(sniff_context)
-        )
-    );
-}
-extern "C" {
-    #[doc = "Check if nfc worker is busy\n\nReturns:\n\n* true if busy\n\n"]
-    pub fn furi_hal_nfc_is_busy() -> bool;
-}
-extern "C" {
-    #[doc = "Check if nfc is initialized\n\nReturns:\n\n* true if initialized\n\n"]
-    pub fn furi_hal_nfc_is_init() -> bool;
-}
-extern "C" {
-    #[doc = "NFC field on\n\n"]
-    pub fn furi_hal_nfc_field_on();
-}
-extern "C" {
-    #[doc = "NFC field off\n\n"]
-    pub fn furi_hal_nfc_field_off();
-}
-extern "C" {
-    #[doc = "NFC start sleep\n\n"]
-    pub fn furi_hal_nfc_start_sleep();
-}
-extern "C" {
-    pub fn furi_hal_nfc_stop_cmd();
-}
-extern "C" {
-    #[doc = "NFC stop sleep\n\n"]
-    pub fn furi_hal_nfc_exit_sleep();
-}
-extern "C" {
-    #[doc = "NFC poll\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `dev_list` - pointer to rfalNfcDevice buffer\n* `dev_cnt` - pointer device count\n* `timeout` - timeout in ms\n* `deactivate` - deactivate flag\n\n"]
-    pub fn furi_hal_nfc_detect(nfc_data: *mut FuriHalNfcDevData, timeout: u32) -> bool;
-}
-extern "C" {
-    #[doc = "Activate NFC-A tag\n\nReturns:\n\n* true on succeess\n\n# Arguments\n\n* `timeout` - timeout in ms\n* `cuid` - pointer to 32bit uid\n\n"]
-    pub fn furi_hal_nfc_activate_nfca(timeout: u32, cuid: *mut u32) -> bool;
-}
-extern "C" {
-    #[doc = "NFC listen\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `uid` - pointer to uid buffer\n* `uid_len` - uid length\n* `atqa` - pointer to atqa\n* `sak` - sak\n* `activate_after_sak` - activate after sak flag\n* `timeout` - timeout in ms\n\n"]
-    pub fn furi_hal_nfc_listen(
-        uid: *mut u8,
-        uid_len: u8,
-        atqa: *mut u8,
-        sak: u8,
-        activate_after_sak: bool,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Start Target Listen mode\n\n# Arguments\n\n* `nfc_data` - FuriHalNfcDevData instance\n\n# Notes\n\n* RFAL free implementation\n\n"]
-    pub fn furi_hal_nfc_listen_start(nfc_data: *mut FuriHalNfcDevData);
-}
-extern "C" {
-    #[doc = "Read data in Target Listen mode\n\nReturns:\n\n* true on not empty receive\n\n# Arguments\n\n* `tx_rx` - FuriHalNfcTxRxContext instance\n* `timeout_ms` - timeout im ms\n\n# Notes\n\n* Must be called only after furi_hal_nfc_listen_start()\n\n"]
-    pub fn furi_hal_nfc_listen_rx(tx_rx: *mut FuriHalNfcTxRxContext, timeout_ms: u32) -> bool;
-}
-extern "C" {
-    #[doc = "Set Target in Sleep state\n\n"]
-    pub fn furi_hal_nfc_listen_sleep();
-}
-extern "C" {
-    #[doc = "Emulate NFC-A Target\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `uid` - NFC-A UID\n* `uid_len` - NFC-A UID length\n* `atqa` - NFC-A ATQA\n* `sak` - NFC-A SAK\n* `callback` - FuriHalNfcEmulateCallback instance\n* `context` - pointer to context for callback\n* `timeout` - timeout in ms\n\n# Notes\n\n* RFAL based implementation\n\n"]
-    pub fn furi_hal_nfc_emulate_nfca(
-        uid: *mut u8,
-        uid_len: u8,
-        atqa: *mut u8,
-        sak: u8,
-        callback: FuriHalNfcEmulateCallback,
-        context: *mut core::ffi::c_void,
-        timeout: u32,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "NFC data exchange\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `tx_rx_ctx` - FuriHalNfcTxRxContext instance\n\n"]
-    pub fn furi_hal_nfc_tx_rx(tx_rx: *mut FuriHalNfcTxRxContext, timeout_ms: u16) -> bool;
-}
-extern "C" {
-    #[doc = "NFC data full exhange\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `tx_rx_ctx` - FuriHalNfcTxRxContext instance\n\n"]
-    pub fn furi_hal_nfc_tx_rx_full(tx_rx: *mut FuriHalNfcTxRxContext) -> bool;
-}
-extern "C" {
-    #[doc = "NFC deactivate and start sleep\n\n"]
-    pub fn furi_hal_nfc_sleep();
-}
-extern "C" {
-    pub fn furi_hal_nfc_stop();
-}
-#[doc = "no error occurred\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnOk: FuriHalNfcReturn = 0;
-#[doc = "not enough memory to perform the requested operation\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnNomem: FuriHalNfcReturn = 1;
-#[doc = "device or resource busy\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnBusy: FuriHalNfcReturn = 2;
-#[doc = "generic IO error\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnIo: FuriHalNfcReturn = 3;
-#[doc = "error due to timeout\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnTimeout: FuriHalNfcReturn = 4;
-pub const FuriHalNfcReturn_FuriHalNfcReturnRequest: FuriHalNfcReturn = 5;
-#[doc = "No message of desired type\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnNomsg: FuriHalNfcReturn = 6;
-#[doc = "Parameter error\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnParam: FuriHalNfcReturn = 7;
-#[doc = "System error\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnSystem: FuriHalNfcReturn = 8;
-#[doc = "Framing error\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnFraming: FuriHalNfcReturn = 9;
-#[doc = "lost one or more received bytes\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnOverrun: FuriHalNfcReturn = 10;
-#[doc = "protocol error\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnProto: FuriHalNfcReturn = 11;
-#[doc = "Internal Error\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnInternal: FuriHalNfcReturn = 12;
-#[doc = "Call again\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnAgain: FuriHalNfcReturn = 13;
-#[doc = "memory corruption\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnMemCorrupt: FuriHalNfcReturn = 14;
-#[doc = "not implemented\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnNotImplemented: FuriHalNfcReturn = 15;
-pub const FuriHalNfcReturn_FuriHalNfcReturnPcCorrupt: FuriHalNfcReturn = 16;
-#[doc = "error sending\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnSend: FuriHalNfcReturn = 17;
-#[doc = "indicates error detected but to be ignored\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnIgnore: FuriHalNfcReturn = 18;
-#[doc = "indicates error in state machine (unexpected cmd)\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnSemantic: FuriHalNfcReturn = 19;
-#[doc = "indicates error in state machine (unknown cmd)\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnSyntax: FuriHalNfcReturn = 20;
-#[doc = "crc error\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnCrc: FuriHalNfcReturn = 21;
-#[doc = "transponder not found\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnNotfound: FuriHalNfcReturn = 22;
-pub const FuriHalNfcReturn_FuriHalNfcReturnNotunique: FuriHalNfcReturn = 23;
-#[doc = "requested operation not supported\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnNotsupp: FuriHalNfcReturn = 24;
-#[doc = "write error\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnWrite: FuriHalNfcReturn = 25;
-#[doc = "fifo over or underflow error\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnFifo: FuriHalNfcReturn = 26;
-#[doc = "parity error\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnPar: FuriHalNfcReturn = 27;
-#[doc = "transfer has already finished\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnDone: FuriHalNfcReturn = 28;
-pub const FuriHalNfcReturn_FuriHalNfcReturnRfCollision: FuriHalNfcReturn = 29;
-#[doc = "lost one or more received bytes\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnHwOverrun: FuriHalNfcReturn = 30;
-#[doc = "device requested release\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnReleaseReq: FuriHalNfcReturn = 31;
-#[doc = "device requested sleep\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnSleepReq: FuriHalNfcReturn = 32;
-#[doc = "incorrent state for requested operation\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnWrongState: FuriHalNfcReturn = 33;
-#[doc = "blocking procedure reached maximum runs\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnMaxReruns: FuriHalNfcReturn = 34;
-#[doc = "operation aborted due to disabled configuration\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnDisabled: FuriHalNfcReturn = 35;
-#[doc = "expected hw do not match\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnHwMismatch: FuriHalNfcReturn = 36;
-pub const FuriHalNfcReturn_FuriHalNfcReturnLinkLoss: FuriHalNfcReturn = 37;
-#[doc = "invalid or not initalized device handle\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnInvalidHandle: FuriHalNfcReturn = 38;
-#[doc = "Incomplete byte rcvd\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte: FuriHalNfcReturn = 40;
-#[doc = "Incomplete byte rcvd - 1 bit\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte01: FuriHalNfcReturn = 41;
-#[doc = "Incomplete byte rcvd - 2 bit\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte02: FuriHalNfcReturn = 42;
-#[doc = "Incomplete byte rcvd - 3 bit\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte03: FuriHalNfcReturn = 43;
-#[doc = "Incomplete byte rcvd - 4 bit\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte04: FuriHalNfcReturn = 44;
-#[doc = "Incomplete byte rcvd - 5 bit\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte05: FuriHalNfcReturn = 45;
-#[doc = "Incomplete byte rcvd - 6 bit\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte06: FuriHalNfcReturn = 46;
-#[doc = "Incomplete byte rcvd - 7 bit\n\n"]
-pub const FuriHalNfcReturn_FuriHalNfcReturnIncompleteByte07: FuriHalNfcReturn = 47;
-pub type FuriHalNfcReturn = core::ffi::c_uchar;
-#[doc = "No mode selected/defined\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModeNone: FuriHalNfcMode = 0;
-#[doc = "Mode to perform as NFCA (ISO14443A) Poller (PCD)\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModePollNfca: FuriHalNfcMode = 1;
-#[doc = "Mode to perform as NFCA T1T (Topaz) Poller (PCD)\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModePollNfcaT1t: FuriHalNfcMode = 2;
-#[doc = "Mode to perform as NFCB (ISO14443B) Poller (PCD)\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModePollNfcb: FuriHalNfcMode = 3;
-#[doc = "Mode to perform as B' Calypso (Innovatron) (PCD)\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModePollBPrime: FuriHalNfcMode = 4;
-#[doc = "Mode to perform as CTS Poller (PCD)\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModePollBCts: FuriHalNfcMode = 5;
-#[doc = "Mode to perform as NFCF (FeliCa) Poller (PCD)\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModePollNfcf: FuriHalNfcMode = 6;
-#[doc = "Mode to perform as NFCV (ISO15963) Poller (PCD)\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModePollNfcv: FuriHalNfcMode = 7;
-#[doc = "Mode to perform as PicoPass / iClass Poller (PCD)\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModePollPicopass: FuriHalNfcMode = 8;
-#[doc = "Mode to perform as Active P2P (ISO18092) Initiator\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModePollActiveP2p: FuriHalNfcMode = 9;
-#[doc = "Mode to perform as NFCA (ISO14443A) Listener (PICC)\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModeListenNfca: FuriHalNfcMode = 10;
-#[doc = "Mode to perform as NFCA (ISO14443B) Listener (PICC)\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModeListenNfcb: FuriHalNfcMode = 11;
-#[doc = "Mode to perform as NFCA (ISO15963) Listener (PICC)\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModeListenNfcf: FuriHalNfcMode = 12;
-#[doc = "Mode to perform as Active P2P (ISO18092) Target\n\n"]
-pub const FuriHalNfcMode_FuriHalNfcModeListenActiveP2p: FuriHalNfcMode = 13;
-pub type FuriHalNfcMode = core::ffi::c_uchar;
-#[doc = "Bit Rate 106 kbit/s (fc/128)\n\n"]
-pub const FuriHalNfcBitrate_FuriHalNfcBitrate106: FuriHalNfcBitrate = 0;
-#[doc = "Bit Rate 212 kbit/s (fc/64)\n\n"]
-pub const FuriHalNfcBitrate_FuriHalNfcBitrate212: FuriHalNfcBitrate = 1;
-#[doc = "Bit Rate 424 kbit/s (fc/32)\n\n"]
-pub const FuriHalNfcBitrate_FuriHalNfcBitrate424: FuriHalNfcBitrate = 2;
-#[doc = "Bit Rate 848 kbit/s (fc/16)\n\n"]
-pub const FuriHalNfcBitrate_FuriHalNfcBitrate848: FuriHalNfcBitrate = 3;
-#[doc = "Bit Rate 1695 kbit/s (fc/8)\n\n"]
-pub const FuriHalNfcBitrate_FuriHalNfcBitrate1695: FuriHalNfcBitrate = 4;
-#[doc = "Bit Rate 3390 kbit/s (fc/4)\n\n"]
-pub const FuriHalNfcBitrate_FuriHalNfcBitrate3390: FuriHalNfcBitrate = 5;
-#[doc = "Bit Rate 6780 kbit/s (fc/2)\n\n"]
-pub const FuriHalNfcBitrate_FuriHalNfcBitrate6780: FuriHalNfcBitrate = 6;
-#[doc = "Bit Rate 13560 kbit/s (fc)\n\n"]
-pub const FuriHalNfcBitrate_FuriHalNfcBitrate13560: FuriHalNfcBitrate = 7;
-#[doc = "Bit Rate 52.97 kbit/s (fc/256) Fast Mode VICC->VCD\n\n"]
-pub const FuriHalNfcBitrate_FuriHalNfcBitrate52p97: FuriHalNfcBitrate = 235;
-pub const FuriHalNfcBitrate_FuriHalNfcBitrate26p48: FuriHalNfcBitrate = 236;
-#[doc = "Bit Rate 1,66 kbit/s (fc/8192) NFCV VCD->VICC 1of256\n\n"]
-pub const FuriHalNfcBitrate_FuriHalNfcBitrate1p66: FuriHalNfcBitrate = 237;
-#[doc = "Value indicating to keep the same previous bit rate\n\n"]
-pub const FuriHalNfcBitrate_FuriHalNfcBitrateKeep: FuriHalNfcBitrate = 255;
-pub type FuriHalNfcBitrate = core::ffi::c_uchar;
-extern "C" {
-    pub fn furi_hal_nfc_ll_set_mode(
-        mode: FuriHalNfcMode,
-        txBR: FuriHalNfcBitrate,
-        rxBR: FuriHalNfcBitrate,
-    ) -> FuriHalNfcReturn;
-}
-extern "C" {
-    pub fn furi_hal_nfc_ll_set_guard_time(cycles: u32);
-}
-#[doc = "No special error handling will be performed\n\n"]
-pub const FuriHalNfcErrorHandling_FuriHalNfcErrorHandlingNone: FuriHalNfcErrorHandling = 0;
-#[doc = "Error handling set to perform as NFC compliant device\n\n"]
-pub const FuriHalNfcErrorHandling_FuriHalNfcErrorHandlingNfc: FuriHalNfcErrorHandling = 1;
-pub const FuriHalNfcErrorHandling_FuriHalNfcErrorHandlingEmvco: FuriHalNfcErrorHandling = 2;
-pub type FuriHalNfcErrorHandling = core::ffi::c_uchar;
-extern "C" {
-    pub fn furi_hal_nfc_ll_set_error_handling(eHandling: FuriHalNfcErrorHandling);
-}
-extern "C" {
-    pub fn furi_hal_nfc_ll_set_fdt_listen(cycles: u32);
-}
-extern "C" {
-    pub fn furi_hal_nfc_ll_set_fdt_poll(FDTPoll: u32);
-}
-extern "C" {
-    pub fn furi_hal_nfc_ll_txrx_on();
-}
-extern "C" {
-    pub fn furi_hal_nfc_ll_txrx_off();
-}
-extern "C" {
-    pub fn furi_hal_nfc_ll_txrx(
-        txBuf: *mut u8,
-        txBufLen: u16,
-        rxBuf: *mut u8,
-        rxBufLen: u16,
-        actLen: *mut u16,
-        flags: u32,
-        fwt: u32,
-    ) -> FuriHalNfcReturn;
-}
-extern "C" {
-    pub fn furi_hal_nfc_ll_txrx_bits(
-        txBuf: *mut u8,
-        txBufLen: u16,
-        rxBuf: *mut u8,
-        rxBufLen: u16,
-        actLen: *mut u16,
-        flags: u32,
-        fwt: u32,
-    ) -> FuriHalNfcReturn;
-}
-extern "C" {
-    pub fn furi_hal_nfc_ll_poll();
-}
-extern "C" {
-    pub fn furi_hal_nfc_field_detect_start();
-}
-extern "C" {
-    pub fn furi_hal_nfc_field_is_present() -> bool;
-}
-extern "C" {
-    #[doc = "Transfer execution to address\n\n# Arguments\n\n* `address` - [Direction: In] pointer to new executable\n\n"]
-    pub fn furi_hal_switch(address: *mut core::ffi::c_void);
 }
 #[doc = "Metric measurement units\n\n"]
 pub const LocaleMeasurementUnits_LocaleMeasurementUnitsMetric: LocaleMeasurementUnits = 0;
@@ -13953,6 +15329,7 @@ pub type PowerBootMode = core::ffi::c_uchar;
 pub struct PowerInfo {
     pub gauge_is_ok: bool,
     pub is_charging: bool,
+    pub is_shutdown_requested: bool,
     pub current_charger: f32,
     pub current_gauge: f32,
     pub voltage_battery_charge_limit: f32,
@@ -13998,6 +15375,16 @@ fn bindgen_test_layout_PowerInfo() {
             stringify!(PowerInfo),
             "::",
             stringify!(is_charging)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).is_shutdown_requested) as usize - ptr as usize },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(PowerInfo),
+            "::",
+            stringify!(is_shutdown_requested)
         )
     );
     assert_eq!(
@@ -14297,547 +15684,6 @@ extern "C" {
         rpc_app: *mut RpcAppSystem,
         data: *const u8,
         data_size: usize,
-    );
-}
-#[doc = "Read access\n\n"]
-pub const FS_AccessMode_FSAM_READ: FS_AccessMode = 1;
-#[doc = "Write access\n\n"]
-pub const FS_AccessMode_FSAM_WRITE: FS_AccessMode = 2;
-#[doc = "Read and write access\n\n"]
-pub const FS_AccessMode_FSAM_READ_WRITE: FS_AccessMode = 3;
-#[doc = "Access mode flags\n\n"]
-pub type FS_AccessMode = core::ffi::c_uchar;
-#[doc = "Open file, fail if file doesn't exist\n\n"]
-pub const FS_OpenMode_FSOM_OPEN_EXISTING: FS_OpenMode = 1;
-#[doc = "Open file. Create new file if not exist\n\n"]
-pub const FS_OpenMode_FSOM_OPEN_ALWAYS: FS_OpenMode = 2;
-#[doc = "Open file. Create new file if not exist. Set R/W pointer to EOF\n\n"]
-pub const FS_OpenMode_FSOM_OPEN_APPEND: FS_OpenMode = 4;
-#[doc = "Creates a new file. Fails if the file is exist\n\n"]
-pub const FS_OpenMode_FSOM_CREATE_NEW: FS_OpenMode = 8;
-#[doc = "Creates a new file. If file exist, truncate to zero size\n\n"]
-pub const FS_OpenMode_FSOM_CREATE_ALWAYS: FS_OpenMode = 16;
-#[doc = "Open mode flags\n\n"]
-pub type FS_OpenMode = core::ffi::c_uchar;
-#[doc = "No error\n\n"]
-pub const FS_Error_FSE_OK: FS_Error = 0;
-#[doc = "FS not ready\n\n"]
-pub const FS_Error_FSE_NOT_READY: FS_Error = 1;
-#[doc = "File/Dir already exist\n\n"]
-pub const FS_Error_FSE_EXIST: FS_Error = 2;
-#[doc = "File/Dir does not exist\n\n"]
-pub const FS_Error_FSE_NOT_EXIST: FS_Error = 3;
-#[doc = "Invalid API parameter\n\n"]
-pub const FS_Error_FSE_INVALID_PARAMETER: FS_Error = 4;
-#[doc = "Access denied\n\n"]
-pub const FS_Error_FSE_DENIED: FS_Error = 5;
-#[doc = "Invalid name/path\n\n"]
-pub const FS_Error_FSE_INVALID_NAME: FS_Error = 6;
-#[doc = "Internal error\n\n"]
-pub const FS_Error_FSE_INTERNAL: FS_Error = 7;
-#[doc = "Function not implemented\n\n"]
-pub const FS_Error_FSE_NOT_IMPLEMENTED: FS_Error = 8;
-#[doc = "File/Dir already opened\n\n"]
-pub const FS_Error_FSE_ALREADY_OPEN: FS_Error = 9;
-#[doc = "API errors enumeration\n\n"]
-pub type FS_Error = core::ffi::c_uchar;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct File {
-    _unused: [u8; 0],
-}
-#[doc = "Structure that hold file info\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FileInfo {
-    #[doc = "flags from FS_Flags enum\n\n"]
-    pub flags: u8,
-    #[doc = "file size\n\n"]
-    pub size: u64,
-}
-#[test]
-fn bindgen_test_layout_FileInfo() {
-    const UNINIT: ::core::mem::MaybeUninit<FileInfo> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FileInfo>(),
-        16usize,
-        concat!("Size of: ", stringify!(FileInfo))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FileInfo>(),
-        8usize,
-        concat!("Alignment of ", stringify!(FileInfo))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FileInfo),
-            "::",
-            stringify!(flags)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FileInfo),
-            "::",
-            stringify!(size)
-        )
-    );
-}
-extern "C" {
-    #[doc = "Gets the error text from FS_Error\n\nReturns:\n\n* const char* error text\n\n# Arguments\n\n* `error_id` - error id\n\n"]
-    pub fn filesystem_api_error_get_desc(error_id: FS_Error) -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Checks if file info is directory\n\nReturns:\n\n* bool is directory\n\n# Arguments\n\n* `file_info` - file info pointer\n\n"]
-    pub fn file_info_is_dir(file_info: *const FileInfo) -> bool;
-}
-pub const SDFsType_FST_UNKNOWN: SDFsType = 0;
-pub const SDFsType_FST_FAT12: SDFsType = 1;
-pub const SDFsType_FST_FAT16: SDFsType = 2;
-pub const SDFsType_FST_FAT32: SDFsType = 3;
-pub const SDFsType_FST_EXFAT: SDFsType = 4;
-pub type SDFsType = core::ffi::c_uchar;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct SDInfo {
-    pub fs_type: SDFsType,
-    pub kb_total: u32,
-    pub kb_free: u32,
-    pub cluster_size: u16,
-    pub sector_size: u16,
-    pub label: [core::ffi::c_char; 34usize],
-    pub manufacturer_id: u8,
-    pub oem_id: [core::ffi::c_char; 3usize],
-    pub product_name: [core::ffi::c_char; 6usize],
-    pub product_revision_major: u8,
-    pub product_revision_minor: u8,
-    pub product_serial_number: u32,
-    pub manufacturing_month: u8,
-    pub manufacturing_year: u16,
-    pub error: FS_Error,
-}
-#[test]
-fn bindgen_test_layout_SDInfo() {
-    const UNINIT: ::core::mem::MaybeUninit<SDInfo> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<SDInfo>(),
-        76usize,
-        concat!("Size of: ", stringify!(SDInfo))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<SDInfo>(),
-        4usize,
-        concat!("Alignment of ", stringify!(SDInfo))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).fs_type) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(fs_type)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).kb_total) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(kb_total)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).kb_free) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(kb_free)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).cluster_size) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(cluster_size)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).sector_size) as usize - ptr as usize },
-        14usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(sector_size)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).label) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(label)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).manufacturer_id) as usize - ptr as usize },
-        50usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(manufacturer_id)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).oem_id) as usize - ptr as usize },
-        51usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(oem_id)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).product_name) as usize - ptr as usize },
-        54usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(product_name)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).product_revision_major) as usize - ptr as usize },
-        60usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(product_revision_major)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).product_revision_minor) as usize - ptr as usize },
-        61usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(product_revision_minor)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).product_serial_number) as usize - ptr as usize },
-        64usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(product_serial_number)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).manufacturing_month) as usize - ptr as usize },
-        68usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(manufacturing_month)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).manufacturing_year) as usize - ptr as usize },
-        70usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(manufacturing_year)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).error) as usize - ptr as usize },
-        72usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SDInfo),
-            "::",
-            stringify!(error)
-        )
-    );
-}
-extern "C" {
-    pub fn sd_api_get_fs_type_text(fs_type: SDFsType) -> *const core::ffi::c_char;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct Storage {
-    _unused: [u8; 0],
-}
-extern "C" {
-    #[doc = "Allocates and initializes a file descriptor\n\nReturns:\n\n* File*\n\n"]
-    pub fn storage_file_alloc(storage: *mut Storage) -> *mut File;
-}
-extern "C" {
-    #[doc = "Frees the file descriptor. Closes the file if it was open.\n\n"]
-    pub fn storage_file_free(file: *mut File);
-}
-extern "C" {
-    #[doc = "Get storage pubsub. Storage will send StorageEvent messages.\n\nReturns:\n\n* FuriPubSub*\n\n# Arguments\n\n* `storage` - \n\n"]
-    pub fn storage_get_pubsub(storage: *mut Storage) -> *mut FuriPubSub;
-}
-extern "C" {
-    #[doc = "Opens an existing file or create a new one.\n\nReturns:\n\n* success flag. You need to close the file even if the open operation failed.\n\n# Arguments\n\n* `file` - pointer to file object.\n* `path` - path to file\n* `access_mode` - access mode from FS_AccessMode\n* `open_mode` - open mode from FS_OpenMode\n\n"]
-    pub fn storage_file_open(
-        file: *mut File,
-        path: *const core::ffi::c_char,
-        access_mode: FS_AccessMode,
-        open_mode: FS_OpenMode,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Close the file.\n\nReturns:\n\n* success flag\n\n# Arguments\n\n* `file` - pointer to a file object, the file object will be freed.\n\n"]
-    pub fn storage_file_close(file: *mut File) -> bool;
-}
-extern "C" {
-    #[doc = "Tells if the file is open\n\nReturns:\n\n* bool true if file is open\n\n# Arguments\n\n* `file` - pointer to a file object\n\n"]
-    pub fn storage_file_is_open(file: *mut File) -> bool;
-}
-extern "C" {
-    #[doc = "Tells if the file is a directory\n\nReturns:\n\n* bool true if file is a directory\n\n# Arguments\n\n* `file` - pointer to a file object\n\n"]
-    pub fn storage_file_is_dir(file: *mut File) -> bool;
-}
-extern "C" {
-    #[doc = "Reads bytes from a file into a buffer\n\nReturns:\n\n* uint16_t how many bytes were actually read\n\n# Arguments\n\n* `file` - pointer to file object.\n* `buff` - pointer to a buffer, for reading\n* `bytes_to_read` - how many bytes to read. Must be less than or equal to the size of the buffer.\n\n"]
-    pub fn storage_file_read(
-        file: *mut File,
-        buff: *mut core::ffi::c_void,
-        bytes_to_read: u16,
-    ) -> u16;
-}
-extern "C" {
-    #[doc = "Writes bytes from a buffer to a file\n\nReturns:\n\n* uint16_t how many bytes were actually written\n\n# Arguments\n\n* `file` - pointer to file object.\n* `buff` - pointer to buffer, for writing\n* `bytes_to_write` - how many bytes to write. Must be less than or equal to the size of the buffer.\n\n"]
-    pub fn storage_file_write(
-        file: *mut File,
-        buff: *const core::ffi::c_void,
-        bytes_to_write: u16,
-    ) -> u16;
-}
-extern "C" {
-    #[doc = "Moves the r/w pointer\n\nReturns:\n\n* success flag\n\n# Arguments\n\n* `file` - pointer to file object.\n* `offset` - offset to move the r/w pointer\n* `from_start` - set an offset from the start or from the current position\n\n"]
-    pub fn storage_file_seek(file: *mut File, offset: u32, from_start: bool) -> bool;
-}
-extern "C" {
-    #[doc = "Gets the position of the r/w pointer\n\nReturns:\n\n* uint64_t position of the r/w pointer\n\n# Arguments\n\n* `file` - pointer to file object.\n\n"]
-    pub fn storage_file_tell(file: *mut File) -> u64;
-}
-extern "C" {
-    #[doc = "Truncates the file size to the current position of the r/w pointer\n\nReturns:\n\n* bool success flag\n\n# Arguments\n\n* `file` - pointer to file object.\n\n"]
-    pub fn storage_file_truncate(file: *mut File) -> bool;
-}
-extern "C" {
-    #[doc = "Gets the size of the file\n\nReturns:\n\n* uint64_t size of the file\n\n# Arguments\n\n* `file` - pointer to file object.\n\n"]
-    pub fn storage_file_size(file: *mut File) -> u64;
-}
-extern "C" {
-    #[doc = "Checks that the r/w pointer is at the end of the file\n\nReturns:\n\n* bool success flag\n\n# Arguments\n\n* `file` - pointer to file object.\n\n"]
-    pub fn storage_file_eof(file: *mut File) -> bool;
-}
-extern "C" {
-    #[doc = "Check that file exists\n\nReturns:\n\n* true if file exists\n\n# Arguments\n\n* `storage` - \n* `path` - \n\n"]
-    pub fn storage_file_exists(storage: *mut Storage, path: *const core::ffi::c_char) -> bool;
-}
-extern "C" {
-    #[doc = "Copy data from one opened file to another opened file Size bytes will be copied from current position of source file to current position of destination file\n\nReturns:\n\n* bool success flag\n\n# Arguments\n\n* `source` - source file\n* `destination` - destination file\n* `size` - size of data to copy\n\n"]
-    pub fn storage_file_copy_to_file(source: *mut File, destination: *mut File, size: u32) -> bool;
-}
-extern "C" {
-    #[doc = "Opens a directory to get objects from it\n\nReturns:\n\n* bool success flag. You need to close the directory even if the open operation failed.\n\n# Arguments\n\n* `app` - pointer to the api\n* `file` - pointer to file object.\n* `path` - path to directory\n\n"]
-    pub fn storage_dir_open(file: *mut File, path: *const core::ffi::c_char) -> bool;
-}
-extern "C" {
-    #[doc = "Close the directory. Also free file handle structure and point it to the NULL.\n\nReturns:\n\n* bool success flag\n\n# Arguments\n\n* `file` - pointer to a file object.\n\n"]
-    pub fn storage_dir_close(file: *mut File) -> bool;
-}
-extern "C" {
-    #[doc = "Reads the next object in the directory\n\nReturns:\n\n* success flag (if the next object does not exist, it also returns false and sets the file error id to FSE_NOT_EXIST)\n\n# Arguments\n\n* `file` - pointer to file object.\n* `fileinfo` - pointer to the read FileInfo, may be NULL\n* `name` - pointer to name buffer, may be NULL\n* `name_length` - name buffer length\n\n"]
-    pub fn storage_dir_read(
-        file: *mut File,
-        fileinfo: *mut FileInfo,
-        name: *mut core::ffi::c_char,
-        name_length: u16,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Check that dir exists\n\nReturns:\n\n* bool\n\n# Arguments\n\n* `storage` - \n* `path` - \n\n"]
-    pub fn storage_dir_exists(storage: *mut Storage, path: *const core::ffi::c_char) -> bool;
-}
-extern "C" {
-    #[doc = "Retrieves unix timestamp of last access\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `storage` - The storage instance\n* `path` - path to file/directory\n* `timestamp` - the timestamp pointer\n\n"]
-    pub fn storage_common_timestamp(
-        storage: *mut Storage,
-        path: *const core::ffi::c_char,
-        timestamp: *mut u32,
-    ) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Retrieves information about a file/directory\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `path` - path to file/directory\n* `fileinfo` - pointer to the read FileInfo, may be NULL\n\n"]
-    pub fn storage_common_stat(
-        storage: *mut Storage,
-        path: *const core::ffi::c_char,
-        fileinfo: *mut FileInfo,
-    ) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Removes a file/directory from the repository, the directory must be empty and the file/directory must not be open\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `path` - \n\n"]
-    pub fn storage_common_remove(storage: *mut Storage, path: *const core::ffi::c_char)
-        -> FS_Error;
-}
-extern "C" {
-    #[doc = "Renames file/directory, file/directory must not be open. Will overwrite existing file.\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `old_path` - old path\n* `new_path` - new path\n\n"]
-    pub fn storage_common_rename(
-        storage: *mut Storage,
-        old_path: *const core::ffi::c_char,
-        new_path: *const core::ffi::c_char,
-    ) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Copy file, file must not be open\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `old_path` - old path\n* `new_path` - new path\n\n"]
-    pub fn storage_common_copy(
-        storage: *mut Storage,
-        old_path: *const core::ffi::c_char,
-        new_path: *const core::ffi::c_char,
-    ) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Copy one folder contents into another with rename of all conflicting files\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `old_path` - old path\n* `new_path` - new path\n\n"]
-    pub fn storage_common_merge(
-        storage: *mut Storage,
-        old_path: *const core::ffi::c_char,
-        new_path: *const core::ffi::c_char,
-    ) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Creates a directory\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `path` - directory path\n\n"]
-    pub fn storage_common_mkdir(storage: *mut Storage, path: *const core::ffi::c_char) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Gets general information about the storage\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `app` - pointer to the api\n* `fs_path` - the path to the storage of interest\n* `total_space` - pointer to total space record, will be filled\n* `free_space` - pointer to free space record, will be filled\n\n"]
-    pub fn storage_common_fs_info(
-        storage: *mut Storage,
-        fs_path: *const core::ffi::c_char,
-        total_space: *mut u64,
-        free_space: *mut u64,
-    ) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Parse aliases in path and replace them with real path Also will create special folders if they are not exist\n\nReturns:\n\n* bool\n\n# Arguments\n\n* `storage` - \n* `path` - \n\n"]
-    pub fn storage_common_resolve_path_and_ensure_app_directory(
-        storage: *mut Storage,
-        path: *mut FuriString,
-    );
-}
-extern "C" {
-    #[doc = "Move content of one folder to another, with rename of all conflicting files. Source folder will be deleted if the migration is successful.\n\nReturns:\n\n* FS_Error\n\n# Arguments\n\n* `storage` - \n* `source` - \n* `dest` - \n\n"]
-    pub fn storage_common_migrate(
-        storage: *mut Storage,
-        source: *const core::ffi::c_char,
-        dest: *const core::ffi::c_char,
-    ) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Check that file or dir exists\n\nReturns:\n\n* bool\n\n# Arguments\n\n* `storage` - \n* `path` - \n\n"]
-    pub fn storage_common_exists(storage: *mut Storage, path: *const core::ffi::c_char) -> bool;
-}
-extern "C" {
-    #[doc = "Retrieves the error text from the error id\n\nReturns:\n\n* const char* error text\n\n# Arguments\n\n* `error_id` - error id\n\n"]
-    pub fn storage_error_get_desc(error_id: FS_Error) -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Retrieves the error id from the file object\n\nReturns:\n\n* FS_Error error id\n\n# Arguments\n\n* `file` - pointer to file object. Pointer must not point to NULL. YOU CANNOT RETRIEVE THE ERROR ID IF THE FILE HAS BEEN CLOSED\n\n"]
-    pub fn storage_file_get_error(file: *mut File) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Retrieves the error text from the file object\n\nReturns:\n\n* const char* error text\n\n# Arguments\n\n* `file` - pointer to file object. Pointer must not point to NULL. YOU CANNOT RETRIEVE THE ERROR TEXT IF THE FILE HAS BEEN CLOSED\n\n"]
-    pub fn storage_file_get_error_desc(file: *mut File) -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Formats SD Card\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `api` - pointer to the api\n\n"]
-    pub fn storage_sd_format(api: *mut Storage) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Will unmount the SD card\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `api` - pointer to the api\n\n"]
-    pub fn storage_sd_unmount(api: *mut Storage) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Retrieves SD card information\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `api` - pointer to the api\n* `info` - pointer to the info\n\n"]
-    pub fn storage_sd_info(api: *mut Storage, info: *mut SDInfo) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Retrieves SD card status\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `api` - pointer to the api\n\n"]
-    pub fn storage_sd_status(api: *mut Storage) -> FS_Error;
-}
-#[doc = "Internal LFS Functions\n\n"]
-pub type Storage_name_converter =
-    ::core::option::Option<unsafe extern "C" fn(arg1: *mut FuriString)>;
-extern "C" {
-    #[doc = "Backs up internal storage to a tar archive\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `api` - pointer to the api\n* `dstmane` - destination archive path\n\n"]
-    pub fn storage_int_backup(api: *mut Storage, dstname: *const core::ffi::c_char) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Restores internal storage from a tar archive\n\nReturns:\n\n* FS_Error operation result\n\n# Arguments\n\n* `api` - pointer to the api\n* `dstmane` - archive path\n* `converter` - pointer to filename conversion function, may be NULL\n\n"]
-    pub fn storage_int_restore(
-        api: *mut Storage,
-        dstname: *const core::ffi::c_char,
-        converter: Storage_name_converter,
-    ) -> FS_Error;
-}
-extern "C" {
-    #[doc = "Removes a file/directory, the directory must be empty and the file/directory must not be open\n\nReturns:\n\n* true on success or if file/dir is not exist\n\n# Arguments\n\n* `storage` - pointer to the api\n* `path` - \n\n"]
-    pub fn storage_simply_remove(storage: *mut Storage, path: *const core::ffi::c_char) -> bool;
-}
-extern "C" {
-    #[doc = "Recursively removes a file/directory, the directory can be not empty\n\nReturns:\n\n* true on success or if file/dir is not exist\n\n# Arguments\n\n* `storage` - pointer to the api\n* `path` - \n\n"]
-    pub fn storage_simply_remove_recursive(
-        storage: *mut Storage,
-        path: *const core::ffi::c_char,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Creates a directory\n\nReturns:\n\n* true on success or if directory is already exist\n\n# Arguments\n\n* `storage` - \n* `path` - \n\n"]
-    pub fn storage_simply_mkdir(storage: *mut Storage, path: *const core::ffi::c_char) -> bool;
-}
-extern "C" {
-    #[doc = "Get next free filename.\n\n# Arguments\n\n* `storage` - \n* `dirname` - \n* `filename` - \n* `fileextension` - \n* `nextfilename` - return name\n* `max_len` - max len name\n\n"]
-    pub fn storage_get_next_filename(
-        storage: *mut Storage,
-        dirname: *const core::ffi::c_char,
-        filename: *const core::ffi::c_char,
-        fileextension: *const core::ffi::c_char,
-        nextfilename: *mut FuriString,
-        max_len: u8,
     );
 }
 #[doc = "LPTIM Init structure definition\n\n"]
@@ -15361,419 +16207,6 @@ extern "C" {
 }
 extern "C" {
     pub fn elf_symbolname_hash(s: *const core::ffi::c_char) -> u32;
-}
-#[repr(C, packed)]
-#[derive(Copy, Clone)]
-pub struct FlipperApplicationManifestBase {
-    pub manifest_magic: u32,
-    pub manifest_version: u32,
-    pub api_version: FlipperApplicationManifestBase__bindgen_ty_1,
-    pub hardware_target_id: u16,
-}
-#[repr(C, packed)]
-#[derive(Copy, Clone)]
-pub union FlipperApplicationManifestBase__bindgen_ty_1 {
-    pub __bindgen_anon_1: FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1,
-    pub version: u32,
-}
-#[repr(C, packed)]
-#[derive(Debug, Copy, Clone)]
-pub struct FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1 {
-    pub minor: u16,
-    pub major: u16,
-}
-#[test]
-fn bindgen_test_layout_FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::core::mem::MaybeUninit<
-        FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1,
-    > = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1>(),
-        4usize,
-        concat!(
-            "Size of: ",
-            stringify!(FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1)
-        )
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1>(),
-        1usize,
-        concat!(
-            "Alignment of ",
-            stringify!(FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).minor) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1),
-            "::",
-            stringify!(minor)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).major) as usize - ptr as usize },
-        2usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestBase__bindgen_ty_1__bindgen_ty_1),
-            "::",
-            stringify!(major)
-        )
-    );
-}
-#[test]
-fn bindgen_test_layout_FlipperApplicationManifestBase__bindgen_ty_1() {
-    const UNINIT: ::core::mem::MaybeUninit<FlipperApplicationManifestBase__bindgen_ty_1> =
-        ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FlipperApplicationManifestBase__bindgen_ty_1>(),
-        4usize,
-        concat!(
-            "Size of: ",
-            stringify!(FlipperApplicationManifestBase__bindgen_ty_1)
-        )
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FlipperApplicationManifestBase__bindgen_ty_1>(),
-        1usize,
-        concat!(
-            "Alignment of ",
-            stringify!(FlipperApplicationManifestBase__bindgen_ty_1)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).version) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestBase__bindgen_ty_1),
-            "::",
-            stringify!(version)
-        )
-    );
-}
-#[test]
-fn bindgen_test_layout_FlipperApplicationManifestBase() {
-    const UNINIT: ::core::mem::MaybeUninit<FlipperApplicationManifestBase> =
-        ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FlipperApplicationManifestBase>(),
-        14usize,
-        concat!("Size of: ", stringify!(FlipperApplicationManifestBase))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FlipperApplicationManifestBase>(),
-        1usize,
-        concat!("Alignment of ", stringify!(FlipperApplicationManifestBase))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).manifest_magic) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestBase),
-            "::",
-            stringify!(manifest_magic)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).manifest_version) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestBase),
-            "::",
-            stringify!(manifest_version)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).api_version) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestBase),
-            "::",
-            stringify!(api_version)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).hardware_target_id) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestBase),
-            "::",
-            stringify!(hardware_target_id)
-        )
-    );
-}
-#[repr(C, packed)]
-#[derive(Copy, Clone)]
-pub struct FlipperApplicationManifestV1 {
-    pub base: FlipperApplicationManifestBase,
-    pub stack_size: u16,
-    pub app_version: u32,
-    pub name: [core::ffi::c_char; 32usize],
-    pub has_icon: core::ffi::c_char,
-    pub icon: [core::ffi::c_char; 32usize],
-}
-#[test]
-fn bindgen_test_layout_FlipperApplicationManifestV1() {
-    const UNINIT: ::core::mem::MaybeUninit<FlipperApplicationManifestV1> =
-        ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FlipperApplicationManifestV1>(),
-        85usize,
-        concat!("Size of: ", stringify!(FlipperApplicationManifestV1))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FlipperApplicationManifestV1>(),
-        1usize,
-        concat!("Alignment of ", stringify!(FlipperApplicationManifestV1))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).base) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestV1),
-            "::",
-            stringify!(base)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).stack_size) as usize - ptr as usize },
-        14usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestV1),
-            "::",
-            stringify!(stack_size)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).app_version) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestV1),
-            "::",
-            stringify!(app_version)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestV1),
-            "::",
-            stringify!(name)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).has_icon) as usize - ptr as usize },
-        52usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestV1),
-            "::",
-            stringify!(has_icon)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).icon) as usize - ptr as usize },
-        53usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperApplicationManifestV1),
-            "::",
-            stringify!(icon)
-        )
-    );
-}
-pub type FlipperApplicationManifest = FlipperApplicationManifestV1;
-extern "C" {
-    #[doc = "Check if manifest is valid\n\nReturns:\n\n* bool\n\n# Arguments\n\n* `manifest` - \n\n"]
-    pub fn flipper_application_manifest_is_valid(
-        manifest: *const FlipperApplicationManifest,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Check if manifest is compatible with current ELF API interface\n\nReturns:\n\n* bool\n\n# Arguments\n\n* `manifest` - \n* `api_interface` - \n\n"]
-    pub fn flipper_application_manifest_is_compatible(
-        manifest: *const FlipperApplicationManifest,
-        api_interface: *const ElfApiInterface,
-    ) -> bool;
-}
-extern "C" {
-    #[doc = "Check if application is compatible with current hardware\n\nReturns:\n\n* bool\n\n# Arguments\n\n* `manifest` - \n\n"]
-    pub fn flipper_application_manifest_is_target_compatible(
-        manifest: *const FlipperApplicationManifest,
-    ) -> bool;
-}
-pub const FlipperApplicationPreloadStatus_FlipperApplicationPreloadStatusSuccess:
-    FlipperApplicationPreloadStatus = 0;
-pub const FlipperApplicationPreloadStatus_FlipperApplicationPreloadStatusUnspecifiedError:
-    FlipperApplicationPreloadStatus = 1;
-pub const FlipperApplicationPreloadStatus_FlipperApplicationPreloadStatusInvalidFile:
-    FlipperApplicationPreloadStatus = 2;
-pub const FlipperApplicationPreloadStatus_FlipperApplicationPreloadStatusInvalidManifest:
-    FlipperApplicationPreloadStatus = 3;
-pub const FlipperApplicationPreloadStatus_FlipperApplicationPreloadStatusApiMismatch:
-    FlipperApplicationPreloadStatus = 4;
-pub const FlipperApplicationPreloadStatus_FlipperApplicationPreloadStatusTargetMismatch:
-    FlipperApplicationPreloadStatus = 5;
-pub type FlipperApplicationPreloadStatus = core::ffi::c_uchar;
-pub const FlipperApplicationLoadStatus_FlipperApplicationLoadStatusSuccess:
-    FlipperApplicationLoadStatus = 0;
-pub const FlipperApplicationLoadStatus_FlipperApplicationLoadStatusUnspecifiedError:
-    FlipperApplicationLoadStatus = 1;
-pub const FlipperApplicationLoadStatus_FlipperApplicationLoadStatusNoFreeMemory:
-    FlipperApplicationLoadStatus = 2;
-pub const FlipperApplicationLoadStatus_FlipperApplicationLoadStatusMissingImports:
-    FlipperApplicationLoadStatus = 3;
-pub type FlipperApplicationLoadStatus = core::ffi::c_uchar;
-extern "C" {
-    #[doc = "Get text description of preload status\n\nReturns:\n\n* String pointer to description\n\n# Arguments\n\n* `status` - Status code\n\n"]
-    pub fn flipper_application_preload_status_to_string(
-        status: FlipperApplicationPreloadStatus,
-    ) -> *const core::ffi::c_char;
-}
-extern "C" {
-    #[doc = "Get text description of load status\n\nReturns:\n\n* String pointer to description\n\n# Arguments\n\n* `status` - Status code\n\n"]
-    pub fn flipper_application_load_status_to_string(
-        status: FlipperApplicationLoadStatus,
-    ) -> *const core::ffi::c_char;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FlipperApplication {
-    _unused: [u8; 0],
-}
-extern "C" {
-    #[doc = "Initialize FlipperApplication object\n\nReturns:\n\n* Application instance\n\n# Arguments\n\n* `storage` - Storage instance\n* `api_interface` - ELF API interface to use for pre-loading and symbol resolving\n\n"]
-    pub fn flipper_application_alloc(
-        storage: *mut Storage,
-        api_interface: *const ElfApiInterface,
-    ) -> *mut FlipperApplication;
-}
-extern "C" {
-    #[doc = "Destroy FlipperApplication object\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
-    pub fn flipper_application_free(app: *mut FlipperApplication);
-}
-extern "C" {
-    #[doc = "Validate elf file and load application metadata\n\nReturns:\n\n* Preload result code\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
-    pub fn flipper_application_preload(
-        app: *mut FlipperApplication,
-        path: *const core::ffi::c_char,
-    ) -> FlipperApplicationPreloadStatus;
-}
-extern "C" {
-    #[doc = "Validate elf file and load application manifest\n\nReturns:\n\n* Preload result code\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
-    pub fn flipper_application_preload_manifest(
-        app: *mut FlipperApplication,
-        path: *const core::ffi::c_char,
-    ) -> FlipperApplicationPreloadStatus;
-}
-extern "C" {
-    #[doc = "Get pointer to application manifest for preloaded application\n\nReturns:\n\n* Pointer to application manifest\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
-    pub fn flipper_application_get_manifest(
-        app: *mut FlipperApplication,
-    ) -> *const FlipperApplicationManifest;
-}
-extern "C" {
-    #[doc = "Load sections and process relocations for already pre-loaded application\n\nReturns:\n\n* Load result code\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
-    pub fn flipper_application_map_to_memory(
-        app: *mut FlipperApplication,
-    ) -> FlipperApplicationLoadStatus;
-}
-extern "C" {
-    #[doc = "Allocate application thread at entry point address, using app name and stack size from metadata. Returned thread isn't started yet. Can be only called once for application instance.\n\nReturns:\n\n* Created thread\n\n# Arguments\n\n* `app` - Applicaiton pointer\n* `args` - Args to pass to app's entry point\n\n"]
-    pub fn flipper_application_alloc_thread(
-        app: *mut FlipperApplication,
-        args: *const core::ffi::c_char,
-    ) -> *mut FuriThread;
-}
-extern "C" {
-    #[doc = "Check if application is a plugin (not a runnable standalone app)\n\nReturns:\n\n* true if application is a plugin, false otherwise\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
-    pub fn flipper_application_is_plugin(app: *mut FlipperApplication) -> bool;
-}
-#[doc = "An object that describes a plugin - must be returned by plugin's entry point\n\n"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct FlipperAppPluginDescriptor {
-    pub appid: *const core::ffi::c_char,
-    pub ep_api_version: u32,
-    pub entry_point: *const core::ffi::c_void,
-}
-#[test]
-fn bindgen_test_layout_FlipperAppPluginDescriptor() {
-    const UNINIT: ::core::mem::MaybeUninit<FlipperAppPluginDescriptor> =
-        ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<FlipperAppPluginDescriptor>(),
-        12usize,
-        concat!("Size of: ", stringify!(FlipperAppPluginDescriptor))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<FlipperAppPluginDescriptor>(),
-        4usize,
-        concat!("Alignment of ", stringify!(FlipperAppPluginDescriptor))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).appid) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperAppPluginDescriptor),
-            "::",
-            stringify!(appid)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).ep_api_version) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperAppPluginDescriptor),
-            "::",
-            stringify!(ep_api_version)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).entry_point) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(FlipperAppPluginDescriptor),
-            "::",
-            stringify!(entry_point)
-        )
-    );
-}
-extern "C" {
-    #[doc = "Get plugin descriptor for preloaded plugin\n\nReturns:\n\n* Pointer to plugin descriptor\n\n# Arguments\n\n* `app` - Application pointer\n\n"]
-    pub fn flipper_application_plugin_get_descriptor(
-        app: *mut FlipperApplication,
-    ) -> *const FlipperAppPluginDescriptor;
-}
-extern "C" {
-    #[doc = "Load name and icon from FAP file.\n\nReturns:\n\n* true if icon and name were loaded successfully.\n\n# Arguments\n\n* `path` - Path to FAP file.\n* `storage` - Storage instance.\n* `icon_ptr` - Icon pointer.\n* `item_name` - Application name.\n\n"]
-    pub fn flipper_application_load_name_and_icon(
-        path: *mut FuriString,
-        storage: *mut Storage,
-        icon_ptr: *mut *mut u8,
-        item_name: *mut FuriString,
-    ) -> bool;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -16882,7 +17315,8 @@ pub const InfraredProtocol_InfraredProtocolSIRC: InfraredProtocol = 8;
 pub const InfraredProtocol_InfraredProtocolSIRC15: InfraredProtocol = 9;
 pub const InfraredProtocol_InfraredProtocolSIRC20: InfraredProtocol = 10;
 pub const InfraredProtocol_InfraredProtocolKaseikyo: InfraredProtocol = 11;
-pub const InfraredProtocol_InfraredProtocolMAX: InfraredProtocol = 12;
+pub const InfraredProtocol_InfraredProtocolRCA: InfraredProtocol = 12;
+pub const InfraredProtocol_InfraredProtocolMAX: InfraredProtocol = 13;
 pub type InfraredProtocol = core::ffi::c_schar;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -18070,6 +18504,208 @@ extern "C" {
         curve: uECC_Curve,
     ) -> core::ffi::c_int;
 }
+pub const MfClassicType_MfClassicType1k: MfClassicType = 0;
+pub const MfClassicType_MfClassicType4k: MfClassicType = 1;
+pub const MfClassicType_MfClassicTypeMini: MfClassicType = 2;
+pub type MfClassicType = core::ffi::c_uchar;
+pub const MfClassicKey_MfClassicKeyA: MfClassicKey = 0;
+pub const MfClassicKey_MfClassicKeyB: MfClassicKey = 1;
+pub type MfClassicKey = core::ffi::c_uchar;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct MfClassicBlock {
+    pub value: [u8; 16usize],
+}
+#[test]
+fn bindgen_test_layout_MfClassicBlock() {
+    const UNINIT: ::core::mem::MaybeUninit<MfClassicBlock> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<MfClassicBlock>(),
+        16usize,
+        concat!("Size of: ", stringify!(MfClassicBlock))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<MfClassicBlock>(),
+        1usize,
+        concat!("Alignment of ", stringify!(MfClassicBlock))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).value) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfClassicBlock),
+            "::",
+            stringify!(value)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct MfClassicSectorTrailer {
+    pub key_a: [u8; 6usize],
+    pub access_bits: [u8; 4usize],
+    pub key_b: [u8; 6usize],
+}
+#[test]
+fn bindgen_test_layout_MfClassicSectorTrailer() {
+    const UNINIT: ::core::mem::MaybeUninit<MfClassicSectorTrailer> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<MfClassicSectorTrailer>(),
+        16usize,
+        concat!("Size of: ", stringify!(MfClassicSectorTrailer))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<MfClassicSectorTrailer>(),
+        1usize,
+        concat!("Alignment of ", stringify!(MfClassicSectorTrailer))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).key_a) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfClassicSectorTrailer),
+            "::",
+            stringify!(key_a)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).access_bits) as usize - ptr as usize },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfClassicSectorTrailer),
+            "::",
+            stringify!(access_bits)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).key_b) as usize - ptr as usize },
+        10usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfClassicSectorTrailer),
+            "::",
+            stringify!(key_b)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct MfClassicData {
+    pub type_: MfClassicType,
+    pub block_read_mask: [u32; 8usize],
+    pub key_a_mask: u64,
+    pub key_b_mask: u64,
+    pub block: [MfClassicBlock; 256usize],
+}
+#[test]
+fn bindgen_test_layout_MfClassicData() {
+    const UNINIT: ::core::mem::MaybeUninit<MfClassicData> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<MfClassicData>(),
+        4152usize,
+        concat!("Size of: ", stringify!(MfClassicData))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<MfClassicData>(),
+        8usize,
+        concat!("Alignment of ", stringify!(MfClassicData))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfClassicData),
+            "::",
+            stringify!(type_)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).block_read_mask) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfClassicData),
+            "::",
+            stringify!(block_read_mask)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).key_a_mask) as usize - ptr as usize },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfClassicData),
+            "::",
+            stringify!(key_a_mask)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).key_b_mask) as usize - ptr as usize },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfClassicData),
+            "::",
+            stringify!(key_b_mask)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).block) as usize - ptr as usize },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfClassicData),
+            "::",
+            stringify!(block)
+        )
+    );
+}
+extern "C" {
+    pub fn mf_classic_get_total_sectors_num(type_: MfClassicType) -> u8;
+}
+extern "C" {
+    pub fn mf_classic_is_sector_trailer(block: u8) -> bool;
+}
+extern "C" {
+    pub fn mf_classic_get_sector_by_block(block: u8) -> u8;
+}
+extern "C" {
+    pub fn mf_classic_is_key_found(
+        data: *mut MfClassicData,
+        sector_num: u8,
+        key_type: MfClassicKey,
+    ) -> bool;
+}
+extern "C" {
+    pub fn mf_classic_is_block_read(data: *mut MfClassicData, block_num: u8) -> bool;
+}
+extern "C" {
+    pub fn mf_classic_is_card_read(data: *mut MfClassicData) -> bool;
+}
+extern "C" {
+    pub fn mf_classic_get_read_sectors_and_keys(
+        data: *mut MfClassicData,
+        sectors_read: *mut u8,
+        keys_found: *mut u8,
+    );
+}
+extern "C" {
+    pub fn mf_classic_get_sector_trailer_by_sector(
+        data: *mut MfClassicData,
+        sector: u8,
+    ) -> *mut MfClassicSectorTrailer;
+}
+extern "C" {
+    pub fn mfkey32_get_auth_sectors(string: *mut FuriString) -> u16;
+}
 extern "C" {
     #[doc = "Allocate file stream\n\nReturns:\n\n* Stream*\n\n"]
     pub fn file_stream_alloc(storage: *mut Storage) -> *mut Stream;
@@ -18116,10 +18752,51 @@ extern "C" {
     #[doc = "Retrieves the error id from the file object\n\nReturns:\n\n* FS_Error error id\n\n# Arguments\n\n* `stream` - pointer to stream object.\n\n"]
     pub fn buffered_file_stream_get_error(stream: *mut Stream) -> FS_Error;
 }
+pub const MfClassicDictType_MfClassicDictTypeUser: MfClassicDictType = 0;
+pub const MfClassicDictType_MfClassicDictTypeSystem: MfClassicDictType = 1;
+pub const MfClassicDictType_MfClassicDictTypeUnitTest: MfClassicDictType = 2;
+pub type MfClassicDictType = core::ffi::c_uchar;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct MfClassicDict {
     _unused: [u8; 0],
+}
+extern "C" {
+    pub fn mf_classic_dict_check_presence(dict_type: MfClassicDictType) -> bool;
+}
+extern "C" {
+    #[doc = "Allocate MfClassicDict instance\n\nReturns:\n\n* MfClassicDict instance\n\n# Arguments\n\n* `dict_type` - [Direction: In] The dictionary type\n\n"]
+    pub fn mf_classic_dict_alloc(dict_type: MfClassicDictType) -> *mut MfClassicDict;
+}
+extern "C" {
+    #[doc = "Free MfClassicDict instance\n\n# Arguments\n\n* `dict` - MfClassicDict instance\n\n"]
+    pub fn mf_classic_dict_free(dict: *mut MfClassicDict);
+}
+extern "C" {
+    #[doc = "Get total keys count\n\nReturns:\n\n* total keys count\n\n# Arguments\n\n* `dict` - MfClassicDict instance\n\n"]
+    pub fn mf_classic_dict_get_total_keys(dict: *mut MfClassicDict) -> u32;
+}
+extern "C" {
+    pub fn mf_classic_dict_is_key_present(dict: *mut MfClassicDict, key: *mut u8) -> bool;
+}
+extern "C" {
+    pub fn mf_classic_dict_get_next_key_str(dict: *mut MfClassicDict, key: *mut FuriString)
+        -> bool;
+}
+extern "C" {
+    #[doc = "Get key at target offset as string_t\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `dict` - MfClassicDict instance\n* `key` - [Direction: In, Out] Found key destination buffer\n* `target` - [Direction: In] Target offset from current position\n\n"]
+    pub fn mf_classic_dict_get_key_at_index_str(
+        dict: *mut MfClassicDict,
+        key: *mut FuriString,
+        target: u32,
+    ) -> bool;
+}
+extern "C" {
+    pub fn mf_classic_dict_add_key(dict: *mut MfClassicDict, key: *mut u8) -> bool;
+}
+extern "C" {
+    #[doc = "Delete key at target offset\n\nReturns:\n\n* true on success\n\n# Arguments\n\n* `dict` - MfClassicDict instance\n* `target` - [Direction: In] Target offset from current position\n\n"]
+    pub fn mf_classic_dict_delete_index(dict: *mut MfClassicDict, target: u32) -> bool;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -18258,6 +18935,11 @@ pub const MfUltralightType_MfUltralightTypeNTAGI2CPlus1K: MfUltralightType = 10;
 pub const MfUltralightType_MfUltralightTypeNTAGI2CPlus2K: MfUltralightType = 11;
 pub const MfUltralightType_MfUltralightTypeNum: MfUltralightType = 12;
 pub type MfUltralightType = core::ffi::c_uchar;
+pub const MfUltralightMirrorConf_MfUltralightMirrorNone: MfUltralightMirrorConf = 0;
+pub const MfUltralightMirrorConf_MfUltralightMirrorUid: MfUltralightMirrorConf = 1;
+pub const MfUltralightMirrorConf_MfUltralightMirrorCounter: MfUltralightMirrorConf = 2;
+pub const MfUltralightMirrorConf_MfUltralightMirrorUidCounter: MfUltralightMirrorConf = 3;
+pub type MfUltralightMirrorConf = core::ffi::c_uchar;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct MfUltralightVersion {
@@ -18642,113 +19324,453 @@ fn bindgen_test_layout_MfUltralightAuth() {
         )
     );
 }
-pub const MfClassicType_MfClassicType1k: MfClassicType = 0;
-pub const MfClassicType_MfClassicType4k: MfClassicType = 1;
-pub const MfClassicType_MfClassicTypeMini: MfClassicType = 2;
-pub type MfClassicType = core::ffi::c_uchar;
+#[repr(C, packed)]
+#[derive(Copy, Clone)]
+pub struct MfUltralightConfigPages {
+    pub mirror: MfUltralightConfigPages__bindgen_ty_1,
+    pub rfui1: u8,
+    pub mirror_page: u8,
+    pub auth0: u8,
+    pub access: MfUltralightConfigPages__bindgen_ty_2,
+    pub vctid: u8,
+    pub rfui2: [u8; 2usize],
+    pub auth_data: MfUltralightAuth,
+    pub rfui3: [u8; 2usize],
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
+pub union MfUltralightConfigPages__bindgen_ty_1 {
+    pub value: u8,
+    pub __bindgen_anon_1: MfUltralightConfigPages__bindgen_ty_1__bindgen_ty_1,
+}
+#[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]
-pub struct MfClassicBlock {
-    pub value: [u8; 16usize],
+pub struct MfUltralightConfigPages__bindgen_ty_1__bindgen_ty_1 {
+    pub _bitfield_align_1: [u8; 0],
+    pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize]>,
 }
 #[test]
-fn bindgen_test_layout_MfClassicBlock() {
-    const UNINIT: ::core::mem::MaybeUninit<MfClassicBlock> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
+fn bindgen_test_layout_MfUltralightConfigPages__bindgen_ty_1__bindgen_ty_1() {
     assert_eq!(
-        ::core::mem::size_of::<MfClassicBlock>(),
-        16usize,
-        concat!("Size of: ", stringify!(MfClassicBlock))
+        ::core::mem::size_of::<MfUltralightConfigPages__bindgen_ty_1__bindgen_ty_1>(),
+        1usize,
+        concat!(
+            "Size of: ",
+            stringify!(MfUltralightConfigPages__bindgen_ty_1__bindgen_ty_1)
+        )
     );
     assert_eq!(
-        ::core::mem::align_of::<MfClassicBlock>(),
+        ::core::mem::align_of::<MfUltralightConfigPages__bindgen_ty_1__bindgen_ty_1>(),
         1usize,
-        concat!("Alignment of ", stringify!(MfClassicBlock))
+        concat!(
+            "Alignment of ",
+            stringify!(MfUltralightConfigPages__bindgen_ty_1__bindgen_ty_1)
+        )
+    );
+}
+impl MfUltralightConfigPages__bindgen_ty_1__bindgen_ty_1 {
+    #[inline]
+    pub fn rfui1(&self) -> u8 {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 2u8) as u8) }
+    }
+    #[inline]
+    pub fn set_rfui1(&mut self, val: u8) {
+        unsafe {
+            let val: u8 = ::core::mem::transmute(val);
+            self._bitfield_1.set(0usize, 2u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn strg_mod_en(&self) -> bool {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(2usize, 1u8) as u8) }
+    }
+    #[inline]
+    pub fn set_strg_mod_en(&mut self, val: bool) {
+        unsafe {
+            let val: u8 = ::core::mem::transmute(val);
+            self._bitfield_1.set(2usize, 1u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn rfui2(&self) -> bool {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(3usize, 1u8) as u8) }
+    }
+    #[inline]
+    pub fn set_rfui2(&mut self, val: bool) {
+        unsafe {
+            let val: u8 = ::core::mem::transmute(val);
+            self._bitfield_1.set(3usize, 1u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn mirror_byte(&self) -> u8 {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(4usize, 2u8) as u8) }
+    }
+    #[inline]
+    pub fn set_mirror_byte(&mut self, val: u8) {
+        unsafe {
+            let val: u8 = ::core::mem::transmute(val);
+            self._bitfield_1.set(4usize, 2u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn mirror_conf(&self) -> MfUltralightMirrorConf {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(6usize, 2u8) as u8) }
+    }
+    #[inline]
+    pub fn set_mirror_conf(&mut self, val: MfUltralightMirrorConf) {
+        unsafe {
+            let val: u8 = ::core::mem::transmute(val);
+            self._bitfield_1.set(6usize, 2u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn new_bitfield_1(
+        rfui1: u8,
+        strg_mod_en: bool,
+        rfui2: bool,
+        mirror_byte: u8,
+        mirror_conf: MfUltralightMirrorConf,
+    ) -> __BindgenBitfieldUnit<[u8; 1usize]> {
+        let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> = Default::default();
+        __bindgen_bitfield_unit.set(0usize, 2u8, {
+            let rfui1: u8 = unsafe { ::core::mem::transmute(rfui1) };
+            rfui1 as u64
+        });
+        __bindgen_bitfield_unit.set(2usize, 1u8, {
+            let strg_mod_en: u8 = unsafe { ::core::mem::transmute(strg_mod_en) };
+            strg_mod_en as u64
+        });
+        __bindgen_bitfield_unit.set(3usize, 1u8, {
+            let rfui2: u8 = unsafe { ::core::mem::transmute(rfui2) };
+            rfui2 as u64
+        });
+        __bindgen_bitfield_unit.set(4usize, 2u8, {
+            let mirror_byte: u8 = unsafe { ::core::mem::transmute(mirror_byte) };
+            mirror_byte as u64
+        });
+        __bindgen_bitfield_unit.set(6usize, 2u8, {
+            let mirror_conf: u8 = unsafe { ::core::mem::transmute(mirror_conf) };
+            mirror_conf as u64
+        });
+        __bindgen_bitfield_unit
+    }
+}
+#[test]
+fn bindgen_test_layout_MfUltralightConfigPages__bindgen_ty_1() {
+    const UNINIT: ::core::mem::MaybeUninit<MfUltralightConfigPages__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<MfUltralightConfigPages__bindgen_ty_1>(),
+        1usize,
+        concat!(
+            "Size of: ",
+            stringify!(MfUltralightConfigPages__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::core::mem::align_of::<MfUltralightConfigPages__bindgen_ty_1>(),
+        1usize,
+        concat!(
+            "Alignment of ",
+            stringify!(MfUltralightConfigPages__bindgen_ty_1)
+        )
     );
     assert_eq!(
         unsafe { ::core::ptr::addr_of!((*ptr).value) as usize - ptr as usize },
         0usize,
         concat!(
             "Offset of field: ",
-            stringify!(MfClassicBlock),
+            stringify!(MfUltralightConfigPages__bindgen_ty_1),
             "::",
             stringify!(value)
         )
     );
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
+pub union MfUltralightConfigPages__bindgen_ty_2 {
+    pub value: u8,
+    pub __bindgen_anon_1: MfUltralightConfigPages__bindgen_ty_2__bindgen_ty_1,
+}
+#[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]
-pub struct MfClassicData {
-    pub type_: MfClassicType,
-    pub block_read_mask: [u32; 8usize],
-    pub key_a_mask: u64,
-    pub key_b_mask: u64,
-    pub block: [MfClassicBlock; 256usize],
+pub struct MfUltralightConfigPages__bindgen_ty_2__bindgen_ty_1 {
+    pub _bitfield_align_1: [u8; 0],
+    pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize]>,
 }
 #[test]
-fn bindgen_test_layout_MfClassicData() {
-    const UNINIT: ::core::mem::MaybeUninit<MfClassicData> = ::core::mem::MaybeUninit::uninit();
+fn bindgen_test_layout_MfUltralightConfigPages__bindgen_ty_2__bindgen_ty_1() {
+    assert_eq!(
+        ::core::mem::size_of::<MfUltralightConfigPages__bindgen_ty_2__bindgen_ty_1>(),
+        1usize,
+        concat!(
+            "Size of: ",
+            stringify!(MfUltralightConfigPages__bindgen_ty_2__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::core::mem::align_of::<MfUltralightConfigPages__bindgen_ty_2__bindgen_ty_1>(),
+        1usize,
+        concat!(
+            "Alignment of ",
+            stringify!(MfUltralightConfigPages__bindgen_ty_2__bindgen_ty_1)
+        )
+    );
+}
+impl MfUltralightConfigPages__bindgen_ty_2__bindgen_ty_1 {
+    #[inline]
+    pub fn authlim(&self) -> u8 {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 3u8) as u8) }
+    }
+    #[inline]
+    pub fn set_authlim(&mut self, val: u8) {
+        unsafe {
+            let val: u8 = ::core::mem::transmute(val);
+            self._bitfield_1.set(0usize, 3u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn nfc_cnt_pwd_prot(&self) -> bool {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(3usize, 1u8) as u8) }
+    }
+    #[inline]
+    pub fn set_nfc_cnt_pwd_prot(&mut self, val: bool) {
+        unsafe {
+            let val: u8 = ::core::mem::transmute(val);
+            self._bitfield_1.set(3usize, 1u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn nfc_cnt_en(&self) -> bool {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(4usize, 1u8) as u8) }
+    }
+    #[inline]
+    pub fn set_nfc_cnt_en(&mut self, val: bool) {
+        unsafe {
+            let val: u8 = ::core::mem::transmute(val);
+            self._bitfield_1.set(4usize, 1u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn nfc_dis_sec1(&self) -> bool {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(5usize, 1u8) as u8) }
+    }
+    #[inline]
+    pub fn set_nfc_dis_sec1(&mut self, val: bool) {
+        unsafe {
+            let val: u8 = ::core::mem::transmute(val);
+            self._bitfield_1.set(5usize, 1u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn cfglck(&self) -> bool {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(6usize, 1u8) as u8) }
+    }
+    #[inline]
+    pub fn set_cfglck(&mut self, val: bool) {
+        unsafe {
+            let val: u8 = ::core::mem::transmute(val);
+            self._bitfield_1.set(6usize, 1u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn prot(&self) -> bool {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(7usize, 1u8) as u8) }
+    }
+    #[inline]
+    pub fn set_prot(&mut self, val: bool) {
+        unsafe {
+            let val: u8 = ::core::mem::transmute(val);
+            self._bitfield_1.set(7usize, 1u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn new_bitfield_1(
+        authlim: u8,
+        nfc_cnt_pwd_prot: bool,
+        nfc_cnt_en: bool,
+        nfc_dis_sec1: bool,
+        cfglck: bool,
+        prot: bool,
+    ) -> __BindgenBitfieldUnit<[u8; 1usize]> {
+        let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> = Default::default();
+        __bindgen_bitfield_unit.set(0usize, 3u8, {
+            let authlim: u8 = unsafe { ::core::mem::transmute(authlim) };
+            authlim as u64
+        });
+        __bindgen_bitfield_unit.set(3usize, 1u8, {
+            let nfc_cnt_pwd_prot: u8 = unsafe { ::core::mem::transmute(nfc_cnt_pwd_prot) };
+            nfc_cnt_pwd_prot as u64
+        });
+        __bindgen_bitfield_unit.set(4usize, 1u8, {
+            let nfc_cnt_en: u8 = unsafe { ::core::mem::transmute(nfc_cnt_en) };
+            nfc_cnt_en as u64
+        });
+        __bindgen_bitfield_unit.set(5usize, 1u8, {
+            let nfc_dis_sec1: u8 = unsafe { ::core::mem::transmute(nfc_dis_sec1) };
+            nfc_dis_sec1 as u64
+        });
+        __bindgen_bitfield_unit.set(6usize, 1u8, {
+            let cfglck: u8 = unsafe { ::core::mem::transmute(cfglck) };
+            cfglck as u64
+        });
+        __bindgen_bitfield_unit.set(7usize, 1u8, {
+            let prot: u8 = unsafe { ::core::mem::transmute(prot) };
+            prot as u64
+        });
+        __bindgen_bitfield_unit
+    }
+}
+#[test]
+fn bindgen_test_layout_MfUltralightConfigPages__bindgen_ty_2() {
+    const UNINIT: ::core::mem::MaybeUninit<MfUltralightConfigPages__bindgen_ty_2> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::core::mem::size_of::<MfClassicData>(),
-        4152usize,
-        concat!("Size of: ", stringify!(MfClassicData))
+        ::core::mem::size_of::<MfUltralightConfigPages__bindgen_ty_2>(),
+        1usize,
+        concat!(
+            "Size of: ",
+            stringify!(MfUltralightConfigPages__bindgen_ty_2)
+        )
     );
     assert_eq!(
-        ::core::mem::align_of::<MfClassicData>(),
-        8usize,
-        concat!("Alignment of ", stringify!(MfClassicData))
+        ::core::mem::align_of::<MfUltralightConfigPages__bindgen_ty_2>(),
+        1usize,
+        concat!(
+            "Alignment of ",
+            stringify!(MfUltralightConfigPages__bindgen_ty_2)
+        )
     );
     assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).value) as usize - ptr as usize },
         0usize,
         concat!(
             "Offset of field: ",
-            stringify!(MfClassicData),
+            stringify!(MfUltralightConfigPages__bindgen_ty_2),
             "::",
-            stringify!(type_)
+            stringify!(value)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout_MfUltralightConfigPages() {
+    const UNINIT: ::core::mem::MaybeUninit<MfUltralightConfigPages> =
+        ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<MfUltralightConfigPages>(),
+        16usize,
+        concat!("Size of: ", stringify!(MfUltralightConfigPages))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<MfUltralightConfigPages>(),
+        1usize,
+        concat!("Alignment of ", stringify!(MfUltralightConfigPages))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).mirror) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfUltralightConfigPages),
+            "::",
+            stringify!(mirror)
         )
     );
     assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).block_read_mask) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).rfui1) as usize - ptr as usize },
+        1usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfUltralightConfigPages),
+            "::",
+            stringify!(rfui1)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).mirror_page) as usize - ptr as usize },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfUltralightConfigPages),
+            "::",
+            stringify!(mirror_page)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).auth0) as usize - ptr as usize },
+        3usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfUltralightConfigPages),
+            "::",
+            stringify!(auth0)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).access) as usize - ptr as usize },
         4usize,
         concat!(
             "Offset of field: ",
-            stringify!(MfClassicData),
+            stringify!(MfUltralightConfigPages),
             "::",
-            stringify!(block_read_mask)
+            stringify!(access)
         )
     );
     assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).key_a_mask) as usize - ptr as usize },
-        40usize,
+        unsafe { ::core::ptr::addr_of!((*ptr).vctid) as usize - ptr as usize },
+        5usize,
         concat!(
             "Offset of field: ",
-            stringify!(MfClassicData),
+            stringify!(MfUltralightConfigPages),
             "::",
-            stringify!(key_a_mask)
+            stringify!(vctid)
         )
     );
     assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).key_b_mask) as usize - ptr as usize },
-        48usize,
+        unsafe { ::core::ptr::addr_of!((*ptr).rfui2) as usize - ptr as usize },
+        6usize,
         concat!(
             "Offset of field: ",
-            stringify!(MfClassicData),
+            stringify!(MfUltralightConfigPages),
             "::",
-            stringify!(key_b_mask)
+            stringify!(rfui2)
         )
     );
     assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).block) as usize - ptr as usize },
-        56usize,
+        unsafe { ::core::ptr::addr_of!((*ptr).auth_data) as usize - ptr as usize },
+        8usize,
         concat!(
             "Offset of field: ",
-            stringify!(MfClassicData),
+            stringify!(MfUltralightConfigPages),
             "::",
-            stringify!(block)
+            stringify!(auth_data)
         )
     );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).rfui3) as usize - ptr as usize },
+        14usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(MfUltralightConfigPages),
+            "::",
+            stringify!(rfui3)
+        )
+    );
+}
+extern "C" {
+    pub fn mf_ultralight_get_config_pages(
+        data: *mut MfUltralightData,
+    ) -> *mut MfUltralightConfigPages;
+}
+extern "C" {
+    pub fn mf_ul_emulation_supported(data: *mut MfUltralightData) -> bool;
+}
+extern "C" {
+    pub fn mf_ul_is_full_capture(data: *mut MfUltralightData) -> bool;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -19612,6 +20634,15 @@ fn bindgen_test_layout_MifareDesfireData() {
             stringify!(app_head)
         )
     );
+}
+extern "C" {
+    pub fn mf_df_cat_card_info(data: *mut MifareDesfireData, out: *mut FuriString);
+}
+extern "C" {
+    pub fn mf_df_cat_application_info(app: *mut MifareDesfireApplication, out: *mut FuriString);
+}
+extern "C" {
+    pub fn mf_df_cat_file(file: *mut MifareDesfireFile, out: *mut FuriString);
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -20749,6 +21780,146 @@ extern "C" {
         callback: NfcLoadingCallback,
         context: *mut core::ffi::c_void,
     );
+}
+pub type NfcGeneratorFunc = ::core::option::Option<unsafe extern "C" fn(data: *mut NfcDeviceData)>;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct NfcGenerator {
+    pub name: *const core::ffi::c_char,
+    pub generator_func: NfcGeneratorFunc,
+}
+#[test]
+fn bindgen_test_layout_NfcGenerator() {
+    const UNINIT: ::core::mem::MaybeUninit<NfcGenerator> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<NfcGenerator>(),
+        8usize,
+        concat!("Size of: ", stringify!(NfcGenerator))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<NfcGenerator>(),
+        4usize,
+        concat!("Alignment of ", stringify!(NfcGenerator))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(NfcGenerator),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).generator_func) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(NfcGenerator),
+            "::",
+            stringify!(generator_func)
+        )
+    );
+}
+extern "C" {
+    pub static nfc_generators: [*const NfcGenerator; 0usize];
+}
+extern "C" {
+    pub fn nfc_get_dev_type(type_: FuriHalNfcType) -> *const core::ffi::c_char;
+}
+extern "C" {
+    pub fn nfc_mf_ul_type(type_: MfUltralightType, full_name: bool) -> *const core::ffi::c_char;
+}
+extern "C" {
+    pub fn nfc_mf_classic_type(type_: MfClassicType) -> *const core::ffi::c_char;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct NfcWorker {
+    _unused: [u8; 0],
+}
+pub const NfcWorkerState_NfcWorkerStateNone: NfcWorkerState = 0;
+pub const NfcWorkerState_NfcWorkerStateReady: NfcWorkerState = 1;
+pub const NfcWorkerState_NfcWorkerStateRead: NfcWorkerState = 2;
+pub const NfcWorkerState_NfcWorkerStateUidEmulate: NfcWorkerState = 3;
+pub const NfcWorkerState_NfcWorkerStateMfUltralightEmulate: NfcWorkerState = 4;
+pub const NfcWorkerState_NfcWorkerStateMfClassicEmulate: NfcWorkerState = 5;
+pub const NfcWorkerState_NfcWorkerStateMfClassicWrite: NfcWorkerState = 6;
+pub const NfcWorkerState_NfcWorkerStateMfClassicUpdate: NfcWorkerState = 7;
+pub const NfcWorkerState_NfcWorkerStateReadMfUltralightReadAuth: NfcWorkerState = 8;
+pub const NfcWorkerState_NfcWorkerStateMfClassicDictAttack: NfcWorkerState = 9;
+pub const NfcWorkerState_NfcWorkerStateAnalyzeReader: NfcWorkerState = 10;
+pub const NfcWorkerState_NfcWorkerStateNfcVEmulate: NfcWorkerState = 11;
+pub const NfcWorkerState_NfcWorkerStateNfcVUnlock: NfcWorkerState = 12;
+pub const NfcWorkerState_NfcWorkerStateNfcVUnlockAndSave: NfcWorkerState = 13;
+pub const NfcWorkerState_NfcWorkerStateNfcVSniff: NfcWorkerState = 14;
+pub const NfcWorkerState_NfcWorkerStateEmulateApdu: NfcWorkerState = 15;
+pub const NfcWorkerState_NfcWorkerStateField: NfcWorkerState = 16;
+pub const NfcWorkerState_NfcWorkerStateStop: NfcWorkerState = 17;
+pub type NfcWorkerState = core::ffi::c_uchar;
+pub const NfcWorkerEvent_NfcWorkerEventReserved: NfcWorkerEvent = 50;
+pub const NfcWorkerEvent_NfcWorkerEventReadUidNfcB: NfcWorkerEvent = 51;
+pub const NfcWorkerEvent_NfcWorkerEventReadUidNfcV: NfcWorkerEvent = 52;
+pub const NfcWorkerEvent_NfcWorkerEventReadUidNfcF: NfcWorkerEvent = 53;
+pub const NfcWorkerEvent_NfcWorkerEventReadUidNfcA: NfcWorkerEvent = 54;
+pub const NfcWorkerEvent_NfcWorkerEventReadMfUltralight: NfcWorkerEvent = 55;
+pub const NfcWorkerEvent_NfcWorkerEventReadMfDesfire: NfcWorkerEvent = 56;
+pub const NfcWorkerEvent_NfcWorkerEventReadMfClassicDone: NfcWorkerEvent = 57;
+pub const NfcWorkerEvent_NfcWorkerEventReadMfClassicLoadKeyCache: NfcWorkerEvent = 58;
+pub const NfcWorkerEvent_NfcWorkerEventReadMfClassicDictAttackRequired: NfcWorkerEvent = 59;
+pub const NfcWorkerEvent_NfcWorkerEventReadNfcV: NfcWorkerEvent = 60;
+pub const NfcWorkerEvent_NfcWorkerEventSuccess: NfcWorkerEvent = 61;
+pub const NfcWorkerEvent_NfcWorkerEventFail: NfcWorkerEvent = 62;
+pub const NfcWorkerEvent_NfcWorkerEventAborted: NfcWorkerEvent = 63;
+pub const NfcWorkerEvent_NfcWorkerEventCardDetected: NfcWorkerEvent = 64;
+pub const NfcWorkerEvent_NfcWorkerEventNoCardDetected: NfcWorkerEvent = 65;
+pub const NfcWorkerEvent_NfcWorkerEventWrongCardDetected: NfcWorkerEvent = 66;
+pub const NfcWorkerEvent_NfcWorkerEventNoDictFound: NfcWorkerEvent = 67;
+pub const NfcWorkerEvent_NfcWorkerEventNewSector: NfcWorkerEvent = 68;
+pub const NfcWorkerEvent_NfcWorkerEventNewDictKeyBatch: NfcWorkerEvent = 69;
+pub const NfcWorkerEvent_NfcWorkerEventFoundKeyA: NfcWorkerEvent = 70;
+pub const NfcWorkerEvent_NfcWorkerEventFoundKeyB: NfcWorkerEvent = 71;
+pub const NfcWorkerEvent_NfcWorkerEventKeyAttackStart: NfcWorkerEvent = 72;
+pub const NfcWorkerEvent_NfcWorkerEventKeyAttackStop: NfcWorkerEvent = 73;
+pub const NfcWorkerEvent_NfcWorkerEventKeyAttackNextSector: NfcWorkerEvent = 74;
+pub const NfcWorkerEvent_NfcWorkerEventWrongCard: NfcWorkerEvent = 75;
+pub const NfcWorkerEvent_NfcWorkerEventDetectReaderDetected: NfcWorkerEvent = 76;
+pub const NfcWorkerEvent_NfcWorkerEventDetectReaderLost: NfcWorkerEvent = 77;
+pub const NfcWorkerEvent_NfcWorkerEventDetectReaderMfkeyCollected: NfcWorkerEvent = 78;
+pub const NfcWorkerEvent_NfcWorkerEventMfUltralightPassKey: NfcWorkerEvent = 79;
+pub const NfcWorkerEvent_NfcWorkerEventMfUltralightPwdAuth: NfcWorkerEvent = 80;
+pub const NfcWorkerEvent_NfcWorkerEventNfcVPassKey: NfcWorkerEvent = 81;
+pub const NfcWorkerEvent_NfcWorkerEventNfcVCommandExecuted: NfcWorkerEvent = 82;
+pub const NfcWorkerEvent_NfcWorkerEventNfcVContentChanged: NfcWorkerEvent = 83;
+pub type NfcWorkerEvent = core::ffi::c_uchar;
+pub type NfcWorkerCallback = ::core::option::Option<
+    unsafe extern "C" fn(event: NfcWorkerEvent, context: *mut core::ffi::c_void) -> bool,
+>;
+extern "C" {
+    pub fn nfc_worker_alloc() -> *mut NfcWorker;
+}
+extern "C" {
+    pub fn nfc_worker_get_state(nfc_worker: *mut NfcWorker) -> NfcWorkerState;
+}
+extern "C" {
+    pub fn nfc_worker_free(nfc_worker: *mut NfcWorker);
+}
+extern "C" {
+    pub fn nfc_worker_start(
+        nfc_worker: *mut NfcWorker,
+        state: NfcWorkerState,
+        dev_data: *mut NfcDeviceData,
+        callback: NfcWorkerCallback,
+        context: *mut core::ffi::c_void,
+    );
+}
+extern "C" {
+    pub fn nfc_worker_stop(nfc_worker: *mut NfcWorker);
+}
+extern "C" {
+    pub fn nfc_supported_card_verify_and_parse(dev_data: *mut NfcDeviceData) -> bool;
 }
 extern "C" {
     pub fn maxim_crc8(data: *const u8, data_size: u8, crc_init: u8) -> u8;
@@ -22696,6 +23867,41 @@ extern "C" {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct SubGhzProtocolDecoderBinRAW {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn subghz_protocol_secplus_v2_create_data(
+        context: *mut core::ffi::c_void,
+        flipper_format: *mut FlipperFormat,
+        serial: u32,
+        btn: u8,
+        cnt: u32,
+        preset: *mut SubGhzRadioPreset,
+    ) -> bool;
+}
+extern "C" {
+    pub fn subghz_protocol_keeloq_create_data(
+        context: *mut core::ffi::c_void,
+        flipper_format: *mut FlipperFormat,
+        serial: u32,
+        btn: u8,
+        cnt: u16,
+        manufacture_name: *const core::ffi::c_char,
+        preset: *mut SubGhzRadioPreset,
+    ) -> bool;
+}
+extern "C" {
+    pub fn subghz_protocol_decoder_bin_raw_data_input_rssi(
+        instance: *mut SubGhzProtocolDecoderBinRAW,
+        rssi: f32,
+    );
+}
+extern "C" {
+    pub fn subghz_protocol_secplus_v1_check_fixed(fixed: u32) -> bool;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct SubGhzSetting {
     _unused: [u8; 0],
 }
@@ -22765,388 +23971,6 @@ extern "C" {
 }
 extern "C" {
     pub fn subghz_setting_get_default_frequency(instance: *mut SubGhzSetting) -> u32;
-}
-pub type SubGhzBegin = ::core::option::Option<unsafe extern "C" fn() -> bool>;
-pub type SubGhzEnd = ::core::option::Option<unsafe extern "C" fn()>;
-pub type SubGhzIsConnect = ::core::option::Option<unsafe extern "C" fn() -> bool>;
-pub type SubGhzReset = ::core::option::Option<unsafe extern "C" fn()>;
-pub type SubGhzSleep = ::core::option::Option<unsafe extern "C" fn()>;
-pub type SubGhzIdle = ::core::option::Option<unsafe extern "C" fn()>;
-pub type SubGhzLoadPreset =
-    ::core::option::Option<unsafe extern "C" fn(preset: FuriHalSubGhzPreset, preset_data: *mut u8)>;
-pub type SubGhzSetFrequency = ::core::option::Option<unsafe extern "C" fn(frequency: u32) -> u32>;
-pub type SubGhzIsFrequencyValid =
-    ::core::option::Option<unsafe extern "C" fn(frequency: u32) -> bool>;
-pub type SubGhzSetAsyncMirrorPin =
-    ::core::option::Option<unsafe extern "C" fn(gpio: *const GpioPin)>;
-pub type SubGhzGetDataGpio = ::core::option::Option<unsafe extern "C" fn() -> *const GpioPin>;
-pub type SubGhzSetTx = ::core::option::Option<unsafe extern "C" fn() -> bool>;
-pub type SubGhzFlushTx = ::core::option::Option<unsafe extern "C" fn()>;
-pub type SubGhzStartAsyncTx = ::core::option::Option<
-    unsafe extern "C" fn(callback: *mut core::ffi::c_void, context: *mut core::ffi::c_void) -> bool,
->;
-pub type SubGhzIsAsyncCompleteTx = ::core::option::Option<unsafe extern "C" fn() -> bool>;
-pub type SubGhzStopAsyncTx = ::core::option::Option<unsafe extern "C" fn()>;
-pub type SubGhzSetRx = ::core::option::Option<unsafe extern "C" fn()>;
-pub type SubGhzFlushRx = ::core::option::Option<unsafe extern "C" fn()>;
-pub type SubGhzStartAsyncRx = ::core::option::Option<
-    unsafe extern "C" fn(callback: *mut core::ffi::c_void, context: *mut core::ffi::c_void),
->;
-pub type SubGhzStopAsyncRx = ::core::option::Option<unsafe extern "C" fn()>;
-pub type SubGhzGetRSSI = ::core::option::Option<unsafe extern "C" fn() -> f32>;
-pub type SubGhzGetLQI = ::core::option::Option<unsafe extern "C" fn() -> u8>;
-pub type SubGhzRxPipeNotEmpty = ::core::option::Option<unsafe extern "C" fn() -> bool>;
-pub type SubGhzRxIsDataCrcValid = ::core::option::Option<unsafe extern "C" fn() -> bool>;
-pub type SubGhzReadPacket =
-    ::core::option::Option<unsafe extern "C" fn(data: *mut u8, size: *mut u8)>;
-pub type SubGhzWritePacket =
-    ::core::option::Option<unsafe extern "C" fn(data: *const u8, size: u8)>;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct SubGhzDeviceInterconnect {
-    pub begin: SubGhzBegin,
-    pub end: SubGhzEnd,
-    pub is_connect: SubGhzIsConnect,
-    pub reset: SubGhzReset,
-    pub sleep: SubGhzSleep,
-    pub idle: SubGhzIdle,
-    pub load_preset: SubGhzLoadPreset,
-    pub set_frequency: SubGhzSetFrequency,
-    pub is_frequency_valid: SubGhzIsFrequencyValid,
-    pub set_async_mirror_pin: SubGhzSetAsyncMirrorPin,
-    pub get_data_gpio: SubGhzGetDataGpio,
-    pub set_tx: SubGhzSetTx,
-    pub flush_tx: SubGhzFlushTx,
-    pub start_async_tx: SubGhzStartAsyncTx,
-    pub is_async_complete_tx: SubGhzIsAsyncCompleteTx,
-    pub stop_async_tx: SubGhzStopAsyncTx,
-    pub set_rx: SubGhzSetRx,
-    pub flush_rx: SubGhzFlushRx,
-    pub start_async_rx: SubGhzStartAsyncRx,
-    pub stop_async_rx: SubGhzStopAsyncRx,
-    pub get_rssi: SubGhzGetRSSI,
-    pub get_lqi: SubGhzGetLQI,
-    pub rx_pipe_not_empty: SubGhzRxPipeNotEmpty,
-    pub is_rx_data_crc_valid: SubGhzRxIsDataCrcValid,
-    pub read_packet: SubGhzReadPacket,
-    pub write_packet: SubGhzWritePacket,
-}
-#[test]
-fn bindgen_test_layout_SubGhzDeviceInterconnect() {
-    const UNINIT: ::core::mem::MaybeUninit<SubGhzDeviceInterconnect> =
-        ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<SubGhzDeviceInterconnect>(),
-        104usize,
-        concat!("Size of: ", stringify!(SubGhzDeviceInterconnect))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<SubGhzDeviceInterconnect>(),
-        4usize,
-        concat!("Alignment of ", stringify!(SubGhzDeviceInterconnect))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).begin) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(begin)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).end) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(end)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).is_connect) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(is_connect)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).reset) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(reset)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).sleep) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(sleep)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).idle) as usize - ptr as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(idle)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).load_preset) as usize - ptr as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(load_preset)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).set_frequency) as usize - ptr as usize },
-        28usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(set_frequency)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).is_frequency_valid) as usize - ptr as usize },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(is_frequency_valid)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).set_async_mirror_pin) as usize - ptr as usize },
-        36usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(set_async_mirror_pin)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).get_data_gpio) as usize - ptr as usize },
-        40usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(get_data_gpio)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).set_tx) as usize - ptr as usize },
-        44usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(set_tx)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).flush_tx) as usize - ptr as usize },
-        48usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(flush_tx)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).start_async_tx) as usize - ptr as usize },
-        52usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(start_async_tx)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).is_async_complete_tx) as usize - ptr as usize },
-        56usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(is_async_complete_tx)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).stop_async_tx) as usize - ptr as usize },
-        60usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(stop_async_tx)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).set_rx) as usize - ptr as usize },
-        64usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(set_rx)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).flush_rx) as usize - ptr as usize },
-        68usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(flush_rx)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).start_async_rx) as usize - ptr as usize },
-        72usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(start_async_rx)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).stop_async_rx) as usize - ptr as usize },
-        76usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(stop_async_rx)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).get_rssi) as usize - ptr as usize },
-        80usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(get_rssi)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).get_lqi) as usize - ptr as usize },
-        84usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(get_lqi)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).rx_pipe_not_empty) as usize - ptr as usize },
-        88usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(rx_pipe_not_empty)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).is_rx_data_crc_valid) as usize - ptr as usize },
-        92usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(is_rx_data_crc_valid)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).read_packet) as usize - ptr as usize },
-        96usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(read_packet)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).write_packet) as usize - ptr as usize },
-        100usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDeviceInterconnect),
-            "::",
-            stringify!(write_packet)
-        )
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct SubGhzDevice {
-    pub name: *const core::ffi::c_char,
-    pub interconnect: *const SubGhzDeviceInterconnect,
-}
-#[test]
-fn bindgen_test_layout_SubGhzDevice() {
-    const UNINIT: ::core::mem::MaybeUninit<SubGhzDevice> = ::core::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::core::mem::size_of::<SubGhzDevice>(),
-        8usize,
-        concat!("Size of: ", stringify!(SubGhzDevice))
-    );
-    assert_eq!(
-        ::core::mem::align_of::<SubGhzDevice>(),
-        4usize,
-        concat!("Alignment of ", stringify!(SubGhzDevice))
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDevice),
-            "::",
-            stringify!(name)
-        )
-    );
-    assert_eq!(
-        unsafe { ::core::ptr::addr_of!((*ptr).interconnect) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SubGhzDevice),
-            "::",
-            stringify!(interconnect)
-        )
-    );
 }
 extern "C" {
     pub fn subghz_devices_init();
